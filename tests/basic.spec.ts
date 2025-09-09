@@ -70,4 +70,3 @@ test.describe('Basic Site Functionality', () => {
     expect(response?.status()).toBe(200);
   });
 });
-

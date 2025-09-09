@@ -11,4 +11,3 @@ export const metadata = generateMetadata({
 export default function HowItWorks() {
   return <HowItWorksPage />;
 }
-

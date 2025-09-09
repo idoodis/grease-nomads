@@ -365,4 +365,3 @@ export function ContactPage() {
     </main>
   );
 }
-

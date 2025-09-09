@@ -49,12 +49,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     select: { slug: true, updatedAt: true },
   });
 
-  const servicePages = services.map((service: { slug: string; updatedAt: Date }) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: service.updatedAt,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  const servicePages = services.map(
+    (service: { slug: string; updatedAt: Date }) => ({
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: service.updatedAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })
+  );
 
   // Dynamic service area pages
   const serviceAreas = await prisma.serviceArea.findMany({
@@ -70,4 +72,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [...staticPages, ...servicePages, ...serviceAreaPages];
 }
-
