@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Generate Prisma Client
+        run: pnpm db:generate
+
       - name: Run type check
         run: pnpm typecheck
 
@@ -62,6 +65,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Generate Prisma Client
+        run: pnpm db:generate
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
