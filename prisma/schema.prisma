@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model CompanyInfo {
+  id           String   @id @default(cuid())
+  name         String
+  phone        String
+  email        String
+  hours        String
+  heroTitle    String
+  heroSubtitle String
+  heroCTA      String
+  address      String?
+  updatedAt    DateTime @updatedAt
+
+  @@map("company_info")
+}
+
+model Service {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  description     String
+  longDescription String
+  basePrice       Int
+  priceUnit       String
+  isFeatured      Boolean  @default(false)
+  ogImage         String?
+  updatedAt       DateTime @updatedAt
+
+  @@map("services")
+}
+
+model ServiceArea {
+  id    String @id @default(cuid())
+  city  String @unique
+  slug  String @unique
+  intro String
+
+  @@map("service_areas")
+}
+
+model Review {
+  id          String    @id @default(cuid())
+  authorName  String
+  rating      Int
+  body        String
+  publishedAt DateTime
+  city        String?
+
+  @@map("reviews")
+}
+
+model FAQ {
+  id       String  @id @default(cuid())
+  question String
+  answer   String
+  category String?
+
+  @@map("faqs")
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  service   String?
+  city      String?
+  createdAt DateTime @default(now())
+
+  @@map("inquiries")
+}
+
+model User {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  passwordHash String
+  role         String @default("admin")
+
+  @@map("users")
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+
+  @@map("settings")
+}
+

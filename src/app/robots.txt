@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://greasenomads.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+
