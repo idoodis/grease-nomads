@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft } from 'lucide-react';
 
+// Disable static generation for this page
+export const dynamic = 'force-dynamic';
+
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center items-center px-4">
@@ -29,14 +32,14 @@ export default function NotFound() {
             <Home className="w-5 h-5 mr-2" />
             Go Home
           </Link>
-          <Button
-            variant="outline"
+          <button
+            type="button"
             onClick={() => window.history.back()}
             className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 focus-visible:ring-gray-500 h-11 rounded-lg px-8"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Go Back
-          </Button>
+          </button>
         </div>
 
         <div className="mt-12 text-center">
