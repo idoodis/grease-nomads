@@ -46,3 +46,9 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# Test directories and temporary files
+test-next/
+simple-server.js
+start-dev.js
+test-minimal.js
