@@ -29,13 +29,14 @@ export default function NotFound() {
             <Home className="w-5 h-5 mr-2" />
             Go Home
           </Link>
-          <button
+          <Button
+            variant="outline"
             onClick={() => window.history.back()}
             className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 focus-visible:ring-gray-500 h-11 rounded-lg px-8"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Go Back
-          </button>
+          </Button>
         </div>
 
         <div className="mt-12 text-center">
