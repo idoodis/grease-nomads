@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { sendContactEmail, sendConfirmationEmail } from '@/lib/email';
 import { z } from 'zod';
 
 const contactSchema = z.object({
@@ -28,15 +29,23 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // TODO: Send email notification if EMAIL_PROVIDER is configured
-    // For now, we'll just log it
-    console.log('New inquiry received:', {
-      id: inquiry.id,
-      name: inquiry.name,
-      email: inquiry.email,
-      service: inquiry.service,
-      city: inquiry.city,
-    });
+    // Send email notifications
+    try {
+      // Send notification email to business
+      const emailResult = await sendContactEmail(validatedData);
+      
+      // Send confirmation email to customer
+      const confirmationResult = await sendConfirmationEmail(validatedData);
+      
+      console.log('Email notifications sent:', {
+        businessEmail: emailResult.success ? 'Success' : 'Failed',
+        customerEmail: confirmationResult.success ? 'Success' : 'Failed',
+        inquiryId: inquiry.id,
+      });
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      // Don't fail the request if email fails, just log it
+    }
 
     return NextResponse.json(
       { message: 'Inquiry submitted successfully', id: inquiry.id },

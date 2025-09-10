@@ -1,7 +1,70 @@
+'use client';
+
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service || undefined,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: '',
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -84,7 +147,40 @@ export default function ContactPage() {
               Get Your Free Quote
             </h2>
 
+            {submitStatus === 'success' && (
+              <div
+                style={{
+                  backgroundColor: '#d1fae5',
+                  border: '1px solid #10b981',
+                  color: '#065f46',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  marginBottom: '24px',
+                  textAlign: 'center',
+                }}
+              >
+                ✅ Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div
+                style={{
+                  backgroundColor: '#fee2e2',
+                  border: '1px solid #ef4444',
+                  color: '#991b1b',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  marginBottom: '24px',
+                  textAlign: 'center',
+                }}
+              >
+                ❌ Sorry, there was an error sending your message. Please try again or call us at (312) 208-5007.
+              </div>
+            )}
+
             <form
+              onSubmit={handleSubmit}
               style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
             >
               <div
@@ -108,6 +204,9 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
                     required
                     style={{
                       width: '100%',
@@ -134,6 +233,9 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
                     required
                     style={{
                       width: '100%',
@@ -162,6 +264,9 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
                   style={{
                     width: '100%',
@@ -189,6 +294,9 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   required
                   style={{
                     width: '100%',
@@ -215,6 +323,9 @@ export default function ContactPage() {
                   Service Needed
                 </label>
                 <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleInputChange}
                   style={{
                     width: '100%',
                     padding: '12px 16px',
@@ -246,8 +357,12 @@ export default function ContactPage() {
                   Message
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   rows={4}
                   placeholder="Tell us about your vehicle and what service you need..."
+                  required
                   style={{
                     width: '100%',
                     padding: '12px 16px',
@@ -263,19 +378,20 @@ export default function ContactPage() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 style={{
-                  backgroundColor: '#f97316',
+                  backgroundColor: isSubmitting ? '#94a3b8' : '#f97316',
                   color: 'white',
                   padding: '16px 32px',
                   borderRadius: '8px',
                   border: 'none',
                   fontSize: '1rem',
                   fontWeight: '600',
-                  cursor: 'pointer',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
                   transition: 'background-color 0.3s',
                 }}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
