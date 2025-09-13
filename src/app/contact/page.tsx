@@ -15,6 +15,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,6 +29,7 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setErrorMessage('');
 
     try {
       const response = await fetch('/api/contact', {
@@ -55,10 +57,31 @@ export default function ContactPage() {
           message: '',
         });
       } else {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+        
+        let errorMessage = 'Unknown error occurred';
+        try {
+          const errorData = await response.json();
+          console.error('Form submission error:', errorData);
+          const serverErrorMessage = errorData.error || errorData.message || 'Server error';
+          setErrorMessage(serverErrorMessage);
+        } catch (parseError) {
+          console.error('Failed to parse error response:', parseError);
+          try {
+            const responseText = await response.text();
+            console.log('Response text:', responseText);
+            setErrorMessage(responseText || 'Failed to parse server response');
+          } catch (textError) {
+            console.error('Failed to get response text:', textError);
+            setErrorMessage(`Server returned status ${response.status}`);
+          }
+        }
         setSubmitStatus('error');
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      setErrorMessage('Network error. Please try again.');
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -175,7 +198,7 @@ export default function ContactPage() {
                   textAlign: 'center',
                 }}
               >
-                ❌ Sorry, there was an error sending your message. Please try again or call us at (312) 208-5007.
+                ❌ {errorMessage || 'Sorry, there was an error sending your message. Please try again or call us at (312) 208-5007.'}
               </div>
             )}
 
