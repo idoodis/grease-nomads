@@ -1,14 +1,20 @@
 import nodemailer from 'nodemailer';
 
-const transporter = nodemailer.createTransporter({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER || 'z@greasenomads.com',
-    pass: process.env.SMTP_PASS, // App password from Google Workspace
-  },
-});
+function createTransporter() {
+  if (!process.env.SMTP_PASS) {
+    throw new Error('SMTP_PASS environment variable is not set');
+  }
+  
+  return nodemailer.createTransporter({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT || '587'),
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.SMTP_USER || 'z@greasenomads.com',
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
 
 export interface ContactFormData {
   name: string;
@@ -21,6 +27,7 @@ export interface ContactFormData {
 
 export async function sendContactEmail(data: ContactFormData) {
   try {
+    const transporter = createTransporter();
     const mailOptions = {
       from: `"Grease Nomads" <z@greasenomads.com>`,
       to: 'z@greasenomads.com',
@@ -110,6 +117,7 @@ This email was sent from the Grease Nomads website contact form.
 
 export async function sendConfirmationEmail(data: ContactFormData) {
   try {
+    const transporter = createTransporter();
     const mailOptions = {
       from: `"Grease Nomads" <z@greasenomads.com>`,
       to: data.email,
