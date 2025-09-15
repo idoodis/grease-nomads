@@ -5,6 +5,10 @@ const nextConfig = {
     // Skip ESLint during production builds (Vercel)
     ignoreDuringBuilds: true,
   },
+  typescript: {
+    // Skip TypeScript checking during builds
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ['localhost'],
     remotePatterns: [

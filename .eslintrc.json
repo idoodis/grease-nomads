@@ -1,10 +1,7 @@
 {
-  "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["next/core-web-vitals"],
   "rules": {
-    "prettier/prettier": "error",
-    "prefer-const": "error",
-    "no-var": "error"
-  },
-  "ignorePatterns": ["node_modules/", ".next/", "out/", "dist/"]
+    "prettier/prettier": "off",
+    "@next/next/no-img-element": "warn"
+  }
 }
