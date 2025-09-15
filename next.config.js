@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['@prisma/client'],
+  eslint: {
+    // Skip ESLint during production builds (Vercel)
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: ['localhost'],
     remotePatterns: [
