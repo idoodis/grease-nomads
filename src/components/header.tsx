@@ -7,6 +7,28 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
+    <>
+      <style jsx>{`
+        @media (min-width: 768px) {
+          .desktop-nav {
+            display: flex !important;
+          }
+          .mobile-menu-btn {
+            display: none !important;
+          }
+          .mobile-menu {
+            display: none !important;
+          }
+        }
+        @media (max-width: 767px) {
+          .desktop-nav {
+            display: none !important;
+          }
+          .mobile-menu-btn {
+            display: block !important;
+          }
+        }
+      `}</style>
     <header
       style={{
         position: 'fixed',
@@ -62,11 +84,11 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav
           style={{
-            display: 'flex',
+            display: 'none',
             alignItems: 'center',
             gap: '32px',
           }}
-          className="hidden md:flex"
+          className="desktop-nav"
         >
           <Link
             href="/"
@@ -150,7 +172,7 @@ export default function Header() {
             cursor: 'pointer',
             padding: '8px',
           }}
-          className="md:hidden"
+          className="mobile-menu-btn"
         >
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
@@ -180,7 +202,7 @@ export default function Header() {
             gap: '16px',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
           }}
-          className="md:hidden"
+          className="mobile-menu"
         >
           <Link
             href="/"
@@ -261,5 +283,6 @@ export default function Header() {
         </div>
       )}
     </header>
+    </>
   );
 }
