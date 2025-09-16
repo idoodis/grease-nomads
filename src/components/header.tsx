@@ -66,6 +66,7 @@ export default function Header() {
             alignItems: 'center',
             gap: '32px',
           }}
+          className="hidden md:flex"
         >
           <Link
             href="/"
@@ -143,12 +144,13 @@ export default function Header() {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
-            display: 'none',
+            display: 'block',
             backgroundColor: 'transparent',
             border: 'none',
             cursor: 'pointer',
             padding: '8px',
           }}
+          className="md:hidden"
         >
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
@@ -176,10 +178,13 @@ export default function Header() {
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
           }}
+          className="md:hidden"
         >
           <Link
             href="/"
+            onClick={() => setIsMenuOpen(false)}
             style={{
               color: '#64748b',
               textDecoration: 'none',
@@ -191,6 +196,7 @@ export default function Header() {
           </Link>
           <Link
             href="/services"
+            onClick={() => setIsMenuOpen(false)}
             style={{
               color: '#64748b',
               textDecoration: 'none',
@@ -202,6 +208,7 @@ export default function Header() {
           </Link>
           <Link
             href="/about"
+            onClick={() => setIsMenuOpen(false)}
             style={{
               color: '#64748b',
               textDecoration: 'none',
@@ -213,6 +220,7 @@ export default function Header() {
           </Link>
           <Link
             href="/contact"
+            onClick={() => setIsMenuOpen(false)}
             style={{
               color: '#64748b',
               textDecoration: 'none',
@@ -224,6 +232,7 @@ export default function Header() {
           </Link>
           <Link
             href="/admin/login"
+            onClick={() => setIsMenuOpen(false)}
             style={{
               color: '#64748b',
               textDecoration: 'none',
