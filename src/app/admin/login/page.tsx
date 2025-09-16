@@ -179,22 +179,7 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        <div
-          style={{
-            marginTop: '24px',
-            padding: '16px',
-            backgroundColor: '#f8fafc',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            color: '#64748b',
-          }}
-        >
-          <strong>Demo Credentials:</strong>
-          <br />
-          Email: admin@greasenomads.com
-          <br />
-          Password: admin123
-        </div>
+        {/* Credentials intentionally removed from the UI for security. */}
       </div>
     </div>
   );
