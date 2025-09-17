@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,6 +16,27 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [services, setServices] = useState<Array<{ id: string; name: string }>>([]);
+
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const res = await fetch('/api/services', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          // Normalize to id/name for dropdown; API has name and id
+          setServices(
+            Array.isArray(data)
+              ? data.map((s: any) => ({ id: String(s.id), name: String(s.name) }))
+              : []
+          );
+        }
+      } catch (_e) {
+        // ignore and fall back to static options
+      }
+    };
+    loadServices();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -360,9 +381,17 @@ export default function ContactPage() {
                   }}
                 >
                   <option value="">Select a service</option>
-                  <option value="maintenance">Maintenance</option>
-                  <option value="diagnosis">Diagnosis</option>
-                  <option value="emergency">Emergency Service</option>
+                  {services.length > 0 ? (
+                    services.map((s) => (
+                      <option key={s.id} value={s.name.toLowerCase().replace(/\s+/g, '-')}>{s.name}</option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="maintenance">Maintenance</option>
+                      <option value="diagnosis">Diagnosis</option>
+                      <option value="emergency">Emergency Service</option>
+                    </>
+                  )}
                   <option value="other">Other</option>
                 </select>
               </div>

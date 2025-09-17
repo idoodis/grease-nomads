@@ -1,4 +1,15 @@
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch live services from API (no cache so admin updates reflect immediately)
+  let services: Array<{ id: string; name: string; description: string; price: string }> = [];
+  try {
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/services`, { cache: 'no-store' });
+    if (res.ok) {
+      services = await res.json();
+    }
+  } catch (e) {
+    // Fail silently; we'll show static content if fetch fails
+  }
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'AutoRepair',
@@ -383,172 +394,63 @@ export default function HomePage() {
                 gap: '32px',
               }}
             >
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '16px',
-                  }}
-                >
-                  Maintenance
-                </h3>
-                <p
-                  style={{
-                    color: '#64748b',
-                    marginBottom: '24px',
-                    lineHeight: '1.6',
-                  }}
-                >
-                  Keep your vehicle running smoothly with our comprehensive
-                  maintenance services.
-                </p>
+              {(services.length > 0 ? services : []).map((svc) => (
                 <div
+                  key={svc.id}
                   style={{
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    color: '#f97316',
-                    marginBottom: '24px',
+                    backgroundColor: 'white',
+                    padding: '32px',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    border: '1px solid #e2e8f0',
                   }}
                 >
-                  Starting at $89
+                  <h3
+                    style={{
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                      color: '#1e293b',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {svc.name}
+                  </h3>
+                  <p
+                    style={{
+                      color: '#64748b',
+                      marginBottom: '24px',
+                      lineHeight: '1.6',
+                    }}
+                  >
+                    {svc.description}
+                  </p>
+                  <div
+                    style={{
+                      fontSize: '2rem',
+                      fontWeight: 'bold',
+                      color: '#f97316',
+                      marginBottom: '24px',
+                    }}
+                  >
+                    {`Starting at $${svc.price}`}
+                  </div>
+                  <a
+                    href="/contact"
+                    style={{
+                      backgroundColor: '#f97316',
+                      color: 'white',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      display: 'block',
+                      textAlign: 'center',
+                    }}
+                  >
+                    Get Quote
+                  </a>
                 </div>
-                <a
-                  href="/contact"
-                  style={{
-                    backgroundColor: '#f97316',
-                    color: 'white',
-                    padding: '12px 24px',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    display: 'block',
-                    textAlign: 'center',
-                  }}
-                >
-                  Get Quote
-                </a>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '16px',
-                  }}
-                >
-                  Diagnosis
-                </h3>
-                <p
-                  style={{
-                    color: '#64748b',
-                    marginBottom: '24px',
-                    lineHeight: '1.6',
-                  }}
-                >
-                  Expert diagnosis of automotive issues with detailed reports
-                  and transparent pricing.
-                </p>
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    color: '#f97316',
-                    marginBottom: '24px',
-                  }}
-                >
-                  Starting at $49
-                </div>
-                <a
-                  href="/contact"
-                  style={{
-                    backgroundColor: '#f97316',
-                    color: 'white',
-                    padding: '12px 24px',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    display: 'block',
-                    textAlign: 'center',
-                  }}
-                >
-                  Get Quote
-                </a>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '16px',
-                  }}
-                >
-                  Emergency Service
-                </h3>
-                <p
-                  style={{
-                    color: '#64748b',
-                    marginBottom: '24px',
-                    lineHeight: '1.6',
-                  }}
-                >
-                  24/7 emergency roadside assistance when you need it most.
-                </p>
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    color: '#f97316',
-                    marginBottom: '24px',
-                  }}
-                >
-                  Starting at $99
-                </div>
-                <a
-                  href="/contact"
-                  style={{
-                    backgroundColor: '#f97316',
-                    color: 'white',
-                    padding: '12px 24px',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    display: 'block',
-                    textAlign: 'center',
-                  }}
-                >
-                  Get Quote
-                </a>
-              </div>
+              ))}
             </div>
           </div>
         </section>

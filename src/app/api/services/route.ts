@@ -1,64 +1,71 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
+import { prisma } from '@/lib/db';
 
-// In-memory storage for demo (in production, use database)
-const services = [
-  {
-    id: '1',
-    name: 'Routine Maintenance',
-    description:
-      'Keep your vehicle running smoothly with our comprehensive maintenance services including oil changes, filter replacements, and fluid checks.',
-    price: '89',
-    icon: 'maintenance',
-  },
-  {
-    id: '2',
-    name: 'Diagnostic Services',
-    description:
-      'Expert diagnosis of automotive issues with detailed reports and transparent pricing. We use advanced diagnostic equipment.',
-    price: '49',
-    icon: 'diagnosis',
-  },
-  {
-    id: '3',
-    name: 'Emergency Repairs',
-    description:
-      '24/7 emergency roadside assistance when you need it most. We come to you anywhere in our service area.',
-    price: '99',
-    icon: 'emergency',
-  },
-  {
-    id: '4',
-    name: 'Performance Modifications',
-    description:
-      "Enhance your vehicle's performance with ECU tuning, exhaust upgrades, intake modifications, and custom engine work.",
-    price: '299',
-    icon: 'performance',
-  },
-  {
-    id: '5',
-    name: 'Pre-Purchase Inspection',
-    description:
-      "Comprehensive vehicle inspection before you buy. Get a detailed report on the vehicle's condition and potential issues.",
-    price: '149',
-    icon: 'inspection',
-  },
-];
-
-// GET - Fetch all services
-export async function GET() {
-  return NextResponse.json(services);
+// Helper: map Prisma Service to legacy API response shape expected by UI
+function mapServiceToApi(service: {
+  id: string;
+  name: string;
+  description: string;
+  basePrice: number;
+  priceUnit: string;
+}) {
+  return {
+    id: service.id,
+    name: service.name,
+    description: service.description,
+    price: String(service.basePrice),
+  };
 }
 
-// POST - Create new service
+// GET - Fetch all services from Prisma
+export async function GET() {
+  try {
+    const services = await prisma.service.findMany({
+      orderBy: { updatedAt: 'desc' },
+    });
+    return NextResponse.json(services.map(mapServiceToApi));
+  } catch (_e) {
+    return NextResponse.json([], { status: 200 });
+  }
+}
+
+// POST - Create new service (accepts legacy { name, description, price })
 export async function POST(request: NextRequest) {
   try {
-    const newService = await request.json();
-    const service = {
-      id: Date.now().toString(),
-      ...newService,
-    };
-    services.push(service);
-    return NextResponse.json(service, { status: 201 });
+    const body = await request.json();
+    const name: string = body.name;
+    const description: string = body.description ?? '';
+    const priceInput = body.price ?? '0';
+    const basePrice = Number.parseInt(String(priceInput), 10) || 0;
+    const priceUnit = '$';
+    const longDescription = body.longDescription ?? description;
+    const slug = (body.slug || name || '')
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+
+    const created = await prisma.service.create({
+      data: {
+        name,
+        slug: slug || `service-${Date.now()}`,
+        description,
+        longDescription,
+        basePrice,
+        priceUnit,
+        isFeatured: Boolean(body.isFeatured) || false,
+      },
+    });
+
+    // Revalidate relevant paths
+    revalidatePath('/');
+    revalidatePath('/services');
+    revalidatePath('/sitemap.xml');
+
+    return NextResponse.json(mapServiceToApi(created), { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to create service' },
@@ -67,18 +74,38 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Update service
+// PUT - Update service by id (accepts legacy { id, name, description, price })
 export async function PUT(request: NextRequest) {
   try {
-    const updatedService = await request.json();
-    const index = services.findIndex((s) => s.id === updatedService.id);
-
-    if (index === -1) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
+    const body = await request.json();
+    const id: string = body.id;
+    if (!id) {
+      return NextResponse.json({ error: 'Service id required' }, { status: 400 });
     }
 
-    services[index] = updatedService;
-    return NextResponse.json(updatedService);
+    const data: any = {};
+    if (typeof body.name === 'string') data.name = body.name;
+    if (typeof body.description === 'string') data.description = body.description;
+    if (body.longDescription != null) data.longDescription = String(body.longDescription);
+    if (body.price != null) data.basePrice = Number.parseInt(String(body.price), 10) || 0;
+    if (body.priceUnit != null) data.priceUnit = String(body.priceUnit);
+    if (body.isFeatured != null) data.isFeatured = Boolean(body.isFeatured);
+    if (body.slug != null) {
+      data.slug = String(body.slug)
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+    }
+
+    const updated = await prisma.service.update({ where: { id }, data });
+
+    // Revalidate relevant paths
+    revalidatePath('/');
+    revalidatePath('/services');
+    revalidatePath('/sitemap.xml');
+
+    return NextResponse.json(mapServiceToApi(updated));
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to update service' },
@@ -87,12 +114,11 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-// DELETE - Delete service
+// DELETE - Delete service by id
 export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-
     if (!id) {
       return NextResponse.json(
         { error: 'Service ID required' },
@@ -100,13 +126,13 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const index = services.findIndex((s) => s.id === id);
+    await prisma.service.delete({ where: { id } });
 
-    if (index === -1) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
-    }
+    // Revalidate relevant paths
+    revalidatePath('/');
+    revalidatePath('/services');
+    revalidatePath('/sitemap.xml');
 
-    services.splice(index, 1);
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
