@@ -17,7 +17,7 @@ export default async function HomePage() {
     description:
       'Professional ASE certified mobile mechanic services in Chicago. Same-day auto repair, maintenance, diagnostics, and emergency service delivered to your location.',
     url: 'https://greasenomads.com',
-    telephone: '+13122085007',
+    telephone: '+12246527264',
     email: 'info@greasenomads.com',
     address: {
       '@type': 'PostalAddress',
@@ -98,7 +98,7 @@ export default async function HomePage() {
                   margin: 0,
                 }}
               >
-                Grease Nomads
+                GREASE NOMADS
               </h1>
             </div>
             <p
@@ -110,8 +110,7 @@ export default async function HomePage() {
                 margin: '0 auto 32px auto',
               }}
             >
-              Professional mobile mechanic services delivered directly to your
-              location
+              Driven by Care, Anywhere
             </p>
             <div
               style={{
@@ -136,7 +135,7 @@ export default async function HomePage() {
                 Get Free Quote
               </a>
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 style={{
                   border: '2px solid white',
                   color: 'white',
@@ -147,7 +146,7 @@ export default async function HomePage() {
                   display: 'inline-block',
                 }}
               >
-                Call (312) 208-5007
+                Call 224-652-7264
               </a>
             </div>
           </div>
@@ -176,181 +175,45 @@ export default async function HomePage() {
                 style={{
                   fontSize: '1.25rem',
                   color: '#64748b',
-                  maxWidth: '600px',
+                  maxWidth: '900px',
                   margin: '0 auto',
                 }}
               >
-                We&apos;re your trusted automotive partners
+                From the start, Z built the company around four guiding principles, each with a purpose:
               </p>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '32px',
-              }}
-            >
-              <div
+            <div style={{ maxWidth: '900px', margin: '32px auto 0 auto' }}>
+              <ul
                 style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  textAlign: 'center',
+                  listStyle: 'disc',
+                  paddingLeft: '1.5rem',
+                  color: '#64748b',
+                  fontSize: '1.125rem',
+                  lineHeight: '1.8',
                 }}
               >
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#f97316',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px auto',
-                  }}
-                >
-                  <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h3
-                  style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '8px',
-                  }}
-                >
-                  ASE Certified Mechanics
-                </h3>
-                <p style={{ color: '#64748b' }}>
-                  Nationally certified automotive technicians with proven
-                  expertise
-                </p>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  textAlign: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#f97316',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px auto',
-                  }}
-                >
-                  <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3
-                  style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Same Day Service
-                </h3>
-                <p style={{ color: '#64748b' }}>
-                  Available 7 days a week for emergency repairs
-                </p>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  textAlign: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#f97316',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px auto',
-                  }}
-                >
-                  <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
-                    <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                  </svg>
-                </div>
-                <h3
-                  style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Quality Guarantee
-                </h3>
-                <p style={{ color: '#64748b' }}>
-                  All work backed by our satisfaction guarantee
-                </p>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  textAlign: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#f97316',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px auto',
-                  }}
-                >
-                  <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
-                    <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                  </svg>
-                </div>
-                <h3
-                  style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#1e293b',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Local Experts
-                </h3>
-                <p style={{ color: '#64748b' }}>
-                  Serving the community for years with trusted service
-                </p>
-              </div>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Convenience</strong>
+                  {' '}
+                  – because your time is valuable, and your car should help you save time. Not take it.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Professional</strong>
+                  {' '}
+                  – because every customer deserves dealership-level care without the dealership hassle.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Reliable</strong>
+                  {' '}
+                  – because trust is earned, and once we have your business, you’ll never wanna go back.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Affordable</strong>
+                  {' '}
+                  – because quality service shouldn’t come at a price that breaks the bank.
+                </li>
+              </ul>
             </div>
           </div>
         </section>
@@ -726,7 +589,7 @@ export default async function HomePage() {
                 Get Free Quote
               </a>
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 style={{
                   border: '2px solid white',
                   color: 'white',
@@ -737,7 +600,7 @@ export default async function HomePage() {
                   display: 'inline-block',
                 }}
               >
-                Call (312) 208-5007
+                Call 224-652-7264
               </a>
             </div>
           </div>
