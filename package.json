@@ -18,6 +18,17 @@
     "db:studio": "prisma studio",
     "postinstall": "prisma generate"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "sharp",
+      "@tailwindcss/oxide",
+      "unrs-resolver"
+    ]
+  },
   "dependencies": {
     "@hookform/resolvers": "5.2.1",
     "@prisma/client": "6.15.0",
