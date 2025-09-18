@@ -84,11 +84,11 @@ export default function ServicesPage() {
         />
         <link rel="canonical" href="https://greasenomads.com/services" />
       </Head>
-      <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #f97316 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '120px 20px 80px',
             textAlign: 'center',
@@ -142,7 +142,7 @@ export default function ServicesPage() {
         <section
           style={{
             padding: '80px 20px',
-            backgroundColor: '#f8fafc',
+            backgroundColor: '#0a0a0a',
           }}
         >
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -151,7 +151,7 @@ export default function ServicesPage() {
                 style={{
                   fontSize: '2.5rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -159,9 +159,9 @@ export default function ServicesPage() {
               </h2>
               <p
                 style={{
-                  fontSize: '1.25rem',
-                  color: '#64748b',
-                  maxWidth: '600px',
+                  fontSize: '1.125rem',
+                  color: '#9ca3af',
+                  maxWidth: '700px',
                   margin: '0 auto',
                 }}
               >
@@ -181,11 +181,11 @@ export default function ServicesPage() {
                 <div
                   key={service.id}
                   style={{
-                    backgroundColor: 'white',
+                    backgroundColor: '#0f1115',
                     padding: '40px',
                     borderRadius: '16px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    border: '1px solid #e2e8f0',
+                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     textAlign: 'center',
                   }}
                 >
@@ -214,7 +214,7 @@ export default function ServicesPage() {
                     style={{
                       fontSize: '1.5rem',
                       fontWeight: 'bold',
-                      color: '#1e293b',
+                      color: '#f3f4f6',
                       marginBottom: '16px',
                     }}
                   >
@@ -222,7 +222,7 @@ export default function ServicesPage() {
                   </h3>
                   <p
                     style={{
-                      color: '#64748b',
+                      color: '#d1d5db',
                       marginBottom: '24px',
                       lineHeight: '1.6',
                     }}
@@ -262,7 +262,7 @@ export default function ServicesPage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',

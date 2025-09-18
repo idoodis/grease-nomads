@@ -73,7 +73,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning style={{ backgroundColor: '#000000', color: '#e5e7eb' }}>
         <Header />
         <main style={{ paddingTop: '80px' }}>{children}</main>
       </body>

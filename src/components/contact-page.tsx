@@ -47,6 +47,9 @@ export function ContactPage() {
       });
 
       if (response.ok) {
+        const result = await response.json();
+        console.log('Contact form response:', result);
+        
         toast({
           title: 'Message Sent!',
           description:
@@ -54,6 +57,8 @@ export function ContactPage() {
         });
         reset();
       } else {
+        const errorData = await response.json();
+        console.error('Contact form error:', errorData);
         throw new Error('Failed to send message');
       }
     } catch (error) {

@@ -19,18 +19,31 @@ interface TeamMember {
   bio: string;
 }
 
+interface Review {
+  id: string;
+  authorName: string;
+  rating: number;
+  body: string;
+  city?: string;
+}
+
 export default function AdminDashboard() {
   const [services, setServices] = useState<Service[]>([]);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [team, setTeam] = useState<TeamMember[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [addingReview, setAddingReview] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [savedAt, setSavedAt] = useState<number | null>(null);
   const router = useRouter();
 
   // Fetch services on component mount
   useEffect(() => {
     fetchServices();
     fetchTeam();
+    fetchReviews();
   }, []);
 
   const fetchServices = async () => {
@@ -52,6 +65,29 @@ export default function AdminDashboard() {
       setTeam(data);
     } catch (error) {
       console.error('Failed to fetch team:', error);
+    }
+  };
+
+  const handleSaveAll = async () => {
+    setSaving(true);
+    try {
+      // In this dashboard, edits are saved immediately when performed.
+      // This button refreshes data and provides confirmation.
+      await Promise.all([fetchServices(), fetchTeam(), fetchReviews()]);
+      setSavedAt(Date.now());
+    } finally {
+      setSaving(false);
+      setTimeout(() => setSavedAt(null), 2500);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews');
+      const data = await res.json();
+      setReviews(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error('Failed to fetch reviews:', e);
     }
   };
 
@@ -158,6 +194,48 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleReviewAdd = async (payload: Omit<Review, 'id'>) => {
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setAddingReview(false);
+        await fetchReviews();
+      }
+    } catch (e) {
+      console.error('Failed to add review', e);
+    }
+  };
+
+  const handleReviewUpdate = async (review: Review) => {
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review),
+      });
+      if (res.ok) {
+        await fetchReviews();
+      }
+    } catch (e) {
+      console.error('Failed to update review', e);
+    }
+  };
+
+  const handleReviewDelete = async (id: string) => {
+    try {
+      const res = await fetch(`/api/reviews?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        await fetchReviews();
+      }
+    } catch (e) {
+      console.error('Failed to delete review', e);
+    }
+  };
+
   if (loading) {
     return (
       <div
@@ -218,6 +296,31 @@ export default function AdminDashboard() {
           Admin Dashboard
         </h1>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          {savedAt && (
+            <span style={{
+              backgroundColor: '#ecfdf5',
+              color: '#065f46',
+              border: '1px solid #10b981',
+              padding: '6px 10px',
+              borderRadius: 8,
+              fontSize: '0.8rem',
+            }}>Saved</span>
+          )}
+          <button
+            onClick={handleSaveAll}
+            disabled={saving}
+            style={{
+              backgroundColor: saving ? '#fb923c' : '#f97316',
+              color: 'white',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              border: 'none',
+              fontSize: '0.875rem',
+              cursor: saving ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {saving ? 'Saving…' : 'Save Changes'}
+          </button>
           <Link
             href="/"
             style={{
@@ -532,6 +635,94 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+
+        {/* Reviews Management */}
+        <div
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '32px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            marginTop: '32px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '24px',
+            }}
+          >
+            <h2
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                color: '#1e293b',
+              }}
+            >
+              Reviews Management
+            </h2>
+            <button
+              onClick={() => setAddingReview(true)}
+              style={{
+                backgroundColor: '#f97316',
+                color: 'white',
+                padding: '12px 24px',
+                borderRadius: '8px',
+                border: 'none',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+              }}
+            >
+              Add Review
+            </button>
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '24px',
+            }}
+          >
+            {reviews.map((rev) => (
+              <div
+                key={rev.id}
+                style={{
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '8px',
+                  padding: '20px',
+                  backgroundColor: '#f8fafc',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontWeight: 700, color: '#1e293b' }}>{rev.authorName}</div>
+                  <div style={{ color: '#f97316', fontWeight: 700 }}>{'★'.repeat(rev.rating).padEnd(5, '☆')}</div>
+                </div>
+                <div style={{ color: '#64748b', marginTop: 8 }}>{rev.body}</div>
+                <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+                  <ReviewEditForm review={rev} onSave={handleReviewUpdate} />
+                  <button
+                    onClick={() => handleReviewDelete(rev.id)}
+                    style={{
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      padding: '8px 12px',
+                      borderRadius: 6,
+                      border: 'none',
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Edit Service Modal */}
@@ -549,6 +740,11 @@ export default function AdminDashboard() {
           onSave={handleAdd}
           onClose={() => setShowAddForm(false)}
         />
+      )}
+
+      {/* Add Review Modal */}
+      {addingReview && (
+        <ReviewAddModal onSave={handleReviewAdd} onClose={() => setAddingReview(false)} />
       )}
     </div>
   );
@@ -1138,6 +1334,93 @@ function TeamEditForm({
           >
             Save
           </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function ReviewAddModal({
+  onSave,
+  onClose,
+}: {
+  onSave: (r: Omit<Review, 'id'>) => void;
+  onClose: () => void;
+}) {
+  const [authorName, setAuthorName] = useState('');
+  const [rating, setRating] = useState(5);
+  const [body, setBody] = useState('');
+  const [city, setCity] = useState('');
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSave({ authorName, rating, body, city: city || undefined });
+        }}
+        style={{ background: 'white', padding: 24, borderRadius: 12, width: 420 }}
+      >
+        <div style={{ fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>Add Review</div>
+        <div style={{ display: 'grid', gap: 12 }}>
+          <input placeholder="Author name" value={authorName} onChange={(e) => setAuthorName(e.target.value)} required style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+          <input type="number" min={1} max={5} placeholder="Rating (1-5)" value={rating} onChange={(e) => setRating(Number(e.target.value))} required style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+          <textarea placeholder="Review text" value={body} onChange={(e) => setBody(e.target.value)} required rows={4} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6, resize: 'vertical' }} />
+          <input placeholder="City (optional)" value={city} onChange={(e) => setCity(e.target.value)} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+        </div>
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
+          <button type="button" onClick={onClose} style={{ backgroundColor: '#6b7280', color: 'white', padding: '8px 12px', borderRadius: 6, border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}>Cancel</button>
+          <button type="submit" style={{ backgroundColor: '#f97316', color: 'white', padding: '8px 12px', borderRadius: 6, border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}>Add</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function ReviewEditForm({
+  review,
+  onSave,
+}: {
+  review: Review;
+  onSave: (r: Review) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [authorName, setAuthorName] = useState(review.authorName);
+  const [rating, setRating] = useState(review.rating);
+  const [body, setBody] = useState(review.body);
+  const [city, setCity] = useState(review.city || '');
+
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        style={{ backgroundColor: '#3b82f6', color: 'white', padding: '8px 12px', borderRadius: 6, border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}
+      >
+        Edit
+      </button>
+    );
+  }
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSave({ id: review.id, authorName, rating, body, city: city || undefined });
+          setOpen(false);
+        }}
+        style={{ background: 'white', padding: 24, borderRadius: 12, width: 420 }}
+      >
+        <div style={{ fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>Edit Review</div>
+        <div style={{ display: 'grid', gap: 12 }}>
+          <input placeholder="Author name" value={authorName} onChange={(e) => setAuthorName(e.target.value)} required style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+          <input type="number" min={1} max={5} placeholder="Rating (1-5)" value={rating} onChange={(e) => setRating(Number(e.target.value))} required style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+          <textarea placeholder="Review text" value={body} onChange={(e) => setBody(e.target.value)} required rows={4} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6, resize: 'vertical' }} />
+          <input placeholder="City (optional)" value={city} onChange={(e) => setCity(e.target.value)} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 6 }} />
+        </div>
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
+          <button type="button" onClick={() => setOpen(false)} style={{ backgroundColor: '#6b7280', color: 'white', padding: '8px 12px', borderRadius: 6, border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}>Cancel</button>
+          <button type="submit" style={{ backgroundColor: '#f97316', color: 'white', padding: '8px 12px', borderRadius: 6, border: 'none', fontSize: '0.8rem', cursor: 'pointer' }}>Save</button>
         </div>
       </form>
     </div>

@@ -1,13 +1,25 @@
+import { prisma } from '@/lib/db';
+
 export default async function HomePage() {
-  // Fetch live services from API (no cache so admin updates reflect immediately)
+  // Read services directly from the database to match Services page
   let services: Array<{ id: string; name: string; description: string; price: string }> = [];
+  let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> = [];
   try {
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/services`, { cache: 'no-store' });
-    if (res.ok) {
-      services = await res.json();
-    }
-  } catch (e) {
+    const dbServices = await prisma.service.findMany({ orderBy: { updatedAt: 'desc' } });
+    services = dbServices.map((s) => ({
+      id: s.id,
+      name: s.name,
+      description: s.description,
+      price: String(s.basePrice),
+    }));
+    const dbReviews = await prisma.review.findMany({ orderBy: { publishedAt: 'desc' }, take: 3 });
+    reviews = dbReviews.map((r) => ({
+      id: r.id,
+      authorName: r.authorName,
+      rating: r.rating,
+      body: r.body,
+    }));
+  } catch (_e) {
     // Fail silently; we'll show static content if fetch fails
   }
   const structuredData = {
@@ -61,11 +73,11 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #f97316 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
@@ -155,7 +167,7 @@ export default async function HomePage() {
         {/* Services Section */}
         <section
           style={{
-            backgroundColor: 'white',
+            backgroundColor: '#0a0a0a',
             padding: '80px 20px',
           }}
         >
@@ -165,7 +177,7 @@ export default async function HomePage() {
                 style={{
                   fontSize: '3rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -174,7 +186,7 @@ export default async function HomePage() {
               <p
                 style={{
                   fontSize: '1.25rem',
-                  color: '#64748b',
+                  color: '#d1d5db',
                   maxWidth: '600px',
                   margin: '0 auto',
                 }}
@@ -195,18 +207,18 @@ export default async function HomePage() {
                 <div
                   key={svc.id}
                   style={{
-                    backgroundColor: 'white',
+                    backgroundColor: '#0f1115',
                     padding: '32px',
                     borderRadius: '12px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    border: '1px solid #e2e8f0',
+                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                   }}
                 >
                   <h3
                     style={{
                       fontSize: '1.5rem',
                       fontWeight: 'bold',
-                      color: '#1e293b',
+                      color: '#f3f4f6',
                       marginBottom: '16px',
                     }}
                   >
@@ -214,7 +226,7 @@ export default async function HomePage() {
                   </h3>
                   <p
                     style={{
-                      color: '#64748b',
+                      color: '#d1d5db',
                       marginBottom: '24px',
                       lineHeight: '1.6',
                     }}
@@ -255,7 +267,7 @@ export default async function HomePage() {
         {/* Trust Badges */}
         <section
           style={{
-            backgroundColor: '#f8fafc',
+            backgroundColor: '#0a0a0a',
             padding: '80px 20px',
           }}
         >
@@ -265,7 +277,7 @@ export default async function HomePage() {
                 style={{
                   fontSize: '2.5rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -273,13 +285,14 @@ export default async function HomePage() {
               </h2>
               <p
                 style={{
-                  fontSize: '1.25rem',
-                  color: '#64748b',
+                  fontSize: '1.125rem',
+                  color: '#d1d5db',
                   maxWidth: '900px',
                   margin: '0 auto',
+                  lineHeight: '1.8',
                 }}
               >
-                From the start, Z built the company around four guiding principles, each with a purpose:
+                We provide a smarter alternative to overpriced dealerships and time-consuming repair shops; with us, you can continue your day—whether relaxing at home, running errands, or at work—we bring the service to you. We provide routine maintenance, help with unexpected issues, vehicle modifications, Pre-Purchase Inspections, and Roadside Assistance. Our team delivers expert service wherever you are. We follow four guiding principles, each with a purpose:
               </p>
             </div>
 
@@ -288,30 +301,30 @@ export default async function HomePage() {
                 style={{
                   listStyle: 'disc',
                   paddingLeft: '1.5rem',
-                  color: '#64748b',
+                  color: '#d1d5db',
                   fontSize: '1.125rem',
                   lineHeight: '1.8',
                 }}
               >
                 <li>
-                  <strong style={{ color: '#1e293b' }}>Convenience</strong>
+                  <strong style={{ color: '#f3f4f6' }}>Convenience</strong>
                   {' '}
-                  – because your time is valuable, and your car should help you save time. Not take it.
+                  – Because your time is valuable, and your car should help you save time. Not take it.
                 </li>
                 <li>
-                  <strong style={{ color: '#1e293b' }}>Professional</strong>
+                  <strong style={{ color: '#f3f4f6' }}>Professionalism</strong>
                   {' '}
-                  – because every customer deserves dealership-level care without the dealership hassle.
+                  – Because every customer deserves dealership-level care without the dealership hassle.
                 </li>
                 <li>
-                  <strong style={{ color: '#1e293b' }}>Reliable</strong>
+                  <strong style={{ color: '#f3f4f6' }}>Reliability</strong>
                   {' '}
-                  – because trust is earned, and once we have your business, you'll never wanna go back.
+                  – Because trust is earned, and once we have your business, you’ll never wanna go back.
                 </li>
                 <li>
-                  <strong style={{ color: '#1e293b' }}>Affordable</strong>
+                  <strong style={{ color: '#f3f4f6' }}>Affordability</strong>
                   {' '}
-                  – because quality service shouldn't come at a price that breaks the bank.
+                  – Because quality service shouldn’t come at a price that breaks the bank.
                 </li>
               </ul>
             </div>
@@ -321,7 +334,7 @@ export default async function HomePage() {
         {/* Reviews Section */}
         <section
           style={{
-            backgroundColor: 'white',
+            backgroundColor: '#0a0a0a',
             padding: '80px 20px',
           }}
         >
@@ -331,7 +344,7 @@ export default async function HomePage() {
                 style={{
                   fontSize: '2.5rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -340,7 +353,7 @@ export default async function HomePage() {
               <p
                 style={{
                   fontSize: '1.25rem',
-                  color: '#64748b',
+                  color: '#9ca3af',
                   maxWidth: '600px',
                   margin: '0 auto',
                 }}
@@ -357,180 +370,69 @@ export default async function HomePage() {
                 gap: '32px',
               }}
             >
-              <div
-                style={{
-                  backgroundColor: '#f8fafc',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '16px',
-                  }}
-                >
+              {reviews.length > 0 ? (
+                reviews.map((rev) => (
                   <div
+                    key={rev.id}
                     style={{
-                      width: '40px',
-                      height: '40px',
-                      backgroundColor: '#f97316',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginRight: '12px',
+                      backgroundColor: '#0f1115',
+                      padding: '32px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                     }}
                   >
-                    <span style={{ color: 'white', fontWeight: 'bold' }}>
-                      J
-                    </span>
-                  </div>
-                  <div>
-                    <h4
+                    <div
                       style={{
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        color: '#1e293b',
-                        margin: '0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginBottom: '16px',
                       }}
                     >
-                      Jennifer Martinez
-                    </h4>
-                    <div style={{ color: '#f97316' }}>★★★★★</div>
-                  </div>
-                </div>
-                <p
-                  style={{
-                    color: '#64748b',
-                    lineHeight: '1.6',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  &ldquo;Amazing service! They came to my office and fixed my
-                  car during my lunch break. Professional, honest, and
-                  reasonably priced. I&apos;ll never go back to a traditional
-                  shop.&rdquo;
-                </p>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#f8fafc',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      backgroundColor: '#f97316',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginRight: '12px',
-                    }}
-                  >
-                    <span style={{ color: 'white', fontWeight: 'bold' }}>
-                      R
-                    </span>
-                  </div>
-                  <div>
-                    <h4
+                      <div
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          backgroundColor: '#f97316',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginRight: '12px',
+                          color: 'white',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {rev.authorName?.charAt(0).toUpperCase() || 'U'}
+                      </div>
+                      <div>
+                        <h4
+                          style={{
+                            fontSize: '1rem',
+                            fontWeight: 'bold',
+                            color: '#f3f4f6',
+                            margin: '0',
+                          }}
+                        >
+                          {rev.authorName}
+                        </h4>
+                        <div style={{ color: '#f97316' }}>{'★'.repeat(rev.rating).padEnd(5, '☆')}</div>
+                      </div>
+                    </div>
+                    <p
                       style={{
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        color: '#1e293b',
-                        margin: '0',
+                        color: '#d1d5db',
+                        lineHeight: '1.6',
+                        fontStyle: 'italic',
                       }}
                     >
-                      Robert Kim
-                    </h4>
-                    <div style={{ color: '#f97316' }}>★★★★★</div>
+                      {rev.body}
+                    </p>
                   </div>
-                </div>
-                <p
-                  style={{
-                    color: '#64748b',
-                    lineHeight: '1.6',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  &ldquo;These guys saved my day! My car broke down on the way
-                  to an important meeting. They diagnosed and fixed the issue in
-                  under an hour. Highly recommend!&rdquo;
-                </p>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: '#f8fafc',
-                  padding: '32px',
-                  borderRadius: '12px',
-                  border: '1px solid #e2e8f0',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      backgroundColor: '#f97316',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginRight: '12px',
-                    }}
-                  >
-                    <span style={{ color: 'white', fontWeight: 'bold' }}>
-                      M
-                    </span>
-                  </div>
-                  <div>
-                    <h4
-                      style={{
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        color: '#1e293b',
-                        margin: '0',
-                      }}
-                    >
-                      Maria Rodriguez
-                    </h4>
-                    <div style={{ color: '#f97316' }}>★★★★★</div>
-                  </div>
-                </div>
-                <p
-                  style={{
-                    color: '#64748b',
-                    lineHeight: '1.6',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  &ldquo;Finally, a mechanic service that respects my time! They
-                  explained everything clearly and didn&apos;t try to upsell me
-                  on unnecessary services. Will definitely use again.&rdquo;
-                </p>
-              </div>
+                ))
+              ) : (
+                <p style={{ color: '#9ca3af', textAlign: 'center' }}>No reviews yet.</p>
+              )}
             </div>
           </div>
         </section>
@@ -538,7 +440,7 @@ export default async function HomePage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',

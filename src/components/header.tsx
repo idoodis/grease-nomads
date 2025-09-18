@@ -36,9 +36,9 @@ export default function Header() {
         left: 0,
         right: 0,
         zIndex: 50,
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
         backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid rgba(226, 232, 240, 0.5)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
         padding: '16px 0',
       }}
     >
@@ -74,7 +74,7 @@ export default function Header() {
             style={{
               fontSize: '1.5rem',
               fontWeight: 'bold',
-              color: '#1e293b',
+              color: '#f5f5f5',
             }}
           >
             GREASE NOMADS
@@ -93,7 +93,7 @@ export default function Header() {
           <Link
             href="/"
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'color 0.3s',
@@ -104,7 +104,7 @@ export default function Header() {
           <Link
             href="/services"
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'color 0.3s',
@@ -115,7 +115,7 @@ export default function Header() {
           <Link
             href="/about"
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'color 0.3s',
@@ -126,7 +126,7 @@ export default function Header() {
           <Link
             href="/contact"
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'color 0.3s',
@@ -137,7 +137,7 @@ export default function Header() {
           <Link
             href="/admin/login"
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'color 0.3s',
@@ -194,13 +194,13 @@ export default function Header() {
             top: '100%',
             left: 0,
             right: 0,
-            backgroundColor: 'white',
-            borderTop: '1px solid #e2e8f0',
+            backgroundColor: '#0a0a0a',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             padding: '20px',
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.4)',
           }}
           className="mobile-menu"
         >
@@ -208,7 +208,7 @@ export default function Header() {
             href="/"
             onClick={() => setIsMenuOpen(false)}
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               padding: '8px 0',
@@ -220,7 +220,7 @@ export default function Header() {
             href="/services"
             onClick={() => setIsMenuOpen(false)}
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               padding: '8px 0',
@@ -232,7 +232,7 @@ export default function Header() {
             href="/about"
             onClick={() => setIsMenuOpen(false)}
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               padding: '8px 0',
@@ -244,7 +244,7 @@ export default function Header() {
             href="/contact"
             onClick={() => setIsMenuOpen(false)}
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               padding: '8px 0',
@@ -256,7 +256,7 @@ export default function Header() {
             href="/admin/login"
             onClick={() => setIsMenuOpen(false)}
             style={{
-              color: '#64748b',
+              color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
               padding: '8px 0',

@@ -43,11 +43,11 @@ export default function AboutPage() {
         />
         <link rel="canonical" href="https://greasenomads.com/about" />
       </Head>
-      <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #f97316 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '120px 20px 80px',
             textAlign: 'center',
@@ -101,7 +101,7 @@ export default function AboutPage() {
         <section
           style={{
             padding: 'clamp(40px, 8vw, 80px) 20px',
-            backgroundColor: 'white',
+            backgroundColor: '#0a0a0a',
           }}
         >
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -118,7 +118,7 @@ export default function AboutPage() {
                   style={{
                     fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
                     fontWeight: 'bold',
-                    color: '#1e293b',
+                    color: '#f9fafb',
                     marginBottom: '24px',
                   }}
                 >
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 <p
                   style={{
                     fontSize: '1.125rem',
-                    color: '#64748b',
+                    color: '#d1d5db',
                     lineHeight: '1.7',
                     marginBottom: '24px',
                   }}
@@ -138,9 +138,9 @@ export default function AboutPage() {
                   style={{
                     marginBottom: '32px',
                     padding: '24px',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#0f1115',
                     borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                   }}
                 >
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -150,7 +150,7 @@ export default function AboutPage() {
                         alignItems: 'flex-start',
                         marginBottom: '16px',
                         fontSize: '1.125rem',
-                        color: '#64748b',
+                        color: '#d1d5db',
                         lineHeight: '1.6',
                       }}
                     >
@@ -165,7 +165,7 @@ export default function AboutPage() {
                         •
                       </span>
                       <span>
-                        <strong style={{ color: '#1e293b' }}>Convenience</strong> – because your time is valuable, and your car should help you save time. Not take it.
+                        <strong style={{ color: '#f3f4f6' }}>Convenience</strong> – because your time is valuable, and your car should help you save time. Not take it.
                       </span>
                     </li>
                     <li
@@ -189,7 +189,7 @@ export default function AboutPage() {
                         •
                       </span>
                       <span>
-                        <strong style={{ color: '#1e293b' }}>Professionalism</strong> – because every customer deserves dealership-level care without the dealership hassle.
+                        <strong style={{ color: '#f3f4f6' }}>Professionalism</strong> – because every customer deserves dealership-level care without the dealership hassle.
                       </span>
                     </li>
                     <li
@@ -213,7 +213,7 @@ export default function AboutPage() {
                         •
                       </span>
                       <span>
-                        <strong style={{ color: '#1e293b' }}>Reliability</strong> – because trust is earned, and once we have your business, you'll never wanna go back.
+                        <strong style={{ color: '#f3f4f6' }}>Reliability</strong> – because trust is earned, and once we have your business, you'll never wanna go back.
                       </span>
                     </li>
                     <li
@@ -237,7 +237,7 @@ export default function AboutPage() {
                         •
                       </span>
                       <span>
-                        <strong style={{ color: '#1e293b' }}>Affordability</strong> – because quality service shouldn't come at a price that breaks the bank.
+                        <strong style={{ color: '#f3f4f6' }}>Affordability</strong> – because quality service shouldn't come at a price that breaks the bank.
                       </span>
                     </li>
                   </ul>
@@ -245,13 +245,13 @@ export default function AboutPage() {
                 <p
                   style={{
                     fontSize: '1.125rem',
-                    color: '#64748b',
+                    color: '#e5e7eb',
                     lineHeight: '1.7',
                     marginBottom: '24px',
                     fontStyle: 'italic',
                     borderLeft: '4px solid #f97316',
                     paddingLeft: '20px',
-                    backgroundColor: '#fef7ed',
+                    backgroundColor: '#111827',
                     padding: '20px',
                     borderRadius: '8px',
                   }}
@@ -261,33 +261,42 @@ export default function AboutPage() {
               </div>
               <div
                 style={{
-                  backgroundColor: '#f8fafc',
+                  backgroundColor: '#0f1115',
                   padding: 'clamp(24px, 4vw, 40px)',
                   borderRadius: '16px',
                   textAlign: 'center',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                 }}
               >
                 <div
                   style={{
                     width: 'clamp(80px, 15vw, 120px)',
                     height: 'clamp(80px, 15vw, 120px)',
-                    backgroundColor: '#f97316',
+                    backgroundColor: '#ffffff',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 24px auto',
+                    overflow: 'hidden',
                   }}
                 >
-                  <svg width="clamp(40px, 8vw, 60px)" height="clamp(40px, 8vw, 60px)" fill="white" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
+                  <img
+                    src="/logo.png"
+                    alt="Grease Nomads Logo"
+                    style={{
+                      width: 'clamp(48px, 9vw, 72px)',
+                      height: 'auto',
+                      display: 'block',
+                    }}
+                  />
                 </div>
                 <h3
                   style={{
                     fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
                     fontWeight: 'bold',
-                    color: '#1e293b',
+                    color: '#f3f4f6',
                     marginBottom: '16px',
                   }}
                 >
@@ -295,7 +304,7 @@ export default function AboutPage() {
                 </h3>
                 <p
                   style={{
-                    color: '#64748b',
+                    color: '#d1d5db',
                     lineHeight: '1.6',
                   }}
                 >
@@ -313,14 +322,14 @@ export default function AboutPage() {
         </section>
 
         {/* Team Section (Dynamic) */}
-        <section style={{ padding: '80px 20px', backgroundColor: '#f8fafc' }}>
+        <section style={{ padding: '80px 20px', backgroundColor: '#0a0a0a' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <h2
                 style={{
                   fontSize: '2.5rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -328,8 +337,8 @@ export default function AboutPage() {
               </h2>
               <p
                 style={{
-                  fontSize: '1.25rem',
-                  color: '#64748b',
+                  fontSize: '1.125rem',
+                  color: '#9ca3af',
                   maxWidth: '600px',
                   margin: '0 auto',
                 }}
@@ -355,10 +364,12 @@ export default function AboutPage() {
                   <div
                     key={member.id}
                     style={{
-                      backgroundColor: '#f8fafc',
+                      backgroundColor: '#0f1115',
                       padding: '32px',
                       borderRadius: '12px',
                       textAlign: 'center',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                     }}
                   >
                     <div
@@ -386,7 +397,7 @@ export default function AboutPage() {
                       style={{
                         fontSize: '1.25rem',
                         fontWeight: 'bold',
-                        color: '#1e293b',
+                        color: '#f3f4f6',
                         marginBottom: '8px',
                       }}
                     >
@@ -401,7 +412,7 @@ export default function AboutPage() {
                     >
                       {member.role}
                     </p>
-                    <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
+                    <p style={{ color: '#d1d5db', fontSize: '0.875rem' }}>
                       {member.bio}
                     </p>
                   </div>
@@ -414,7 +425,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',

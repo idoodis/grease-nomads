@@ -117,7 +117,7 @@ export default function ContactPage() {
         </title>
         <meta
           name="description"
-          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email info@greasenomads.com."
+          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email z@greasenomads.com."
         />
         <meta
           name="keywords"
@@ -125,11 +125,11 @@ export default function ContactPage() {
         />
         <link rel="canonical" href="https://greasenomads.com/contact" />
       </Head>
-      <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Header */}
         <header
           style={{
-            backgroundColor: '#1e293b',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '40px 20px',
             textAlign: 'center',
@@ -172,18 +172,18 @@ export default function ContactPage() {
         >
           <div
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#0f1115',
               padding: '48px',
               borderRadius: '12px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '1px solid #e2e8f0',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
             }}
           >
             <h2
               style={{
                 fontSize: '2rem',
                 fontWeight: 'bold',
-                color: '#1e293b',
+                color: '#f3f4f6',
                 marginBottom: '24px',
                 textAlign: 'center',
               }}
@@ -194,9 +194,9 @@ export default function ContactPage() {
             {submitStatus === 'success' && (
               <div
                 style={{
-                  backgroundColor: '#d1fae5',
+                  backgroundColor: '#052e1a',
                   border: '1px solid #10b981',
-                  color: '#065f46',
+                  color: '#34d399',
                   padding: '16px',
                   borderRadius: '8px',
                   marginBottom: '24px',
@@ -210,9 +210,9 @@ export default function ContactPage() {
             {submitStatus === 'error' && (
               <div
                 style={{
-                  backgroundColor: '#fee2e2',
+                  backgroundColor: '#3b0a0a',
                   border: '1px solid #ef4444',
-                  color: '#991b1b',
+                  color: '#fecaca',
                   padding: '16px',
                   borderRadius: '8px',
                   marginBottom: '24px',
@@ -240,7 +240,7 @@ export default function ContactPage() {
                       display: 'block',
                       fontSize: '0.875rem',
                       fontWeight: '600',
-                      color: '#374151',
+                      color: '#e5e7eb',
                       marginBottom: '8px',
                     }}
                   >
@@ -255,7 +255,9 @@ export default function ContactPage() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #d1d5db',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: '#0a0a0a',
+                      color: '#e5e7eb',
                       borderRadius: '8px',
                       fontSize: '1rem',
                       outline: 'none',
@@ -284,7 +286,9 @@ export default function ContactPage() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      border: '1px solid #d1d5db',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: '#0a0a0a',
+                      color: '#e5e7eb',
                       borderRadius: '8px',
                       fontSize: '1rem',
                       outline: 'none',
@@ -300,7 +304,7 @@ export default function ContactPage() {
                     display: 'block',
                     fontSize: '0.875rem',
                     fontWeight: '600',
-                    color: '#374151',
+                    color: '#e5e7eb',
                     marginBottom: '8px',
                   }}
                 >
@@ -315,7 +319,9 @@ export default function ContactPage() {
                   style={{
                     width: '100%',
                     padding: '12px 16px',
-                    border: '1px solid #d1d5db',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundColor: '#0a0a0a',
+                    color: '#e5e7eb',
                     borderRadius: '8px',
                     fontSize: '1rem',
                     outline: 'none',
@@ -330,7 +336,7 @@ export default function ContactPage() {
                     display: 'block',
                     fontSize: '0.875rem',
                     fontWeight: '600',
-                    color: '#374151',
+                    color: '#e5e7eb',
                     marginBottom: '8px',
                   }}
                 >
@@ -345,7 +351,9 @@ export default function ContactPage() {
                   style={{
                     width: '100%',
                     padding: '12px 16px',
-                    border: '1px solid #d1d5db',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundColor: '#0a0a0a',
+                    color: '#e5e7eb',
                     borderRadius: '8px',
                     fontSize: '1rem',
                     outline: 'none',
@@ -360,7 +368,7 @@ export default function ContactPage() {
                     display: 'block',
                     fontSize: '0.875rem',
                     fontWeight: '600',
-                    color: '#374151',
+                    color: '#e5e7eb',
                     marginBottom: '8px',
                   }}
                 >
@@ -373,11 +381,12 @@ export default function ContactPage() {
                   style={{
                     width: '100%',
                     padding: '12px 16px',
-                    border: '1px solid #d1d5db',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '8px',
                     fontSize: '1rem',
                     outline: 'none',
-                    backgroundColor: 'white',
+                    backgroundColor: '#0a0a0a',
+                    color: '#e5e7eb',
                   }}
                 >
                   <option value="">Select a service</option>
@@ -402,7 +411,7 @@ export default function ContactPage() {
                     display: 'block',
                     fontSize: '0.875rem',
                     fontWeight: '600',
-                    color: '#374151',
+                    color: '#e5e7eb',
                     marginBottom: '8px',
                   }}
                 >
@@ -418,12 +427,14 @@ export default function ContactPage() {
                   style={{
                     width: '100%',
                     padding: '12px 16px',
-                    border: '1px solid #d1d5db',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '8px',
                     fontSize: '1rem',
                     outline: 'none',
                     resize: 'vertical',
                     fontFamily: 'inherit',
+                    backgroundColor: '#0a0a0a',
+                    color: '#e5e7eb',
                   }}
                 />
               </div>
@@ -452,7 +463,7 @@ export default function ContactPage() {
         {/* Contact Info Section */}
         <section
           style={{
-            backgroundColor: '#f8fafc',
+            backgroundColor: '#0a0a0a',
             padding: '80px 20px',
           }}
         >
@@ -462,7 +473,7 @@ export default function ContactPage() {
                 style={{
                   fontSize: '2.5rem',
                   fontWeight: 'bold',
-                  color: '#1e293b',
+                  color: '#f9fafb',
                   marginBottom: '16px',
                 }}
               >
@@ -470,8 +481,8 @@ export default function ContactPage() {
               </h2>
               <p
                 style={{
-                  fontSize: '1.25rem',
-                  color: '#64748b',
+                  fontSize: '1.125rem',
+                  color: '#d1d5db',
                   maxWidth: '600px',
                   margin: '0 auto',
                 }}
@@ -489,11 +500,12 @@ export default function ContactPage() {
             >
               <div
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: '#0f1115',
                   padding: '32px',
                   borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                   textAlign: 'center',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
                 <div
@@ -516,13 +528,13 @@ export default function ContactPage() {
                   style={{
                     fontSize: '1.25rem',
                     fontWeight: 'bold',
-                    color: '#1e293b',
+                    color: '#f3f4f6',
                     marginBottom: '8px',
                   }}
                 >
                   Call Us
                 </h3>
-                <p style={{ color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ color: '#d1d5db', marginBottom: '16px' }}>
                   Available 7 days a week
                 </p>
                 <a
@@ -540,11 +552,12 @@ export default function ContactPage() {
 
               <div
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: '#0f1115',
                   padding: '32px',
                   borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                   textAlign: 'center',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
                 <div
@@ -567,34 +580,35 @@ export default function ContactPage() {
                   style={{
                     fontSize: '1.25rem',
                     fontWeight: 'bold',
-                    color: '#1e293b',
+                    color: '#f3f4f6',
                     marginBottom: '8px',
                   }}
                 >
                   Email Us
                 </h3>
-                <p style={{ color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ color: '#d1d5db', marginBottom: '16px' }}>
                   Send us a message anytime
                 </p>
                 <a
-                  href="mailto:info@greasenomads.com"
+                  href="mailto:z@greasenomads.com"
                   style={{
                     color: '#f97316',
                     fontSize: '1rem',
                     textDecoration: 'none',
                   }}
                 >
-                  info@greasenomads.com
+                  z@greasenomads.com
                 </a>
               </div>
 
               <div
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: '#0f1115',
                   padding: '32px',
                   borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
                   textAlign: 'center',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
                 <div
@@ -618,16 +632,16 @@ export default function ContactPage() {
                   style={{
                     fontSize: '1.25rem',
                     fontWeight: 'bold',
-                    color: '#1e293b',
+                    color: '#f3f4f6',
                     marginBottom: '8px',
                   }}
                 >
                   Service Area
                 </h3>
-                <p style={{ color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ color: '#d1d5db', marginBottom: '16px' }}>
                   We come to you
                 </p>
-                <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
+                <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
                   Chicago and surrounding areas
                 </p>
               </div>
@@ -638,7 +652,7 @@ export default function ContactPage() {
         {/* Footer */}
         <footer
           style={{
-            backgroundColor: '#1e293b',
+            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
             color: 'white',
             padding: '40px 20px',
             textAlign: 'center',

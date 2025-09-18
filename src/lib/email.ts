@@ -5,7 +5,7 @@ function createTransporter() {
     throw new Error('SMTP_PASS environment variable is not set');
   }
   
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.SMTP_PORT || '587'),
     secure: false, // true for 465, false for other ports
@@ -28,8 +28,21 @@ export interface ContactFormData {
 export async function sendContactEmail(data: ContactFormData) {
   try {
     console.log('Creating email transporter...');
+    console.log('Environment check:', {
+      SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
+      SMTP_PORT: process.env.SMTP_PORT || '587',
+      SMTP_USER: process.env.SMTP_USER || 'z@greasenomads.com',
+      hasPassword: !!process.env.SMTP_PASS,
+      passwordLength: process.env.SMTP_PASS?.length || 0
+    });
+    
     const transporter = createTransporter();
     console.log('Transporter created successfully');
+    
+    // Test the connection
+    console.log('Testing SMTP connection...');
+    await transporter.verify();
+    console.log('SMTP connection verified successfully');
     
     const mailOptions = {
       from: `"Grease Nomads" <z@greasenomads.com>`,
@@ -125,7 +138,13 @@ This email was sent from the Grease Nomads website contact form.
 
 export async function sendConfirmationEmail(data: ContactFormData) {
   try {
+    console.log('Creating confirmation email transporter...');
     const transporter = createTransporter();
+    
+    // Test the connection
+    console.log('Testing SMTP connection for confirmation email...');
+    await transporter.verify();
+    console.log('SMTP connection verified for confirmation email');
     const mailOptions = {
       from: `"Grease Nomads" <z@greasenomads.com>`,
       to: data.email,

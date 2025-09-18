@@ -37,6 +37,16 @@ export async function POST(request: NextRequest) {
       // Continue without database save
     }
 
+    // Prepare email results so they are always defined for the response
+    let emailResult: { success: boolean; messageId?: string; error?: string } = {
+      success: false,
+      error: 'not attempted',
+    };
+    let confirmationResult: { success: boolean; messageId?: string; error?: string } = {
+      success: false,
+      error: 'not attempted',
+    };
+
     // Send email notifications
     try {
       console.log('Attempting to send emails...');
@@ -48,11 +58,11 @@ export async function POST(request: NextRequest) {
       });
       
       // Send notification email to business
-      const emailResult = await sendContactEmail(validatedData);
+      emailResult = await sendContactEmail(validatedData);
       console.log('Business email result:', emailResult);
       
       // Send confirmation email to customer
-      const confirmationResult = await sendConfirmationEmail(validatedData);
+      confirmationResult = await sendConfirmationEmail(validatedData);
       console.log('Customer email result:', confirmationResult);
       
       console.log('Email notifications sent:', {
@@ -66,7 +76,18 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: 'Inquiry submitted successfully', id: inquiry?.id || 'email-only' },
+      { 
+        message: 'Inquiry submitted successfully', 
+        id: inquiry?.id || 'email-only',
+        emailStatus: {
+          businessEmail: emailResult.success ? 'Success' : 'Failed',
+          customerEmail: confirmationResult.success ? 'Success' : 'Failed',
+          errors: {
+            businessEmail: emailResult.success ? null : emailResult.error,
+            customerEmail: confirmationResult.success ? null : confirmationResult.error
+          }
+        }
+      },
       { status: 201 }
     );
   } catch (error) {
