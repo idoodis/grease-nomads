@@ -100,7 +100,7 @@ export default function AboutPage() {
         {/* Story Section */}
         <section
           style={{
-            padding: '80px 20px',
+            padding: 'clamp(40px, 8vw, 80px) 20px',
             backgroundColor: 'white',
           }}
         >
@@ -108,15 +108,15 @@ export default function AboutPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '64px',
-                alignItems: 'center',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '32px',
+                alignItems: 'flex-start',
               }}
             >
               <div>
                 <h2
                   style={{
-                    fontSize: '2.5rem',
+                    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
                     fontWeight: 'bold',
                     color: '#1e293b',
                     marginBottom: '24px',
@@ -262,15 +262,15 @@ export default function AboutPage() {
               <div
                 style={{
                   backgroundColor: '#f8fafc',
-                  padding: '40px',
+                  padding: 'clamp(24px, 4vw, 40px)',
                   borderRadius: '16px',
                   textAlign: 'center',
                 }}
               >
                 <div
                   style={{
-                    width: '120px',
-                    height: '120px',
+                    width: 'clamp(80px, 15vw, 120px)',
+                    height: 'clamp(80px, 15vw, 120px)',
                     backgroundColor: '#f97316',
                     borderRadius: '50%',
                     display: 'flex',
@@ -279,13 +279,13 @@ export default function AboutPage() {
                     margin: '0 auto 24px auto',
                   }}
                 >
-                  <svg width="60" height="60" fill="white" viewBox="0 0 24 24">
+                  <svg width="clamp(40px, 8vw, 60px)" height="clamp(40px, 8vw, 60px)" fill="white" viewBox="0 0 24 24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 </div>
                 <h3
                   style={{
-                    fontSize: '1.5rem',
+                    fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
                     fontWeight: 'bold',
                     color: '#1e293b',
                     marginBottom: '16px',
