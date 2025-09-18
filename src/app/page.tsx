@@ -152,72 +152,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Trust Badges */}
-        <section
-          style={{
-            backgroundColor: '#f8fafc',
-            padding: '80px 20px',
-          }}
-        >
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <h2
-                style={{
-                  fontSize: '2.5rem',
-                  fontWeight: 'bold',
-                  color: '#1e293b',
-                  marginBottom: '16px',
-                }}
-              >
-                Why Choose Grease Nomads?
-              </h2>
-              <p
-                style={{
-                  fontSize: '1.25rem',
-                  color: '#64748b',
-                  maxWidth: '900px',
-                  margin: '0 auto',
-                }}
-              >
-                From the start, Z built the company around four guiding principles, each with a purpose:
-              </p>
-            </div>
-
-            <div style={{ maxWidth: '900px', margin: '32px auto 0 auto' }}>
-              <ul
-                style={{
-                  listStyle: 'disc',
-                  paddingLeft: '1.5rem',
-                  color: '#64748b',
-                  fontSize: '1.125rem',
-                  lineHeight: '1.8',
-                }}
-              >
-                <li>
-                  <strong style={{ color: '#1e293b' }}>Convenience</strong>
-                  {' '}
-                  – because your time is valuable, and your car should help you save time. Not take it.
-                </li>
-                <li>
-                  <strong style={{ color: '#1e293b' }}>Professional</strong>
-                  {' '}
-                  – because every customer deserves dealership-level care without the dealership hassle.
-                </li>
-                <li>
-                  <strong style={{ color: '#1e293b' }}>Reliable</strong>
-                  {' '}
-                  – because trust is earned, and once we have your business, you’ll never wanna go back.
-                </li>
-                <li>
-                  <strong style={{ color: '#1e293b' }}>Affordable</strong>
-                  {' '}
-                  – because quality service shouldn’t come at a price that breaks the bank.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
         {/* Services Section */}
         <section
           style={{
@@ -314,6 +248,72 @@ export default async function HomePage() {
                   </a>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Badges */}
+        <section
+          style={{
+            backgroundColor: '#f8fafc',
+            padding: '80px 20px',
+          }}
+        >
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <h2
+                style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  color: '#1e293b',
+                  marginBottom: '16px',
+                }}
+              >
+                Why Choose Grease Nomads?
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.25rem',
+                  color: '#64748b',
+                  maxWidth: '900px',
+                  margin: '0 auto',
+                }}
+              >
+                From the start, Z built the company around four guiding principles, each with a purpose:
+              </p>
+            </div>
+
+            <div style={{ maxWidth: '900px', margin: '32px auto 0 auto' }}>
+              <ul
+                style={{
+                  listStyle: 'disc',
+                  paddingLeft: '1.5rem',
+                  color: '#64748b',
+                  fontSize: '1.125rem',
+                  lineHeight: '1.8',
+                }}
+              >
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Convenience</strong>
+                  {' '}
+                  – because your time is valuable, and your car should help you save time. Not take it.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Professional</strong>
+                  {' '}
+                  – because every customer deserves dealership-level care without the dealership hassle.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Reliable</strong>
+                  {' '}
+                  – because trust is earned, and once we have your business, you'll never wanna go back.
+                </li>
+                <li>
+                  <strong style={{ color: '#1e293b' }}>Affordable</strong>
+                  {' '}
+                  – because quality service shouldn't come at a price that breaks the bank.
+                </li>
+              </ul>
             </div>
           </div>
         </section>
