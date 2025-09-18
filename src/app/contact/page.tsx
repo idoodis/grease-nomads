@@ -117,7 +117,7 @@ export default function ContactPage() {
         </title>
         <meta
           name="description"
-          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call (312) 208-5007, or email info@greasenomads.com."
+          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email info@greasenomads.com."
         />
         <meta
           name="keywords"
@@ -219,7 +219,7 @@ export default function ContactPage() {
                   textAlign: 'center',
                 }}
               >
-                ❌ {errorMessage || 'Sorry, there was an error sending your message. Please try again or call us at (312) 208-5007.'}
+                ❌ {errorMessage || 'Sorry, there was an error sending your message. Please try again or call us at 224-652-7264.'}
               </div>
             )}
 
@@ -526,7 +526,7 @@ export default function ContactPage() {
                   Available 7 days a week
                 </p>
                 <a
-                  href="tel:+13122085007"
+                  href="tel:+12246527264"
                   style={{
                     color: '#f97316',
                     fontSize: '1.25rem',
@@ -534,7 +534,7 @@ export default function ContactPage() {
                     textDecoration: 'none',
                   }}
                 >
-                  (312) 208-5007
+                  224-652-7264
                 </a>
               </div>
 
@@ -703,10 +703,10 @@ export default function ContactPage() {
                 Contact
               </a>
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 style={{ color: '#cbd5e1', textDecoration: 'none' }}
               >
-                Call (312) 208-5007
+                Call 224-652-7264
               </a>
             </div>
             <p

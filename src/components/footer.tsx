@@ -18,7 +18,7 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 className="text-primary hover:text-primary/80 transition-colors"
               >
                 <Phone className="w-5 h-5" />
@@ -119,10 +119,10 @@ export function Footer() {
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary" />
                 <a
-                  href="tel:+13122085007"
+                  href="tel:+12246527264"
                   className="text-gray-300 hover:text-primary transition-colors"
                 >
-                  (312) 208-5007
+                  224-652-7264
                 </a>
               </div>
               <div className="flex items-center space-x-3">

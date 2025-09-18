@@ -142,7 +142,7 @@ export async function sendConfirmationEmail(data: ContactFormData) {
             
             <div style="background: #f97316; color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
               <h3 style="margin-top: 0;">Need Immediate Assistance?</h3>
-              <p style="margin: 8px 0;">Call us at <a href="tel:+13122085007" style="color: white; text-decoration: none; font-weight: bold;">(312) 208-5007</a></p>
+              <p style="margin: 8px 0;">Call us at <a href="tel:+12246527264" style="color: white; text-decoration: none; font-weight: bold;">224-652-7264</a></p>
               <p style="margin: 0; font-size: 14px;">Available 7 days a week</p>
             </div>
             

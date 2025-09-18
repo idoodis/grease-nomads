@@ -46,10 +46,10 @@ export default function NotFound() {
           <p className="text-gray-500 mb-4">Need help? Contact us:</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center text-sm">
             <a
-              href="tel:+13122085007"
+              href="tel:+12246527264"
               className="text-primary hover:text-primary/80"
             >
-              (312) 208-5007
+              224-652-7264
             </a>
             <a
               href="mailto:Z@Greasenomads.com"

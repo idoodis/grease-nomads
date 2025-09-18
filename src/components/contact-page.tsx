@@ -267,10 +267,10 @@ export function ContactPage() {
                     Speak directly with our team
                   </p>
                   <a
-                    href="tel:+13122085007"
+                    href="tel:+12246527264"
                     className="text-primary hover:text-primary/80 font-semibold text-lg"
                   >
-                    (312) 208-5007
+                    224-652-7264
                   </a>
                 </div>
               </div>

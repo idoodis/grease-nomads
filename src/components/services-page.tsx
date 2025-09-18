@@ -111,10 +111,10 @@ export function ServicesPage({ services }: ServicesPageProps) {
               Get Free Quote
             </Link>
             <a
-              href="tel:+13122085007"
+              href="tel:+12246527264"
               className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900 focus-visible:ring-gray-500 h-11 rounded-lg px-8"
             >
-              Call (312) 208-5007
+              Call 224-652-7264
             </a>
           </div>
         </div>

@@ -77,7 +77,7 @@ export default function Header() {
               color: '#1e293b',
             }}
           >
-            Grease Nomads
+            GREASE NOMADS
           </span>
         </Link>
 
@@ -147,7 +147,7 @@ export default function Header() {
             Admin
           </Link>
           <a
-            href="tel:+13122085007"
+            href="tel:+12246527264"
             style={{
               backgroundColor: '#f97316',
               color: 'white',
@@ -158,7 +158,7 @@ export default function Header() {
               transition: 'background-color 0.3s',
             }}
           >
-            Call (312) 208-5007
+            Call 224-652-7264
           </a>
         </nav>
 
@@ -266,7 +266,7 @@ export default function Header() {
             Admin
           </Link>
           <a
-            href="tel:+13122085007"
+            href="tel:+12246527264"
             style={{
               backgroundColor: '#f97316',
               color: 'white',
@@ -278,7 +278,7 @@ export default function Header() {
               marginTop: '8px',
             }}
           >
-            Call (312) 208-5007
+            Call 224-652-7264
           </a>
         </div>
       )}

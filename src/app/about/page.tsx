@@ -203,8 +203,13 @@ export default function AboutPage() {
                     lineHeight: '1.6',
                   }}
                 >
-                  To make automotive maintenance convenient, transparent, and
-                  trustworthy for every customer we serve.
+                  Grease Nomads exists to change the way people experience
+                  automotive care. Built on the principles of convenience,
+                  professionalism, reliability, and affordability, we bring
+                  expert service directly to you—eliminating wasted time,
+                  surprise costs, and the stress of traditional shops. Wherever
+                  life takes you, we’re there, because we’re driven with care,
+                  anywhere.
                 </p>
               </div>
             </div>
@@ -364,7 +369,7 @@ export default function AboutPage() {
                 Get Free Quote
               </a>
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 style={{
                   border: '2px solid white',
                   color: 'white',
@@ -375,7 +380,7 @@ export default function AboutPage() {
                   display: 'inline-block',
                 }}
               >
-                Call (312) 208-5007
+                Call 224-652-7264
               </a>
             </div>
           </div>

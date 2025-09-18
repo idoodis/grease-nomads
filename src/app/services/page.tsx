@@ -313,7 +313,7 @@ export default function ServicesPage() {
                 Get Free Quote
               </a>
               <a
-                href="tel:+13122085007"
+                href="tel:+12246527264"
                 style={{
                   border: '2px solid white',
                   color: 'white',
@@ -324,7 +324,7 @@ export default function ServicesPage() {
                   display: 'inline-block',
                 }}
               >
-                Call (312) 208-5007
+                Call 224-652-7264
               </a>
             </div>
           </div>
