@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { prisma } from '@/lib/db';
+import ReviewsCarousel from '@/components/reviews-carousel';
 
 export default async function HomePage() {
   // Read services directly from the database to match Services page
@@ -13,7 +14,7 @@ export default async function HomePage() {
       description: s.description,
       price: String(s.basePrice),
     }));
-    const dbReviews = await prisma.review.findMany({ orderBy: { publishedAt: 'desc' }, take: 3 });
+    const dbReviews = await prisma.review.findMany({ orderBy: { publishedAt: 'desc' } });
     reviews = dbReviews.map((r) => ({
       id: r.id,
       authorName: r.authorName,
@@ -364,77 +365,7 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                gap: '32px',
-              }}
-            >
-              {reviews.length > 0 ? (
-                reviews.map((rev) => (
-                  <div
-                    key={rev.id}
-                    style={{
-                      backgroundColor: '#0f1115',
-                      padding: '32px',
-                      borderRadius: '12px',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        marginBottom: '16px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: '40px',
-                          height: '40px',
-                          backgroundColor: '#f97316',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          marginRight: '12px',
-                          color: 'white',
-                          fontWeight: 'bold',
-                        }}
-                      >
-                        {rev.authorName?.charAt(0).toUpperCase() || 'U'}
-                      </div>
-                      <div>
-                        <h4
-                          style={{
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                            color: '#f3f4f6',
-                            margin: '0',
-                          }}
-                        >
-                          {rev.authorName}
-                        </h4>
-                        <div style={{ color: '#f97316' }}>{'★'.repeat(rev.rating).padEnd(5, '☆')}</div>
-                      </div>
-                    </div>
-                    <p
-                      style={{
-                        color: '#d1d5db',
-                        lineHeight: '1.6',
-                        fontStyle: 'italic',
-                      }}
-                    >
-                      {rev.body}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p style={{ color: '#9ca3af', textAlign: 'center' }}>No reviews yet.</p>
-              )}
-            </div>
+            <ReviewsCarousel reviews={reviews} />
           </div>
         </section>
 
