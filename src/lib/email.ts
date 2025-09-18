@@ -27,7 +27,10 @@ export interface ContactFormData {
 
 export async function sendContactEmail(data: ContactFormData) {
   try {
+    console.log('Creating email transporter...');
     const transporter = createTransporter();
+    console.log('Transporter created successfully');
+    
     const mailOptions = {
       from: `"Grease Nomads" <z@greasenomads.com>`,
       to: 'z@greasenomads.com',
@@ -106,11 +109,16 @@ This email was sent from the Grease Nomads website contact form.
       `,
     };
 
+    console.log('Sending email to:', mailOptions.to);
     const result = await transporter.sendMail(mailOptions);
     console.log('Email sent successfully:', result.messageId);
     return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error('Email sending failed:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }

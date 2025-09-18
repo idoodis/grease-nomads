@@ -39,11 +39,21 @@ export async function POST(request: NextRequest) {
 
     // Send email notifications
     try {
+      console.log('Attempting to send emails...');
+      console.log('SMTP Config:', {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        user: process.env.SMTP_USER,
+        hasPassword: !!process.env.SMTP_PASS
+      });
+      
       // Send notification email to business
       const emailResult = await sendContactEmail(validatedData);
+      console.log('Business email result:', emailResult);
       
       // Send confirmation email to customer
       const confirmationResult = await sendConfirmationEmail(validatedData);
+      console.log('Customer email result:', confirmationResult);
       
       console.log('Email notifications sent:', {
         businessEmail: emailResult.success ? 'Success' : 'Failed',
