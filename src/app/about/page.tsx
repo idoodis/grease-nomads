@@ -132,35 +132,131 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  Founded in 2018, Grease Nomads was born from a simple idea:
-                  what if getting your car serviced was as easy as ordering food
-                  delivery? We saw the frustration of busy Chicagoans who
-                  couldn&apos;t find time to visit traditional repair shops.
+                  From the start, Z built the company around four guiding principles, each with a purpose:
                 </p>
+                <div
+                  style={{
+                    marginBottom: '32px',
+                    padding: '24px',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '12px',
+                    border: '1px solid #e2e8f0',
+                  }}
+                >
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                    <li
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        marginBottom: '16px',
+                        fontSize: '1.125rem',
+                        color: '#64748b',
+                        lineHeight: '1.6',
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: '#f97316',
+                          fontWeight: 'bold',
+                          marginRight: '12px',
+                          fontSize: '1.25rem',
+                        }}
+                      >
+                        •
+                      </span>
+                      <span>
+                        <strong style={{ color: '#1e293b' }}>Convenience</strong> – because your time is valuable, and your car should help you save time. Not take it.
+                      </span>
+                    </li>
+                    <li
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        marginBottom: '16px',
+                        fontSize: '1.125rem',
+                        color: '#64748b',
+                        lineHeight: '1.6',
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: '#f97316',
+                          fontWeight: 'bold',
+                          marginRight: '12px',
+                          fontSize: '1.25rem',
+                        }}
+                      >
+                        •
+                      </span>
+                      <span>
+                        <strong style={{ color: '#1e293b' }}>Professionalism</strong> – because every customer deserves dealership-level care without the dealership hassle.
+                      </span>
+                    </li>
+                    <li
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        marginBottom: '16px',
+                        fontSize: '1.125rem',
+                        color: '#64748b',
+                        lineHeight: '1.6',
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: '#f97316',
+                          fontWeight: 'bold',
+                          marginRight: '12px',
+                          fontSize: '1.25rem',
+                        }}
+                      >
+                        •
+                      </span>
+                      <span>
+                        <strong style={{ color: '#1e293b' }}>Reliability</strong> – because trust is earned, and once we have your business, you'll never wanna go back.
+                      </span>
+                    </li>
+                    <li
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        marginBottom: '0',
+                        fontSize: '1.125rem',
+                        color: '#64748b',
+                        lineHeight: '1.6',
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: '#f97316',
+                          fontWeight: 'bold',
+                          marginRight: '12px',
+                          fontSize: '1.25rem',
+                        }}
+                      >
+                        •
+                      </span>
+                      <span>
+                        <strong style={{ color: '#1e293b' }}>Affordability</strong> – because quality service shouldn't come at a price that breaks the bank.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
                 <p
                   style={{
                     fontSize: '1.125rem',
                     color: '#64748b',
                     lineHeight: '1.7',
                     marginBottom: '24px',
+                    fontStyle: 'italic',
+                    borderLeft: '4px solid #f97316',
+                    paddingLeft: '20px',
+                    backgroundColor: '#fef7ed',
+                    padding: '20px',
+                    borderRadius: '8px',
                   }}
                 >
-                  Our team of ASE certified mechanics brings the repair shop to
-                  you, whether you&apos;re at home, work, or anywhere in our
-                  service area. We&apos;re committed to providing honest,
-                  transparent service with no hidden fees or unnecessary
-                  upsells.
-                </p>
-                <p
-                  style={{
-                    fontSize: '1.125rem',
-                    color: '#64748b',
-                    lineHeight: '1.7',
-                  }}
-                >
-                  Today, we&apos;ve helped thousands of customers keep their
-                  vehicles running smoothly, and we&apos;re proud to be
-                  Chicago&apos;s most trusted mobile mechanic service.
+                  Grease Nomads exists to change the way people experience automotive care. Built on the principles of convenience, professionalism, reliability, and affordability, we bring expert service directly to you—eliminating wasted time, surprise costs, and the stress of traditional shops. Wherever life takes you, we're there, because we're driven with care, anywhere.
                 </p>
               </div>
               <div
