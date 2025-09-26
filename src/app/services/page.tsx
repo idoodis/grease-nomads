@@ -225,24 +225,18 @@ export default function ServicesPage() {
                 >
                 <div
                   style={{
-                    width: '80px',
-                    height: '80px',
-                    backgroundColor: '#f97316',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     margin: '0 auto 24px auto',
+                    display: 'flex',
+                    justifyContent: 'center',
                   }}
                 >
                   <Image
                     src={getServiceLogo(service.name)}
                     alt={`${service.name} service logo`}
-                    width={40}
-                    height={40}
+                    width={100}
+                    height={100}
                     style={{
                       objectFit: 'contain',
-                      borderRadius: '50%',
                     }}
                   />
                 </div>

@@ -91,15 +91,13 @@ export function ServicesPage({ services }: ServicesPageProps) {
                 )}
 
                 <div className="flex justify-center mb-4">
-                  <div className="w-20 h-20 bg-primary-500 rounded-full flex items-center justify-center">
-                    <Image
-                      src={getServiceLogo(service.name)}
-                      alt={`${service.name} service logo`}
-                      width={50}
-                      height={50}
-                      className="object-contain"
-                    />
-                  </div>
+                  <Image
+                    src={getServiceLogo(service.name)}
+                    alt={`${service.name} service logo`}
+                    width={100}
+                    height={100}
+                    className="object-contain"
+                  />
                 </div>
 
                 <h3 className="text-2xl font-heading font-bold text-secondary-900 mb-4">
