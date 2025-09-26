@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 
 interface Service {
   id: string;
@@ -10,6 +11,33 @@ interface Service {
   price: string;
   icon: string;
 }
+
+// Function to map service names to logo files
+const getServiceLogo = (serviceName: string) => {
+  const logoMap: { [key: string]: string } = {
+    'maintenance': '/LOGO/Maintenance logo.png',
+    'diagnosis': '/LOGO/Diagnostics logo.png',
+    'diagnostics': '/LOGO/Diagnostics logo.png',
+    'performance modifications': '/LOGO/Modifications logo.png',
+    'modifications': '/LOGO/Modifications logo.png',
+    'roadside assistance': '/LOGO/Roadside Assistance logo.png',
+    'pre-purchase inspection': '/LOGO/PPI logo.png',
+    'auto repair': '/LOGO/Repair logo.png',
+    'repairs': '/LOGO/Repair logo.png'
+  };
+  
+  const lowerServiceName = serviceName.toLowerCase();
+  
+  // Find the closest match
+  for (const [key, path] of Object.entries(logoMap)) {
+    if (lowerServiceName.includes(key) || key.includes(lowerServiceName)) {
+      return path;
+    }
+  }
+  
+  // Default fallback
+  return '/LOGO/Repair logo.png';
+};
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
@@ -189,27 +217,29 @@ export default function ServicesPage() {
                     textAlign: 'center',
                   }}
                 >
-                  <div
+                <div
+                  style={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: '#f97316',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 24px auto',
+                  }}
+                >
+                  <Image
+                    src={getServiceLogo(service.name)}
+                    alt={`${service.name} service logo`}
+                    width={40}
+                    height={40}
                     style={{
-                      width: '80px',
-                      height: '80px',
-                      backgroundColor: '#f97316',
+                      objectFit: 'contain',
                       borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      margin: '0 auto 24px auto',
                     }}
-                  >
-                    <svg
-                      width="40"
-                      height="40"
-                      fill="white"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                    </svg>
-                  </div>
+                  />
+                </div>
                   <h3
                     style={{
                       fontSize: '1.5rem',

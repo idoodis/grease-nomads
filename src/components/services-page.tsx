@@ -2,6 +2,34 @@ import { Button } from '@/components/ui/button';
 import { formatPrice } from '@/lib/utils';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
+
+// Function to map service names to logo files
+const getServiceLogo = (serviceName: string) => {
+  const logoMap: { [key: string]: string } = {
+    'maintenance': '/LOGO/Maintenance logo.png',
+    'diagnosis': '/LOGO/Diagnostics logo.png',
+    'diagnostics': '/LOGO/Diagnostics logo.png',
+    'performance modifications': '/LOGO/Modifications logo.png',
+    'modifications': '/LOGO/Modifications logo.png',
+    'roadside assistance': '/LOGO/Roadside Assistance logo.png',
+    'pre-purchase inspection': '/LOGO/PPI logo.png',
+    'auto repair': '/LOGO/Repair logo.png',
+    'repairs': '/LOGO/Repair logo.png'
+  };
+  
+  const lowerServiceName = serviceName.toLowerCase();
+  
+  // Find the closest match
+  for (const [key, path] of Object.entries(logoMap)) {
+    if (lowerServiceName.includes(key) || key.includes(lowerServiceName)) {
+      return path;
+    }
+  }
+  
+  // Default fallback
+  return '/LOGO/Repair logo.png';
+};
 
 interface Service {
   id: string;
@@ -55,6 +83,18 @@ export function ServicesPage({ services }: ServicesPageProps) {
                     </span>
                   </div>
                 )}
+
+                <div className="flex justify-center mb-4">
+                  <div className="w-20 h-20 bg-primary-500 rounded-full flex items-center justify-center">
+                    <Image
+                      src={getServiceLogo(service.name)}
+                      alt={`${service.name} service logo`}
+                      width={50}
+                      height={50}
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
 
                 <h3 className="text-2xl font-heading font-bold text-secondary-900 mb-4">
                   {service.name}
