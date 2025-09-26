@@ -7,15 +7,16 @@ import Image from 'next/image';
 // Function to map service names to logo files
 const getServiceLogo = (serviceName: string) => {
   const logoMap: { [key: string]: string } = {
-    'maintenance': '/LOGO/Maintenance logo.png',
-    'diagnosis': '/LOGO/Diagnostics logo.png',
-    'diagnostics': '/LOGO/Diagnostics logo.png',
-    'performance modifications': '/LOGO/Modifications logo.png',
-    'modifications': '/LOGO/Modifications logo.png',
-    'roadside assistance': '/LOGO/Roadside Assistance logo.png',
-    'pre-purchase inspection': '/LOGO/PPI logo.png',
-    'auto repair': '/LOGO/Repair logo.png',
-    'repairs': '/LOGO/Repair logo.png'
+    'maintenance': '/Maintenance logo.png',
+    'diagnosis': '/Diagnostics logo.png',
+    'diagnostics': '/Diagnostics logo.png',
+    'performance modifications': '/Modifications logo.png',
+    'modifications': '/Modifications logo.png',
+    'roadside assistance': '/Roadside Assistance logo.png',
+    'pre-purchase inspection': '/PPI logo.png',
+    'auto repair': '/Repair logo.png',
+    'repairs': '/Repair logo.png',
+    'repair': '/Repair logo.png'
   };
   
   const lowerServiceName = serviceName.toLowerCase();
@@ -27,8 +28,13 @@ const getServiceLogo = (serviceName: string) => {
     }
   }
   
+  // Exact match check for better precision
+  if (lowerServiceName === 'repair' || lowerServiceName === 'repairs') return '/Repair logo.png';
+  if (lowerServiceName.includes('modification')) return '/Modifications logo.png';
+  if (lowerServiceName.includes('pre-purchase') || lowerServiceName.includes('pre purchase')) return '/PPI logo.png';
+  
   // Default fallback
-  return '/LOGO/Repair logo.png';
+  return '/Repair logo.png';
 };
 
 interface Service {
