@@ -270,7 +270,13 @@ export default function ServicesPage() {
                     Starting at ${service.price}
                   </div>
                   <a
-                    href={service.name.toLowerCase().includes('repair') ? '/repairs' : '/contact'}
+                    href={
+                      service.name.toLowerCase().includes('repair') 
+                        ? '/repairs' 
+                        : service.name.toLowerCase().includes('diagn')
+                        ? '/diagnosis'
+                        : '/contact'
+                    }
                     style={{
                       backgroundColor: '#f97316',
                       color: 'white',
