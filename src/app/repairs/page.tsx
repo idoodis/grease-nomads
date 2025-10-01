@@ -73,6 +73,11 @@ export default function RepairsPage() {
           --card: #121212;
           --ring: rgba(255, 106, 0, 0.35);
         }
+        @media (max-width: 640px) {
+          .responsive-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
       `}</style>
 
       <div
@@ -377,8 +382,9 @@ export default function RepairsPage() {
                 style={{
                   display: 'grid',
                   gap: '.8rem',
-                  gridTemplateColumns: window.innerWidth > 640 ? '1fr 1fr' : '1fr',
+                  gridTemplateColumns: '1fr 1fr',
                 }}
+                className="responsive-grid"
               >
                 <div style={{ display: 'grid', gap: '.35rem' }}>
                   <label htmlFor="name">Name</label>
@@ -424,9 +430,10 @@ export default function RepairsPage() {
                 style={{
                   display: 'grid',
                   gap: '.8rem',
-                  gridTemplateColumns: window.innerWidth > 640 ? '1fr 1fr' : '1fr',
+                  gridTemplateColumns: '1fr 1fr',
                   marginTop: '.8rem',
                 }}
+                className="responsive-grid"
               >
                 <div style={{ display: 'grid', gap: '.35rem' }}>
                   <label htmlFor="phone">Phone</label>
