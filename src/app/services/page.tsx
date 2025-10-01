@@ -277,6 +277,8 @@ export default function ServicesPage() {
                         ? '/diagnosis'
                         : service.name.toLowerCase().includes('modif')
                         ? '/modifications'
+                        : service.name.toLowerCase().includes('pre-purchase') || service.name.toLowerCase().includes('inspection')
+                        ? '/pre-purchase-inspection'
                         : '/contact'
                     }
                     style={{
