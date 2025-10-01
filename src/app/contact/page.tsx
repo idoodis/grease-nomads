@@ -129,7 +129,7 @@ export default function ContactPage() {
         {/* Header */}
         <header
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '40px 20px',
             textAlign: 'center',
@@ -652,7 +652,7 @@ export default function ContactPage() {
         {/* Footer */}
         <footer
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '40px 20px',
             textAlign: 'center',

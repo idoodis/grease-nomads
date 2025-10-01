@@ -122,7 +122,7 @@ export default function ServicesPage() {
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '120px 20px 80px',
             textAlign: 'center',
@@ -306,7 +306,7 @@ export default function ServicesPage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
