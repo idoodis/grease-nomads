@@ -79,7 +79,7 @@ export default async function HomePage() {
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(90deg, #000000 0%, #000000 50%, #f97316 50%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
@@ -373,7 +373,7 @@ export default async function HomePage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(90deg, #000000 0%, #000000 50%, #f97316 50%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
