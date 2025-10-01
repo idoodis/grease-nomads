@@ -281,6 +281,8 @@ export default function ServicesPage() {
                         ? '/pre-purchase-inspection'
                         : service.name.toLowerCase().includes('maintenance')
                         ? '/maintenance'
+                        : service.name.toLowerCase().includes('roadside') || service.name.toLowerCase().includes('assistance')
+                        ? '/roadside-assistance'
                         : '/contact'
                     }
                     style={{
