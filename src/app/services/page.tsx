@@ -320,7 +320,7 @@ export default function ServicesPage() {
                 marginBottom: '24px',
               }}
             >
-              Ready to Schedule Service?
+              Ready to Schedule a Service.
             </h2>
             <p
               style={{

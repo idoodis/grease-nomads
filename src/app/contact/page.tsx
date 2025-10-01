@@ -117,7 +117,7 @@ export default function ContactPage() {
         </title>
         <meta
           name="description"
-          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email z@greasenomads.com."
+          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email contact@greasenomads.com."
         />
         <meta
           name="keywords"
@@ -158,7 +158,7 @@ export default function ContactPage() {
             </h1>
           </div>
           <p style={{ color: '#cbd5e1', marginTop: '8px' }}>
-            Get in touch for professional ASE certified mobile mechanic services
+            Get in touch for Professional, Reliable Mobile Mechanic Service.
           </p>
         </header>
 
@@ -390,17 +390,12 @@ export default function ContactPage() {
                   }}
                 >
                   <option value="">Select a service</option>
-                  {services.length > 0 ? (
-                    services.map((s) => (
-                      <option key={s.id} value={s.name.toLowerCase().replace(/\s+/g, '-')}>{s.name}</option>
-                    ))
-                  ) : (
-                    <>
-                      <option value="maintenance">Maintenance</option>
-                      <option value="diagnosis">Diagnosis</option>
-                      <option value="emergency">Emergency Service</option>
-                    </>
-                  )}
+                  <option value="maintenance">Maintenance</option>
+                  <option value="diagnostics">Diagnostics</option>
+                  <option value="repairs">Repairs</option>
+                  <option value="modifications">Modifications</option>
+                  <option value="pre-purchase-inspection">Pre-Purchase Inspection</option>
+                  <option value="roadside-assistance">Roadside Assistance</option>
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -590,14 +585,14 @@ export default function ContactPage() {
                   Send us a message anytime
                 </p>
                 <a
-                  href="mailto:z@greasenomads.com"
+                  href="mailto:contact@greasenomads.com"
                   style={{
                     color: '#f97316',
                     fontSize: '1rem',
                     textDecoration: 'none',
                   }}
                 >
-                  z@greasenomads.com
+                  contact@greasenomads.com
                 </a>
               </div>
 
@@ -642,7 +637,7 @@ export default function ContactPage() {
                   We come to you
                 </p>
                 <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
-                  Chicago and surrounding areas
+                  Around the Chicago area.
                 </p>
               </div>
             </div>

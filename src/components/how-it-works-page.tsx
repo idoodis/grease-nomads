@@ -15,54 +15,54 @@ export function HowItWorksPage() {
   const steps = [
     {
       number: 1,
-      title: 'Request a Quote',
+      title: 'Get in Touch',
       description:
-        'Contact us via phone, email, or our online form. Tell us about your vehicle and the service you need.',
+        'Customers can call, text, or fill out our online form. We'll follow up to set an appointment and go over the details.',
       icon: MessageSquare,
       details: [
-        'Free consultation and estimate',
-        'No obligation to proceed',
-        'Transparent pricing upfront',
-        'Available 7 days a week',
+        'Call, text, or use online form',
+        'We follow up quickly',
+        'Go over all details',
+        'Set convenient appointment time',
       ],
     },
     {
       number: 2,
-      title: 'We Confirm the Plan',
+      title: 'Confirm Your Spot',
       description:
-        "We'll review your needs, provide a detailed estimate, and schedule a convenient time for service.",
+        'A $100 deposit secures your appointment.',
       icon: CheckCircle,
       details: [
-        'Detailed service plan',
-        'Exact pricing breakdown',
-        'Flexible scheduling',
-        'Parts and labor included',
+        '$100 deposit required',
+        'Secures your time slot',
+        'Appointment confirmed',
+        'Details finalized',
       ],
     },
     {
       number: 3,
-      title: 'We Come to You',
+      title: 'Service at Your Location',
       description:
-        'Our certified technician arrives at your location with all necessary tools and equipment.',
+        'On the scheduled day, we arrive and complete the service. Feel free to ask any questions along the way.',
       icon: Truck,
       details: [
-        'Fully equipped mobile service',
+        'We arrive on scheduled day',
+        'Complete service on-site',
+        'Ask questions anytime',
         'Professional technician',
-        'All tools and equipment included',
-        'Clean, organized work area',
       ],
     },
     {
       number: 4,
-      title: "You're Back on the Road",
+      title: 'Finish & Pay',
       description:
-        "Service completed, vehicle tested, and you're ready to go with a warranty on all work.",
+        'Once the work is done, you'll pay the remaining balance and we'll hand back your keys.',
       icon: Wrench,
       details: [
-        'Quality workmanship guaranteed',
-        'Vehicle testing and inspection',
-        'Warranty on all repairs',
-        'Detailed service report',
+        'Work completed',
+        'Pay remaining balance',
+        'Keys handed back',
+        'Ready to go',
       ],
     },
   ];
