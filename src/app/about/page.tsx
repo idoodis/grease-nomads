@@ -91,8 +91,7 @@ export default function AboutPage() {
                 margin: '0 auto',
               }}
             >
-              Your trusted mobile mechanic service in Chicago and surrounding
-              areas
+              Your trusted mobile mechanic, servicing Chicago's surrounding areas.
             </p>
           </div>
         </section>

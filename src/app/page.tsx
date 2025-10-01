@@ -79,7 +79,7 @@ export default async function HomePage() {
         {/* Hero Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 50%, #f97316 50%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
@@ -119,7 +119,7 @@ export default async function HomePage() {
               style={{
                 fontSize: '1.5rem',
                 marginBottom: '32px',
-                color: '#fed7aa',
+                color: 'white',
                 maxWidth: '800px',
                 margin: '0 auto 32px auto',
               }}
@@ -137,13 +137,14 @@ export default async function HomePage() {
               <a
                 href="/contact"
                 style={{
-                  backgroundColor: '#f97316',
+                  backgroundColor: 'transparent',
                   color: 'white',
                   padding: '16px 32px',
                   borderRadius: '8px',
                   textDecoration: 'none',
                   fontWeight: '600',
                   display: 'inline-block',
+                  border: '2px solid white',
                 }}
               >
                 Get Free Quote
@@ -372,7 +373,7 @@ export default async function HomePage() {
         {/* CTA Section */}
         <section
           style={{
-            background: 'linear-gradient(135deg, #000000 0%, #000000 45%, #f97316 55%, #f97316 100%)',
+            background: 'linear-gradient(90deg, #000000 0%, #000000 50%, #f97316 50%, #f97316 100%)',
             color: 'white',
             padding: '80px 20px',
             textAlign: 'center',
@@ -391,7 +392,7 @@ export default async function HomePage() {
             <p
               style={{
                 fontSize: '1.25rem',
-                color: '#cbd5e1',
+                color: 'white',
                 marginBottom: '48px',
                 maxWidth: '600px',
                 margin: '0 auto 48px auto',
@@ -411,13 +412,14 @@ export default async function HomePage() {
               <a
                 href="/contact"
                 style={{
-                  backgroundColor: '#f97316',
+                  backgroundColor: 'transparent',
                   color: 'white',
                   padding: '16px 32px',
                   borderRadius: '8px',
                   textDecoration: 'none',
                   fontWeight: '600',
                   display: 'inline-block',
+                  border: '2px solid white',
                 }}
               >
                 Get Free Quote
