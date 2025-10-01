@@ -275,6 +275,8 @@ export default function ServicesPage() {
                         ? '/repairs' 
                         : service.name.toLowerCase().includes('diagn')
                         ? '/diagnosis'
+                        : service.name.toLowerCase().includes('modif')
+                        ? '/modifications'
                         : '/contact'
                     }
                     style={{
