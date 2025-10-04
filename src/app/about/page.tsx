@@ -131,116 +131,18 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  From the start, Z built the company around four guiding principles, each with a purpose:
+                  Grease Nomads goal is to change the way people experience their cars. The company was founded by Z. Shahjee. To him, cars are more than machines—they're companions on life's journeys, tools of freedom, and symbols of independence. That belief drives the company's high level of care. It's not just about fixing vehicles; it's about respecting what they mean to the people who drive them.
                 </p>
-                <div
+                <p
                   style={{
-                    marginBottom: '32px',
-                    padding: '24px',
-                    backgroundColor: '#0f1115',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    fontSize: '1.125rem',
+                    color: '#d1d5db',
+                    lineHeight: '1.7',
+                    marginBottom: '24px',
                   }}
                 >
-                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                    <li
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        marginBottom: '16px',
-                        fontSize: '1.125rem',
-                        color: '#d1d5db',
-                        lineHeight: '1.6',
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: '#f97316',
-                          fontWeight: 'bold',
-                          marginRight: '12px',
-                          fontSize: '1.25rem',
-                        }}
-                      >
-                        •
-                      </span>
-                      <span>
-                        <strong style={{ color: '#f3f4f6' }}>Convenience</strong> – because your time is valuable, and your car should help you save time. Not take it.
-                      </span>
-                    </li>
-                    <li
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        marginBottom: '16px',
-                        fontSize: '1.125rem',
-                        color: '#64748b',
-                        lineHeight: '1.6',
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: '#f97316',
-                          fontWeight: 'bold',
-                          marginRight: '12px',
-                          fontSize: '1.25rem',
-                        }}
-                      >
-                        •
-                      </span>
-                      <span>
-                        <strong style={{ color: '#f3f4f6' }}>Professionalism</strong> – because every customer deserves dealership-level care without the dealership hassle.
-                      </span>
-                    </li>
-                    <li
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        marginBottom: '16px',
-                        fontSize: '1.125rem',
-                        color: '#64748b',
-                        lineHeight: '1.6',
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: '#f97316',
-                          fontWeight: 'bold',
-                          marginRight: '12px',
-                          fontSize: '1.25rem',
-                        }}
-                      >
-                        •
-                      </span>
-                      <span>
-                        <strong style={{ color: '#f3f4f6' }}>Reliability</strong> – because trust is earned, and once we have your business, you'll never wanna go back.
-                      </span>
-                    </li>
-                    <li
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        marginBottom: '0',
-                        fontSize: '1.125rem',
-                        color: '#64748b',
-                        lineHeight: '1.6',
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: '#f97316',
-                          fontWeight: 'bold',
-                          marginRight: '12px',
-                          fontSize: '1.25rem',
-                        }}
-                      >
-                        •
-                      </span>
-                      <span>
-                        <strong style={{ color: '#f3f4f6' }}>Affordability</strong> – because quality service shouldn't come at a price that breaks the bank.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
+                  Everyone on the Grease Nomads team shares that same passion and that pride shows in the way we approach every service—whether it's routine maintenance, a weird problem, vehicle modifications, Pre-Purchase Inspections, or an emergency on the side of the road. Every vehicle is treated as if it were their own, because they know what it means to have your trust.
+                </p>
                 <p
                   style={{
                     fontSize: '1.125rem',
@@ -255,7 +157,7 @@ export default function AboutPage() {
                     borderRadius: '8px',
                   }}
                 >
-                  Grease Nomads exists to change the way people experience automotive care. Built on the principles of convenience, professionalism, reliability, and affordability, we bring expert service directly to you—eliminating wasted time, surprise costs, and the stress of traditional shops. Wherever life takes you, we're there, because we're driven with care, anywhere.
+                  At its core, Grease Nomads stands for convenience, professionalism, reliability, and affordability, all built around a genuine love for the craft. We bring the shop to you, saving you time, money, and stress. We want you to take pride in your ride, not to despair the repairs.
                 </p>
               </div>
               <div
