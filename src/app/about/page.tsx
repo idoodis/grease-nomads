@@ -157,7 +157,7 @@ export default function AboutPage() {
                     borderRadius: '8px',
                   }}
                 >
-                  At its core, Grease Nomads stands for convenience, professionalism, reliability, and affordability, all built around a genuine love for the craft. We bring the shop to you, saving you time, money, and stress. We want you to take pride in your ride, not to despair the repairs.
+                  Grease Nomads is at the beginning of its journey. Founded with the goal of rethinking how people handle car maintenance and repair, we're bringing the shop to you—convenient, professional, and reliable. With a background in custom work and Jaguar Land Rover, we're starting small but building with purpose: to create a new standard for automotive care.
                 </p>
               </div>
               <div
