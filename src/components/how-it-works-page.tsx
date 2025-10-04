@@ -17,7 +17,7 @@ export function HowItWorksPage() {
       number: 1,
       title: 'Get in Touch',
       description:
-        'Customers can call, text, or fill out our online form. We'll follow up to set an appointment and go over the details.',
+        'Customers can call, text, or fill out our online form. We\'ll follow up to set an appointment and go over the details.',
       icon: MessageSquare,
       details: [
         'Call, text, or use online form',
@@ -56,7 +56,7 @@ export function HowItWorksPage() {
       number: 4,
       title: 'Finish & Pay',
       description:
-        'Once the work is done, you'll pay the remaining balance and we'll hand back your keys.',
+        'Once the work is done, you\'ll pay the remaining balance and we\'ll hand back your keys.',
       icon: Wrench,
       details: [
         'Work completed',
