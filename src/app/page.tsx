@@ -247,7 +247,21 @@ export default async function HomePage() {
                     {`Starting at $${svc.price}`}
                   </div>
                   <a
-                    href="/contact"
+                    href={
+                      svc.name.toLowerCase().includes('repair') 
+                        ? '/repairs' 
+                        : svc.name.toLowerCase().includes('diagn')
+                        ? '/diagnosis'
+                        : svc.name.toLowerCase().includes('modif')
+                        ? '/modifications'
+                        : svc.name.toLowerCase().includes('pre-purchase') || svc.name.toLowerCase().includes('inspection')
+                        ? '/pre-purchase-inspection'
+                        : svc.name.toLowerCase().includes('maintenance')
+                        ? '/maintenance'
+                        : svc.name.toLowerCase().includes('roadside') || svc.name.toLowerCase().includes('assistance')
+                        ? '/roadside-assistance'
+                        : '/contact'
+                    }
                     style={{
                       backgroundColor: '#f97316',
                       color: 'white',
