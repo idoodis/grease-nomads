@@ -1,113 +1,7 @@
-'use client';
-
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [services, setServices] = useState<Array<{ id: string; name: string }>>([]);
-
-  useEffect(() => {
-    const loadServices = async () => {
-      try {
-        const res = await fetch('/api/services', { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          // Normalize to id/name for dropdown; API has name and id
-          setServices(
-            Array.isArray(data)
-              ? data.map((s: any) => ({ id: String(s.id), name: String(s.name) }))
-              : []
-          );
-        }
-      } catch (_e) {
-        // ignore and fall back to static options
-      }
-    };
-    loadServices();
-  }, []);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    setErrorMessage('');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`.trim(),
-          email: formData.email,
-          phone: formData.phone,
-          service: formData.service || undefined,
-          message: formData.message,
-        }),
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: '',
-        });
-      } else {
-        console.log('Response status:', response.status);
-        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-        
-        let errorMessage = 'Unknown error occurred';
-        try {
-          const errorData = await response.json();
-          console.error('Form submission error:', errorData);
-          const serverErrorMessage = errorData.error || errorData.message || 'Server error';
-          setErrorMessage(serverErrorMessage);
-        } catch (parseError) {
-          console.error('Failed to parse error response:', parseError);
-          try {
-            const responseText = await response.text();
-            console.log('Response text:', responseText);
-            setErrorMessage(responseText || 'Failed to parse server response');
-          } catch (textError) {
-            console.error('Failed to get response text:', textError);
-            setErrorMessage(`Server returned status ${response.status}`);
-          }
-        }
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setErrorMessage('Network error. Please try again.');
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <>
@@ -162,11 +56,11 @@ export default function ContactPage() {
           </p>
         </header>
 
-        {/* Contact Form Section */}
+        {/* ShopMonkey Contact Form Section */}
         <section
           style={{
             padding: '80px 20px',
-            maxWidth: '800px',
+            maxWidth: '1000px',
             margin: '0 auto',
           }}
         >
@@ -190,268 +84,28 @@ export default function ContactPage() {
             >
               Get Your Free Quote
             </h2>
-
-            {submitStatus === 'success' && (
-              <div
-                style={{
-                  backgroundColor: '#052e1a',
-                  border: '1px solid #10b981',
-                  color: '#34d399',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  marginBottom: '24px',
-                  textAlign: 'center',
-                }}
-              >
-                ✅ Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
-              </div>
-            )}
-
-            {submitStatus === 'error' && (
-              <div
-                style={{
-                  backgroundColor: '#3b0a0a',
-                  border: '1px solid #ef4444',
-                  color: '#fecaca',
-                  padding: '16px',
-                  borderRadius: '8px',
-                  marginBottom: '24px',
-                  textAlign: 'center',
-                }}
-              >
-                ❌ {errorMessage || 'Sorry, there was an error sending your message. Please try again or call us at 224-652-7264.'}
-              </div>
-            )}
-
-            <form
-              onSubmit={handleSubmit}
-              style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+            
+            <div
+              style={{
+                width: '100%',
+                height: '600px',
+                border: 'none',
+                borderRadius: '8px',
+                overflow: 'hidden',
+              }}
             >
-              <div
+              <iframe
+                src="https://app.shopmonkey.cloud/public/quote-request/2812c016-32a0-4e84-8aa9-2f0df7280682?noExternalScripts=1"
+                width="100%"
+                height="100%"
+                frameBorder="0"
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '16px',
-                }}
-              >
-                <div>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontSize: '0.875rem',
-                      fontWeight: '600',
-                      color: '#e5e7eb',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      backgroundColor: '#0a0a0a',
-                      color: '#e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      outline: 'none',
-                      transition: 'border-color 0.3s',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontSize: '0.875rem',
-                      fontWeight: '600',
-                      color: '#374151',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      backgroundColor: '#0a0a0a',
-                      color: '#e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      outline: 'none',
-                      transition: 'border-color 0.3s',
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    color: '#e5e7eb',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: '#0a0a0a',
-                    color: '#e5e7eb',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    outline: 'none',
-                    transition: 'border-color 0.3s',
-                  }}
-                />
-              </div>
-
-              <div>
-                <label
-                  style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    color: '#e5e7eb',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: '#0a0a0a',
-                    color: '#e5e7eb',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    outline: 'none',
-                    transition: 'border-color 0.3s',
-                  }}
-                />
-              </div>
-
-              <div>
-                <label
-                  style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    color: '#e5e7eb',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Service Needed
-                </label>
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleInputChange}
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    outline: 'none',
-                    backgroundColor: '#0a0a0a',
-                    color: '#e5e7eb',
-                  }}
-                >
-                  <option value="">Select a service</option>
-                  <option value="maintenance">Maintenance</option>
-                  <option value="diagnostics">Diagnostics</option>
-                  <option value="repairs">Repairs</option>
-                  <option value="modifications">Modifications</option>
-                  <option value="pre-purchase-inspection">Pre-Purchase Inspection</option>
-                  <option value="roadside-assistance">Roadside Assistance</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label
-                  style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    color: '#e5e7eb',
-                    marginBottom: '8px',
-                  }}
-                >
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  placeholder="Tell us about your vehicle and what service you need..."
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    outline: 'none',
-                    resize: 'vertical',
-                    fontFamily: 'inherit',
-                    backgroundColor: '#0a0a0a',
-                    color: '#e5e7eb',
-                  }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={{
-                  backgroundColor: isSubmitting ? '#94a3b8' : '#f97316',
-                  color: 'white',
-                  padding: '16px 32px',
-                  borderRadius: '8px',
                   border: 'none',
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  transition: 'background-color 0.3s',
+                  borderRadius: '8px',
                 }}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
+                title="Grease Nomads Quote Request Form"
+              />
+            </div>
           </div>
         </section>
 
