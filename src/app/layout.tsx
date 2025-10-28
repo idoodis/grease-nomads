@@ -71,10 +71,15 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body suppressHydrationWarning style={{ backgroundColor: '#000000', color: '#e5e7eb' }}>
-        <Header />
-        <main style={{ paddingTop: '80px', minHeight: '100vh' }}>{children}</main>
-        <Footer />
+      <body
+        suppressHydrationWarning
+        className="bg-secondary-900 text-slate-100 antialiased"
+      >
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1 pt-20">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
