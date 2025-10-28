@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
-import { prisma } from '@/lib/db';
+import { fallbackServiceAreas, fallbackServices } from '@/data/fallback-content';
+import { isDatabaseEnabled, prisma } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXTAUTH_URL || 'https://greasenomads.com';
@@ -44,27 +45,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const servicePages: MetadataRoute.Sitemap = [];
-  const serviceAreaPages: MetadataRoute.Sitemap = [];
+  const dbEnabled = isDatabaseEnabled();
 
-  if (!process.env.DATABASE_URL) {
-    console.warn(
-      'DATABASE_URL is not defined. Skipping dynamic entries in the sitemap.'
-    );
-  } else {
+  let servicePages: MetadataRoute.Sitemap = fallbackServices.map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  let serviceAreaPages: MetadataRoute.Sitemap = fallbackServiceAreas.map((area) => ({
+    url: `${baseUrl}/service-areas/${area.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  if (dbEnabled) {
     try {
       const services = await prisma.service.findMany({
         select: { slug: true, updatedAt: true },
       });
 
-      servicePages.push(
-        ...services.map((service) => ({
+      if (services.length) {
+        servicePages = services.map((service) => ({
           url: `${baseUrl}/services/${service.slug}`,
           lastModified: service.updatedAt,
           changeFrequency: 'monthly' as const,
           priority: 0.7,
-        }))
-      );
+        }));
+      }
     } catch (error) {
       console.error('Failed to load service entries for sitemap:', error);
     }
@@ -74,14 +84,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         select: { slug: true },
       });
 
-      serviceAreaPages.push(
-        ...serviceAreas.map((area) => ({
+      if (serviceAreas.length) {
+        serviceAreaPages = serviceAreas.map((area) => ({
           url: `${baseUrl}/service-areas/${area.slug}`,
           lastModified: new Date(),
           changeFrequency: 'monthly' as const,
           priority: 0.6,
-        }))
-      );
+        }));
+      }
     } catch (error) {
       console.error('Failed to load service area entries for sitemap:', error);
     }

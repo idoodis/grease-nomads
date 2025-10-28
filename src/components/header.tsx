@@ -113,6 +113,17 @@ export default function Header() {
             Services
           </Link>
           <Link
+            href="/how-it-works"
+            style={{
+              color: '#cbd5e1',
+              textDecoration: 'none',
+              fontWeight: '500',
+              transition: 'color 0.3s',
+            }}
+          >
+            How It Works
+          </Link>
+          <Link
             href="/about"
             style={{
               color: '#cbd5e1',
@@ -233,6 +244,18 @@ export default function Header() {
             }}
           >
             Services
+          </Link>
+          <Link
+            href="/how-it-works"
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              color: '#cbd5e1',
+              textDecoration: 'none',
+              fontWeight: '500',
+              padding: '8px 0',
+            }}
+          >
+            How It Works
           </Link>
           <Link
             href="/about"
