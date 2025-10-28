@@ -34,26 +34,32 @@ export const metadata: Metadata = {
 export default async function ServicesPage() {
   let services: ServiceRecord[] = [];
 
-  try {
-    const dbServices = await prisma.service.findMany({
-      orderBy: [
-        { isFeatured: 'desc' },
-        { name: 'asc' },
-      ],
-    });
+  if (!process.env.DATABASE_URL) {
+    console.warn(
+      'DATABASE_URL is not defined. Rendering services page with static content.'
+    );
+  } else {
+    try {
+      const dbServices = await prisma.service.findMany({
+        orderBy: [
+          { isFeatured: 'desc' },
+          { name: 'asc' },
+        ],
+      });
 
-    services = dbServices.map((service) => ({
-      id: service.id,
-      name: service.name,
-      slug: service.slug,
-      description: service.description,
-      longDescription: service.longDescription,
-      basePrice: service.basePrice,
-      priceUnit: service.priceUnit,
-      isFeatured: service.isFeatured,
-    }));
-  } catch (error) {
-    console.error('Failed to load services from database', error);
+      services = dbServices.map((service) => ({
+        id: service.id,
+        name: service.name,
+        slug: service.slug,
+        description: service.description,
+        longDescription: service.longDescription,
+        basePrice: service.basePrice,
+        priceUnit: service.priceUnit,
+        isFeatured: service.isFeatured,
+      }));
+    } catch (error) {
+      console.error('Failed to load services from database', error);
+    }
   }
 
   return <ServicesPageView services={services} />;

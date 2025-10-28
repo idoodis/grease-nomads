@@ -44,31 +44,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic service pages
-  const services = await prisma.service.findMany({
-    select: { slug: true, updatedAt: true },
-  });
+  const servicePages: MetadataRoute.Sitemap = [];
+  const serviceAreaPages: MetadataRoute.Sitemap = [];
 
-  const servicePages = services.map(
-    (service: { slug: string; updatedAt: Date }) => ({
-      url: `${baseUrl}/services/${service.slug}`,
-      lastModified: service.updatedAt,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })
-  );
+  if (!process.env.DATABASE_URL) {
+    console.warn(
+      'DATABASE_URL is not defined. Skipping dynamic entries in the sitemap.'
+    );
+  } else {
+    try {
+      const services = await prisma.service.findMany({
+        select: { slug: true, updatedAt: true },
+      });
 
-  // Dynamic service area pages
-  const serviceAreas = await prisma.serviceArea.findMany({
-    select: { slug: true },
-  });
+      servicePages.push(
+        ...services.map((service) => ({
+          url: `${baseUrl}/services/${service.slug}`,
+          lastModified: service.updatedAt,
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to load service entries for sitemap:', error);
+    }
 
-  const serviceAreaPages = serviceAreas.map((area: { slug: string }) => ({
-    url: `${baseUrl}/service-areas/${area.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
+    try {
+      const serviceAreas = await prisma.serviceArea.findMany({
+        select: { slug: true },
+      });
+
+      serviceAreaPages.push(
+        ...serviceAreas.map((area) => ({
+          url: `${baseUrl}/service-areas/${area.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'monthly' as const,
+          priority: 0.6,
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to load service area entries for sitemap:', error);
+    }
+  }
 
   return [...staticPages, ...servicePages, ...serviceAreaPages];
 }
