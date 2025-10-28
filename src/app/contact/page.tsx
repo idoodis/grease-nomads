@@ -105,7 +105,6 @@ export default function ContactPage() {
               height="100%"
               frameBorder="0"
               loading="lazy"
-              importance="low"
               style={{
                 border: 'none',
                 borderRadius: '8px',
