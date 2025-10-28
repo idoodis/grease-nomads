@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+import Link from 'next/link';
 import { prisma } from '@/lib/db';
 import ReviewsCarousel from '@/components/reviews-carousel';
 
@@ -69,6 +69,17 @@ export default async function HomePage() {
     ],
   };
 
+  const getServiceHref = (serviceName: string) => {
+    const name = serviceName.toLowerCase();
+    if (name.includes('repair')) return '/repairs';
+    if (name.includes('diagn')) return '/diagnosis';
+    if (name.includes('modif')) return '/modifications';
+    if (name.includes('pre-purchase') || name.includes('inspection')) return '/pre-purchase-inspection';
+    if (name.includes('maintenance')) return '/maintenance';
+    if (name.includes('roadside') || name.includes('assistance')) return '/roadside-assistance';
+    return '/contact';
+  };
+
   return (
     <>
       <script
@@ -134,7 +145,7 @@ export default async function HomePage() {
                 flexWrap: 'wrap',
               }}
             >
-              <a
+              <Link
                 href="/contact"
                 style={{
                   backgroundColor: 'transparent',
@@ -148,7 +159,7 @@ export default async function HomePage() {
                 }}
               >
                 Get Free Quote
-              </a>
+              </Link>
               <a
                 href="tel:+12246527264"
                 style={{
@@ -246,22 +257,8 @@ export default async function HomePage() {
                   >
                     {`Starting at $${svc.price}`}
                   </div>
-                  <a
-                    href={
-                      svc.name.toLowerCase().includes('repair') 
-                        ? '/repairs' 
-                        : svc.name.toLowerCase().includes('diagn')
-                        ? '/diagnosis'
-                        : svc.name.toLowerCase().includes('modif')
-                        ? '/modifications'
-                        : svc.name.toLowerCase().includes('pre-purchase') || svc.name.toLowerCase().includes('inspection')
-                        ? '/pre-purchase-inspection'
-                        : svc.name.toLowerCase().includes('maintenance')
-                        ? '/maintenance'
-                        : svc.name.toLowerCase().includes('roadside') || svc.name.toLowerCase().includes('assistance')
-                        ? '/roadside-assistance'
-                        : '/contact'
-                    }
+                  <Link
+                    href={getServiceHref(svc.name)}
                     style={{
                       backgroundColor: '#f97316',
                       color: 'white',
@@ -274,7 +271,7 @@ export default async function HomePage() {
                     }}
                   >
                     Get Quote
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -423,7 +420,7 @@ export default async function HomePage() {
                 flexWrap: 'wrap',
               }}
             >
-              <a
+              <Link
                 href="/contact"
                 style={{
                   backgroundColor: 'transparent',
@@ -437,7 +434,7 @@ export default async function HomePage() {
                 }}
               >
                 Get Free Quote
-              </a>
+              </Link>
               <a
                 href="tel:+12246527264"
                 style={{

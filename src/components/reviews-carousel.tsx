@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface ReviewItem {
   id: string;
@@ -17,12 +17,6 @@ export default function ReviewsCarousel({ reviews }: { reviews: ReviewItem[] }) 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
-  const current = useMemo(() => (count > 0 ? reviews[safeIndex(index)] : null), [index, count, reviews]);
-
-  if (!count) {
-    return <p style={{ color: '#9ca3af', textAlign: 'center' }}>No reviews yet.</p>;
-  }
-
   // Autoplay to next review every 5 seconds
   useEffect(() => {
     if (count <= 1) return; // no need to auto-advance
@@ -31,6 +25,12 @@ export default function ReviewsCarousel({ reviews }: { reviews: ReviewItem[] }) 
     }, 5000);
     return () => clearInterval(id);
   }, [count]);
+
+  if (!count) {
+    return <p style={{ color: '#9ca3af', textAlign: 'center' }}>No reviews yet.</p>;
+  }
+
+  const current = reviews[safeIndex(index)];
 
   const onMouseEnter = () => {
     pausedRef.current = true;

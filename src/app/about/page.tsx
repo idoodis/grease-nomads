@@ -35,7 +35,7 @@ export default function AboutPage() {
         </title>
         <meta
           name="description"
-          content="Learn about Grease Nomads, Chicago's trusted ASE certified mobile mechanic team. Founded in 2018, we bring professional auto repair services directly to your location."
+          content="Learn about Grease Nomads, Chicago’s trusted ASE certified mobile mechanic team. Founded in 2018, we bring professional auto repair services directly to your location."
         />
         <meta
           name="keywords"
@@ -91,7 +91,7 @@ export default function AboutPage() {
                 margin: '0 auto',
               }}
             >
-              Your trusted mobile mechanic, servicing Chicago's surrounding areas.
+              Your trusted mobile mechanic, servicing Chicago’s surrounding areas.
             </p>
           </div>
         </section>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  Grease Nomads goal is to change the way people experience their cars. The company was founded by Z. Shahjee. To him, cars are more than machines—they're companions on life's journeys, tools of freedom, and symbols of independence. That belief drives the company's high level of care. It's not just about fixing vehicles; it's about respecting what they mean to the people who drive them.
+                  Grease Nomads goal is to change the way people experience their cars. The company was founded by Z. Shahjee. To him, cars are more than machines—they’re companions on life’s journeys, tools of freedom, and symbols of independence. That belief drives the company’s high level of care. It’s not just about fixing vehicles; it’s about respecting what they mean to the people who drive them.
                 </p>
                 <p
                   style={{
@@ -141,7 +141,7 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  Everyone on the Grease Nomads team shares that same passion and that pride shows in the way we approach every service—whether it's routine maintenance, a weird problem, vehicle modifications, Pre-Purchase Inspections, or an emergency on the side of the road. Every vehicle is treated as if it were their own, because they know what it means to have your trust.
+                  Everyone on the Grease Nomads team shares that same passion and that pride shows in the way we approach every service—whether it’s routine maintenance, a weird problem, vehicle modifications, Pre-Purchase Inspections, or an emergency on the side of the road. Every vehicle is treated as if it were their own, because they know what it means to have your trust.
                 </p>
                 <p
                   style={{
@@ -157,7 +157,7 @@ export default function AboutPage() {
                     borderRadius: '8px',
                   }}
                 >
-                  Grease Nomads is at the beginning of its journey. Founded with the goal of rethinking how people handle car maintenance and repair, we're bringing the shop to you—convenient, professional, and reliable. With a background in custom work and Jaguar Land Rover, we're starting small but building with purpose: to create a new standard for automotive care.
+                  Grease Nomads is at the beginning of its journey. Founded with the goal of rethinking how people handle car maintenance and repair, we’re bringing the shop to you—convenient, professional, and reliable. With a background in custom work and Jaguar Land Rover, we’re starting small but building with purpose: to create a new standard for automotive care.
                 </p>
               </div>
               <div

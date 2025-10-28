@@ -164,6 +164,7 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
             display: 'block',
@@ -173,6 +174,10 @@ export default function Header() {
             padding: '8px',
           }}
           className="mobile-menu-btn"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          aria-haspopup="true"
         >
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
@@ -189,6 +194,7 @@ export default function Header() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div
+          id="mobile-navigation"
           style={{
             position: 'absolute',
             top: '100%',

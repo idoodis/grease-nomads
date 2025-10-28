@@ -7,16 +7,17 @@ import Image from 'next/image';
 // Function to map service names to logo files
 const getServiceLogo = (serviceName: string) => {
   const logoMap: { [key: string]: string } = {
-    'maintenance': '/Maintenance logo.png',
-    'diagnosis': '/Diagnostics logo.png',
-    'diagnostics': '/Diagnostics logo.png',
-    'performance modifications': '/Modifications logo.png',
-    'modifications': '/Modifications logo.png',
-    'roadside assistance': '/Roadside Assistance logo.png',
-    'pre-purchase inspection': '/PPI logo.png',
-    'auto repair': '/Repair logo.png',
-    'repairs': '/Repair logo.png',
-    'repair': '/Repair logo.png'
+    maintenance: '/maintenance-logo.png',
+    diagnosis: '/diagnostics-logo.png',
+    diagnostics: '/diagnostics-logo.png',
+    'performance modifications': '/modifications-logo.png',
+    modifications: '/modifications-logo.png',
+    'roadside assistance': '/roadside-assistance-logo.png',
+    'pre-purchase inspection': '/ppi-logo.png',
+    'pre purchase inspection': '/ppi-logo.png',
+    'auto repair': '/repair-logo.png',
+    repairs: '/repair-logo.png',
+    repair: '/repair-logo.png',
   };
   
   const lowerServiceName = serviceName.toLowerCase();
@@ -29,12 +30,12 @@ const getServiceLogo = (serviceName: string) => {
   }
   
   // Exact match check for better precision
-  if (lowerServiceName === 'repair' || lowerServiceName === 'repairs') return '/Repair logo.png';
-  if (lowerServiceName.includes('modification')) return '/Modifications logo.png';
-  if (lowerServiceName.includes('pre-purchase') || lowerServiceName.includes('pre purchase')) return '/PPI logo.png';
-  
+  if (lowerServiceName === 'repair' || lowerServiceName === 'repairs') return '/repair-logo.png';
+  if (lowerServiceName.includes('modification')) return '/modifications-logo.png';
+  if (lowerServiceName.includes('pre-purchase') || lowerServiceName.includes('pre purchase')) return '/ppi-logo.png';
+
   // Default fallback
-  return '/Repair logo.png';
+  return '/repair-logo.png';
 };
 
 interface Service {
