@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/header';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair',
@@ -29,9 +30,9 @@ export const metadata: Metadata = {
     siteName: 'Grease Nomads',
     images: [
       {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
+        url: '/logo.png',
+        width: 512,
+        height: 512,
         alt: 'Grease Nomads - ASE Certified Mobile Mechanics',
       },
     ],
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
       'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair',
     description:
       'Professional ASE certified mobile mechanic services in Chicago. Same-day auto repair, maintenance, diagnostics, and emergency service delivered to your location.',
-    images: ['/og-image.jpg'],
+    images: ['/logo.png'],
   },
   robots: {
     index: true,
@@ -56,9 +57,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 
@@ -75,7 +73,8 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning style={{ backgroundColor: '#000000', color: '#e5e7eb' }}>
         <Header />
-        <main style={{ paddingTop: '80px' }}>{children}</main>
+        <main style={{ paddingTop: '80px', minHeight: '100vh' }}>{children}</main>
+        <Footer />
       </body>
     </html>
   );
