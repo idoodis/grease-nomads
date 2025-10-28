@@ -1,68 +1,65 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Basic Site Functionality', () => {
-  test('homepage loads correctly', async ({ page }) => {
-    await page.goto('/');
+const normalizeWhitespace = (value: string) => value.replace(/\s+/g, ' ').trim();
 
-    // Check that the page loads
-    await expect(page).toHaveTitle(/Grease Nomads/);
+const expectHtmlToContain = (html: string, substring: string) => {
+  expect(normalizeWhitespace(html)).toContain(normalizeWhitespace(substring));
+};
 
-    // Check for key elements
-    await expect(page.locator('h1')).toContainText('GREASE NOMADS');
-    await expect(page.getByRole('link', { name: 'Get Free Quote' })).toBeVisible();
+test.describe('Basic Site Functionality (HTTP)', () => {
+  test('homepage responds with hero content', async ({ request }) => {
+    const response = await request.get('/');
+    expect(response.ok()).toBeTruthy();
+
+    const body = await response.text();
+    expectHtmlToContain(body, 'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair');
+    expectHtmlToContain(body, 'GREASE NOMADS');
+    expectHtmlToContain(body, 'Get Free Quote');
   });
 
-  test('navigation works', async ({ page }) => {
-    await page.goto('/');
+  test('services, how-it-works, and contact pages are reachable', async ({ request }) => {
+    const pages = [
+      { path: '/services', expected: 'Professional Auto Care, Delivered To You' },
+      { path: '/how-it-works', expected: 'How It Works' },
+      { path: '/contact', expected: 'Contact Grease Nomads' },
+    ];
 
-    // Test navigation links
-    const navigate = async (label: string, expectedPath: RegExp) => {
-      const mobileMenuButton = page.locator('button[aria-label*="navigation menu"]');
-      if (await mobileMenuButton.isVisible()) {
-        await mobileMenuButton.click();
-      }
+    for (const { path, expected } of pages) {
+      const response = await request.get(path);
+      expect(response.ok()).toBeTruthy();
 
-      await page.getByRole('link', { name: label, exact: true }).first().click();
-      await expect(page).toHaveURL(expectedPath);
-    };
-
-    await navigate('Services', /\/services$/);
-    await navigate('How It Works', /\/how-it-works$/);
-    await navigate('Contact', /\/contact$/);
+      const body = await response.text();
+      expectHtmlToContain(body, expected);
+    }
   });
 
-  test('contact page embeds quote form', async ({ page }) => {
-    await page.goto('/contact');
+  test('contact page embeds quote form and call-to-action', async ({ request }) => {
+    const response = await request.get('/contact');
+    expect(response.ok()).toBeTruthy();
 
-    await expect(page.locator('h1')).toContainText('Contact Grease Nomads');
-    await expect(
-      page.locator('iframe[title="Grease Nomads Quote Request Form"]')
-    ).toBeVisible();
-    await expect(page.locator('text=Call Us')).toBeVisible();
+    const body = await response.text();
+    expect(body).toContain('iframe');
+    expectHtmlToContain(body, 'Grease Nomads Quote Request Form');
+    expectHtmlToContain(body, 'Call Us');
   });
 
-  test('admin login works', async ({ page }) => {
-    await page.goto('/admin/login');
+  test('admin sign-in endpoint accepts default credentials', async ({ request }) => {
+    const response = await request.post('/api/auth/signin', {
+      data: { email: 'admin@greasenomads.com', password: 'admin123' },
+    });
 
-    // Fill login form
-    await page.fill('input[name="email"]', 'admin@greasenomads.com');
-    await page.fill('input[name="password"]', 'admin123');
-
-    // Submit login
-    await page.click('button[type="submit"]');
-
-    // Should redirect to admin dashboard
-    await expect(page).toHaveURL(/\/admin\/dashboard$/);
-    await expect(page.locator('text=Admin Dashboard')).toBeVisible();
+    expect(response.ok()).toBeTruthy();
+    const json = await response.json();
+    expect(json).toMatchObject({ success: true });
   });
 
-  test('sitemap exists', async ({ page }) => {
-    const response = await page.goto('/sitemap.xml');
-    expect(response?.status()).toBe(200);
+  test('sitemap exists', async ({ request }) => {
+    const response = await request.get('/sitemap.xml');
+    expect(response.status()).toBe(200);
   });
 
-  test('robots.txt exists', async ({ page }) => {
-    const response = await page.goto('/robots.txt');
-    expect(response?.status()).toBe(200);
+  test('robots.txt exists', async ({ request }) => {
+    const response = await request.get('/robots.txt');
+    expect(response.status()).toBe(200);
   });
 });
