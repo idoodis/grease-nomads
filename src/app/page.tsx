@@ -1,35 +1,45 @@
 import Link from 'next/link';
-import { prisma } from '@/lib/db';
+import { fallbackReviews, fallbackServices } from '@/data/fallback-content';
+import { isDatabaseEnabled, prisma } from '@/lib/db';
 import ReviewsCarousel from '@/components/reviews-carousel';
 
 export default async function HomePage() {
   // Read services directly from the database to match Services page
-  let services: Array<{ id: string; name: string; description: string; price: string }> = [];
-  let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> = [];
-  if (!process.env.DATABASE_URL) {
-    console.warn(
-      'DATABASE_URL is not defined. Rendering home page with static content.'
-    );
-  } else {
+  const dbEnabled = isDatabaseEnabled();
+  let services: Array<{ id: string; name: string; description: string; price: string }> =
+    fallbackServices.map((service) => ({
+      id: service.id,
+      name: service.name,
+      description: service.description,
+      price: String(service.basePrice),
+    }));
+  let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> =
+    fallbackReviews;
+
+  if (dbEnabled) {
     try {
       const dbServices = await prisma.service.findMany({
         orderBy: { updatedAt: 'desc' },
       });
-      services = dbServices.map((s) => ({
-        id: s.id,
-        name: s.name,
-        description: s.description,
-        price: String(s.basePrice),
-      }));
+      if (dbServices.length) {
+        services = dbServices.map((s) => ({
+          id: s.id,
+          name: s.name,
+          description: s.description,
+          price: String(s.basePrice),
+        }));
+      }
       const dbReviews = await prisma.review.findMany({
         orderBy: { publishedAt: 'desc' },
       });
-      reviews = dbReviews.map((r) => ({
-        id: r.id,
-        authorName: r.authorName,
-        rating: r.rating,
-        body: r.body,
-      }));
+      if (dbReviews.length) {
+        reviews = dbReviews.map((r) => ({
+          id: r.id,
+          authorName: r.authorName,
+          rating: r.rating,
+          body: r.body,
+        }));
+      }
     } catch (error) {
       console.error('Failed to load dynamic home page content', error);
     }

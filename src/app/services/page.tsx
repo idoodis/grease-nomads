@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { prisma } from '@/lib/db';
+import { fallbackServices } from '@/data/fallback-content';
+import { isDatabaseEnabled, prisma } from '@/lib/db';
 import { ServicesPage as ServicesPageView } from '@/components/services-page';
 
 type ServiceRecord = {
@@ -32,13 +33,19 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  let services: ServiceRecord[] = [];
+  const dbEnabled = isDatabaseEnabled();
+  let services: ServiceRecord[] = fallbackServices.map((service) => ({
+    id: service.id,
+    name: service.name,
+    slug: service.slug,
+    description: service.description,
+    longDescription: service.longDescription,
+    basePrice: service.basePrice,
+    priceUnit: service.priceUnit,
+    isFeatured: service.isFeatured,
+  }));
 
-  if (!process.env.DATABASE_URL) {
-    console.warn(
-      'DATABASE_URL is not defined. Rendering services page with static content.'
-    );
-  } else {
+  if (dbEnabled) {
     try {
       const dbServices = await prisma.service.findMany({
         orderBy: [
@@ -47,16 +54,18 @@ export default async function ServicesPage() {
         ],
       });
 
-      services = dbServices.map((service) => ({
-        id: service.id,
-        name: service.name,
-        slug: service.slug,
-        description: service.description,
-        longDescription: service.longDescription,
-        basePrice: service.basePrice,
-        priceUnit: service.priceUnit,
-        isFeatured: service.isFeatured,
-      }));
+      if (dbServices.length) {
+        services = dbServices.map((service) => ({
+          id: service.id,
+          name: service.name,
+          slug: service.slug,
+          description: service.description,
+          longDescription: service.longDescription,
+          basePrice: service.basePrice,
+          priceUnit: service.priceUnit,
+          isFeatured: service.isFeatured,
+        }));
+      }
     } catch (error) {
       console.error('Failed to load services from database', error);
     }

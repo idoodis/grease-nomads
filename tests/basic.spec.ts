@@ -8,41 +8,37 @@ test.describe('Basic Site Functionality', () => {
     await expect(page).toHaveTitle(/Grease Nomads/);
 
     // Check for key elements
-    await expect(page.locator('h1')).toContainText('Mobile Mechanics');
-    await expect(page.locator('text=Get Your Free Quote Today')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('GREASE NOMADS');
+    await expect(page.getByRole('link', { name: 'Get Free Quote' })).toBeVisible();
   });
 
   test('navigation works', async ({ page }) => {
     await page.goto('/');
 
     // Test navigation links
-    await page.click('text=Services');
-    await expect(page).toHaveURL('/services');
+    const navigate = async (label: string, expectedPath: RegExp) => {
+      const mobileMenuButton = page.locator('button[aria-label*="navigation menu"]');
+      if (await mobileMenuButton.isVisible()) {
+        await mobileMenuButton.click();
+      }
 
-    await page.click('text=How It Works');
-    await expect(page).toHaveURL('/how-it-works');
+      await page.getByRole('link', { name: label, exact: true }).first().click();
+      await expect(page).toHaveURL(expectedPath);
+    };
 
-    await page.click('text=Contact');
-    await expect(page).toHaveURL('/contact');
+    await navigate('Services', /\/services$/);
+    await navigate('How It Works', /\/how-it-works$/);
+    await navigate('Contact', /\/contact$/);
   });
 
-  test('contact form works', async ({ page }) => {
+  test('contact page embeds quote form', async ({ page }) => {
     await page.goto('/contact');
 
-    // Fill out the contact form
-    await page.fill('input[name="name"]', 'Test User');
-    await page.fill('input[name="email"]', 'test@example.com');
-    await page.fill('input[name="phone"]', '3125550123');
-    await page.fill(
-      'textarea[name="message"]',
-      'This is a test message for the contact form.'
-    );
-
-    // Submit the form
-    await page.click('button[type="submit"]');
-
-    // Check for success message
-    await expect(page.locator('text=Message Sent!')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('Contact Grease Nomads');
+    await expect(
+      page.locator('iframe[title="Grease Nomads Quote Request Form"]')
+    ).toBeVisible();
+    await expect(page.locator('text=Call Us')).toBeVisible();
   });
 
   test('admin login works', async ({ page }) => {
@@ -56,7 +52,7 @@ test.describe('Basic Site Functionality', () => {
     await page.click('button[type="submit"]');
 
     // Should redirect to admin dashboard
-    await expect(page).toHaveURL('/admin');
+    await expect(page).toHaveURL(/\/admin\/dashboard$/);
     await expect(page.locator('text=Admin Dashboard')).toBeVisible();
   });
 
