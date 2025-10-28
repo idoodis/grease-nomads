@@ -190,13 +190,24 @@ export function ServicesPage({ services }: ServicesPageProps) {
               return (
                 <article
                   key={service.id}
-                  className={`group relative overflow-hidden rounded-3xl border p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl reveal ${
+                  className={`group relative overflow-hidden rounded-3xl border pt-24 p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl reveal ${
                     isFeatured ? 'border-white/15' : 'border-white/10'
                   } bg-[#0f1115] hover:border-primary-400/40 hover:shadow-primary/20`}
                   style={{ transitionDelay: `${index * 80}ms` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
                   <div className="pointer-events-none absolute -inset-px rounded-3xl ring-1 ring-white/10 transition-colors duration-300 group-hover:ring-white/20" />
+
+                  {/* Top-centered circular logo badge */}
+                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 flex h-28 w-28 items-center justify-center rounded-full bg-white/10 shadow-inner animate-float-slow transition-transform duration-300 ease-out will-change-transform group-hover:scale-105 group-hover:-rotate-3 border border-white/20">
+                    <Image
+                      src={getServiceLogo(service.name)}
+                      alt={`${service.name} service icon`}
+                      width={100}
+                      height={100}
+                      className="object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.35)] transition-transform duration-300 ease-out group-hover:scale-110"
+                    />
+                  </div>
 
                   <div className="relative">
                     {isFeatured && (
@@ -205,31 +216,19 @@ export function ServicesPage({ services }: ServicesPageProps) {
                       </span>
                     )}
 
-                    <div className="mt-5 flex items-center justify-between gap-4">
-                      <div>
-                        <h3 className="text-2xl font-heading font-bold text-white">
-                          {service.name}
-                        </h3>
-                        <p className="mt-3 text-sm text-gray-300 leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
-                      <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-white/10 shadow-inner animate-float-slow transition-transform duration-300 ease-out will-change-transform group-hover:scale-105 group-hover:-rotate-3">
-                        <Image
-                          src={getServiceLogo(service.name)}
-                          alt={`${service.name} service icon`}
-                          width={72}
-                          height={72}
-                          className="object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.35)] transition-transform duration-300 ease-out group-hover:scale-110"
-                        />
-                      </div>
+                    <div className="mt-3">
+                      <h3 className="text-2xl font-heading font-bold text-white text-center">
+                        {service.name}
+                      </h3>
+                      <p className="mt-3 text-sm text-gray-300 leading-relaxed text-center">
+                        {service.description}
+                      </p>
                     </div>
 
-                    <div className="mt-6 flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-primary">
-                        {formatPrice(service.basePrice, service.priceUnit)}
-                      </span>
-                      <span className="text-sm text-gray-400">Starting at</span>
+                    <div className="mt-6">
+                      <div className="text-3xl font-extrabold text-primary text-center">
+                        {`Starting at ${formatPrice(service.basePrice, service.priceUnit)}`}
+                      </div>
                     </div>
 
                     <div className="mt-6 space-y-4">
@@ -245,19 +244,16 @@ export function ServicesPage({ services }: ServicesPageProps) {
                       </div>
                     </div>
 
-                    <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                    <div className="mt-8 flex flex-col items-center gap-3">
                       <Link
                         href={getServiceHref(service.name)}
-                        className="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 bg-primary-500 text-white hover:bg-primary-600 h-11"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 bg-primary-500 text-white hover:bg-primary-600 h-11 px-6"
                       >
-                        Learn More
+                        Get Quote
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
-                      <Link
-                        href="/contact"
-                        className="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/40 border border-white/20 bg-transparent text-white hover:bg-white/10 h-11"
-                      >
-                        Book Service
+                      <Link href={`/${service.slug}`} className="text-xs text-gray-300 hover:text-white">
+                        Learn more
                       </Link>
                     </div>
                   </div>
