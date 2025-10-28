@@ -6,23 +6,33 @@ export default async function HomePage() {
   // Read services directly from the database to match Services page
   let services: Array<{ id: string; name: string; description: string; price: string }> = [];
   let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> = [];
-  try {
-    const dbServices = await prisma.service.findMany({ orderBy: { updatedAt: 'desc' } });
-    services = dbServices.map((s) => ({
-      id: s.id,
-      name: s.name,
-      description: s.description,
-      price: String(s.basePrice),
-    }));
-    const dbReviews = await prisma.review.findMany({ orderBy: { publishedAt: 'desc' } });
-    reviews = dbReviews.map((r) => ({
-      id: r.id,
-      authorName: r.authorName,
-      rating: r.rating,
-      body: r.body,
-    }));
-  } catch (_e) {
-    // Fail silently; we'll show static content if fetch fails
+  if (!process.env.DATABASE_URL) {
+    console.warn(
+      'DATABASE_URL is not defined. Rendering home page with static content.'
+    );
+  } else {
+    try {
+      const dbServices = await prisma.service.findMany({
+        orderBy: { updatedAt: 'desc' },
+      });
+      services = dbServices.map((s) => ({
+        id: s.id,
+        name: s.name,
+        description: s.description,
+        price: String(s.basePrice),
+      }));
+      const dbReviews = await prisma.review.findMany({
+        orderBy: { publishedAt: 'desc' },
+      });
+      reviews = dbReviews.map((r) => ({
+        id: r.id,
+        authorName: r.authorName,
+        rating: r.rating,
+        body: r.body,
+      }));
+    } catch (error) {
+      console.error('Failed to load dynamic home page content', error);
+    }
   }
   const structuredData = {
     '@context': 'https://schema.org',
