@@ -3,6 +3,18 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle, ShieldCheck, TimerReset } from 'lucide-react';
 import Image from 'next/image';
 
+// Match service link destinations to Home page behavior
+const getServiceHref = (serviceName: string) => {
+  const name = serviceName.toLowerCase();
+  if (name.includes('repair')) return '/repairs';
+  if (name.includes('diagn')) return '/diagnosis';
+  if (name.includes('modif')) return '/modifications';
+  if (name.includes('pre-purchase') || name.includes('inspection')) return '/pre-purchase-inspection';
+  if (name.includes('maintenance')) return '/maintenance';
+  if (name.includes('roadside') || name.includes('assistance')) return '/roadside-assistance';
+  return '/contact';
+};
+
 // Function to map service names to logo files
 const getServiceLogo = (serviceName: string) => {
   const logoMap: { [key: string]: string } = {
@@ -155,29 +167,29 @@ export function ServicesPage({ services }: ServicesPageProps) {
               return (
                 <article
                   key={service.id}
-                  className={`group relative overflow-hidden rounded-3xl border bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
-                    isFeatured ? 'border-primary-200' : 'border-gray-200'
-                  }`}
+                  className={`group relative overflow-hidden rounded-3xl border p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
+                    isFeatured ? 'border-white/15' : 'border-white/10'
+                  } bg-[#0f1115]`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
 
                   <div className="relative">
                     {isFeatured && (
-                      <span className="inline-flex items-center rounded-full bg-primary-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+                      <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
                         Popular Choice
                       </span>
                     )}
 
                     <div className="mt-5 flex items-center justify-between gap-4">
                       <div>
-                        <h3 className="text-2xl font-heading font-bold text-secondary-900">
+                        <h3 className="text-2xl font-heading font-bold text-white">
                           {service.name}
                         </h3>
-                        <p className="mt-3 text-sm text-gray-600 leading-relaxed">
+                        <p className="mt-3 text-sm text-gray-300 leading-relaxed">
                           {service.description}
                         </p>
                       </div>
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5">
                         <Image
                           src={getServiceLogo(service.name)}
                           alt={`${service.name} service icon`}
@@ -192,16 +204,16 @@ export function ServicesPage({ services }: ServicesPageProps) {
                       <span className="text-3xl font-bold text-primary">
                         {formatPrice(service.basePrice, service.priceUnit)}
                       </span>
-                      <span className="text-sm text-gray-500">Starting at</span>
+                      <span className="text-sm text-gray-400">Starting at</span>
                     </div>
 
                     <div className="mt-6 space-y-4">
-                      <div className="flex items-center gap-3 text-sm font-semibold text-secondary-900">
+                      <div className="flex items-center gap-3 text-sm font-semibold text-white">
                         <TimerReset className="w-4 h-4 text-primary" />
                         <span>Typical turnaround within 24-48 hours</span>
                       </div>
-                      <div className="rounded-2xl bg-gray-50 p-5">
-                        <h4 className="text-sm font-semibold text-secondary-900 tracking-wide uppercase">What&apos;s Included</h4>
+                      <div className="rounded-2xl bg-white/5 p-5">
+                        <h4 className="text-sm font-semibold text-white tracking-wide uppercase">What&apos;s Included</h4>
                         <div className="mt-3 space-y-3">
                           {renderLongDescription(service.longDescription)}
                         </div>
@@ -210,7 +222,7 @@ export function ServicesPage({ services }: ServicesPageProps) {
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-3">
                       <Link
-                        href={`/${service.slug}`}
+                        href={getServiceHref(service.name)}
                         className="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500 bg-primary-500 text-white hover:bg-primary-600 h-11"
                       >
                         Learn More
@@ -218,7 +230,7 @@ export function ServicesPage({ services }: ServicesPageProps) {
                       </Link>
                       <Link
                         href="/contact"
-                        className="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 border border-gray-300 bg-white text-secondary-900 hover:bg-gray-100 h-11"
+                        className="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/40 border border-white/20 bg-transparent text-white hover:bg-white/10 h-11"
                       >
                         Book Service
                       </Link>
@@ -230,7 +242,7 @@ export function ServicesPage({ services }: ServicesPageProps) {
           </div>
 
           {!services.length && (
-            <div className="mt-12 rounded-3xl border border-dashed border-gray-300 bg-white p-10 text-center text-gray-600">
+            <div className="mt-12 rounded-3xl border border-dashed border-white/20 bg-[#0f1115] p-10 text-center text-gray-300">
               We&apos;re updating our service catalog. Please check back soon or contact us for assistance.
             </div>
           )}
