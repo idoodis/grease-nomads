@@ -21,6 +21,7 @@ function setRevealTargets(root: HTMLElement) {
       node.setAttribute(DATA_ATTRIBUTE, "");
       node.style.setProperty("--animate-delay", `${120 + index * 80}ms`);
     }
+    node.classList.add("gn-prep");
   });
   return targets;
 }

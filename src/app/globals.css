@@ -58,9 +58,14 @@ img {
 }
 
 [data-animate] {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--gn-transition-slow), transform var(--gn-transition-slow);
+}
+
+[data-animate].gn-prep {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity var(--gn-transition-slow), transform var(--gn-transition-slow);
 }
 
 [data-animate].gn-visible {
