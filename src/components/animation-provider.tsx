@@ -57,7 +57,6 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
       const targets = Array.from(setRevealTargets(root));
       targets.forEach((node) => observer.observe(node));
 
-      // Ensure fold content is visible immediately
       requestAnimationFrame(() => {
         const viewport = window.innerHeight || document.documentElement.clientHeight;
         targets.forEach((node) => {
@@ -70,10 +69,9 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
       });
     };
 
-    const timeout = window.setTimeout(run, 0);
+    run();
 
     return () => {
-      window.clearTimeout(timeout);
       observer.disconnect();
     };
   }, [pathname]);
