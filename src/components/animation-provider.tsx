@@ -54,8 +54,20 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
     const run = () => {
       const root = document.querySelector("main");
       if (!root) return;
-      const targets = setRevealTargets(root);
+      const targets = Array.from(setRevealTargets(root));
       targets.forEach((node) => observer.observe(node));
+
+      // Ensure fold content is visible immediately
+      requestAnimationFrame(() => {
+        const viewport = window.innerHeight || document.documentElement.clientHeight;
+        targets.forEach((node) => {
+          if (node.classList.contains("gn-visible")) return;
+          const rect = node.getBoundingClientRect();
+          if (rect.top < viewport * 0.95) {
+            node.classList.add("gn-visible");
+          }
+        });
+      });
     };
 
     const timeout = window.setTimeout(run, 0);
