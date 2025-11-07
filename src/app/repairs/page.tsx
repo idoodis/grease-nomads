@@ -1,59 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 
 export default function RepairsPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
-    vehicle: '',
-    message: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          service: 'repairs',
-        }),
-      });
-
-      if (response.ok) {
-        const name = formData.name?.trim() || 'friend';
-        alert(`Thanks, ${name}! We'll reach out to schedule your repair.`);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          location: '',
-          vehicle: '',
-          message: '',
-        });
-      } else {
-        alert('Failed to send request. Please try again or call us directly.');
-      }
-    } catch (error) {
-      alert('Failed to send request. Please call us at (224) 652-7264');
-    }
-  };
-
   return (
     <>
       <Head>
@@ -72,11 +23,6 @@ export default function RepairsPage() {
           --accent: #ff6a00;
           --card: #121212;
           --ring: rgba(255, 106, 0, 0.35);
-        }
-        @media (max-width: 640px) {
-          .responsive-grid {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
 
@@ -334,8 +280,8 @@ export default function RepairsPage() {
             >
               <h3 style={{ margin: 0 }}>Need a repair? Book an appointment today.</h3>
               <div style={{ display: 'flex', gap: '.8rem', flexWrap: 'wrap' }}>
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -351,7 +297,7 @@ export default function RepairsPage() {
                   }}
                 >
                   Request repair
-                </a>
+                </Link>
                 <Link
                   href="/"
                   style={{
@@ -372,167 +318,7 @@ export default function RepairsPage() {
             </div>
           </section>
 
-          {/* Contact Form */}
-          <section id="contact" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.25rem 2.5rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.2rem,1.5vw+0.6rem,1.8rem)', margin: '1.6rem 0 .6rem' }}>
-              Request a Repair Appointment
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '.8rem',
-                  gridTemplateColumns: '1fr 1fr',
-                }}
-                className="responsive-grid"
-              >
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="name">Name</label>
-                  <input
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="you@email.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '.8rem',
-                  gridTemplateColumns: '1fr 1fr',
-                  marginTop: '.8rem',
-                }}
-                className="responsive-grid"
-              >
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    placeholder="(555) 555-5555"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="location">Service Location</label>
-                  <input
-                    id="location"
-                    name="location"
-                    placeholder="City / Address"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-              </div>
-              <div style={{ display: 'grid', gap: '.35rem', marginTop: '.8rem' }}>
-                <label htmlFor="vehicle">Vehicle</label>
-                <input
-                  id="vehicle"
-                  name="vehicle"
-                  placeholder="Year Make Model (e.g., 2000 Chevy Astro)"
-                  value={formData.vehicle}
-                  onChange={handleInputChange}
-                  style={{
-                    background: '#0e0e0e',
-                    border: '1px solid rgba(255,255,255,.12)',
-                    color: '#f5f5f5',
-                    padding: '.85rem .9rem',
-                    borderRadius: '12px',
-                    outline: 'none',
-                  }}
-                />
-              </div>
-              <div style={{ display: 'grid', gap: '.35rem', marginTop: '.8rem' }}>
-                <label htmlFor="message">Repair Needed</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Describe the repair work you need"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  style={{
-                    background: '#0e0e0e',
-                    border: '1px solid rgba(255,255,255,.12)',
-                    color: '#f5f5f5',
-                    padding: '.85rem .9rem',
-                    borderRadius: '12px',
-                    outline: 'none',
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '.5rem',
-                  fontWeight: 700,
-                  border: '1px solid transparent',
-                  padding: '.85rem 1.1rem',
-                  borderRadius: '14px',
-                  cursor: 'pointer',
-                  background: '#ff6a00',
-                  color: '#111',
-                  marginTop: '.8rem',
-                }}
-              >
-                Send request
-              </button>
-            </form>
-            <p style={{ color: '#c9c9c9', marginTop: '.6rem' }}>
-              Please Contact Us for a Free Estimate. <br />
-              Email: contact@greasenomads.com Phone: (224) 652 7264
-            </p>
-          </section>
+          
         </main>
 
         {/* Footer */}

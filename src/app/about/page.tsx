@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 
 interface TeamMember {
   id: string;
@@ -35,7 +36,7 @@ export default function AboutPage() {
         </title>
         <meta
           name="description"
-          content="Learn about Grease Nomads, Chicago’s trusted ASE certified mobile mechanic team. Founded in 2018, we bring professional auto repair services directly to your location."
+          content="Learn about Grease Nomads, a trusted ASE certified mobile mechanic team serving the Chicago area. Founded in 2018, we bring professional auto repair services directly to your location."
         />
         <meta
           name="keywords"
@@ -63,14 +64,17 @@ export default function AboutPage() {
                 marginBottom: '32px',
               }}
             >
-              <img
+              <Image
                 src="/logo.png"
                 alt="Grease Nomads - ASE Certified Mobile Mechanics"
+                width={120}
+                height={120}
                 style={{
                   height: '100px',
                   width: 'auto',
                   marginRight: '20px',
                 }}
+                priority
               />
               <h1
                 style={{
@@ -91,7 +95,7 @@ export default function AboutPage() {
                 margin: '0 auto',
               }}
             >
-              Your trusted mobile mechanic, servicing Chicago’s surrounding areas.
+              Your trusted mobile mechanic, servicing the Chicago area and surrounding communities.
             </p>
           </div>
         </section>
@@ -131,7 +135,7 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  Grease Nomads goal is to change the way people experience their cars. The company was founded by Z. Shahjee. To him, cars are more than machines—they’re companions on life’s journeys, tools of freedom, and symbols of independence. That belief drives the company’s high level of care. It’s not just about fixing vehicles; it’s about respecting what they mean to the people who drive them.
+                  The goal of Grease Nomads is to change the way people experience their cars. Founder Z. Shahjee sees cars as more than machines—they are companions on life journeys, tools of freedom, and symbols of independence. That belief drives the company to deliver a high level of care. The work goes beyond fixing vehicles; it is about honoring what they mean to the people who drive them.
                 </p>
                 <p
                   style={{
@@ -141,7 +145,7 @@ export default function AboutPage() {
                     marginBottom: '24px',
                   }}
                 >
-                  Everyone on the Grease Nomads team shares that same passion and that pride shows in the way we approach every service—whether it’s routine maintenance, a weird problem, vehicle modifications, Pre-Purchase Inspections, or an emergency on the side of the road. Every vehicle is treated as if it were their own, because they know what it means to have your trust.
+                  Everyone on the Grease Nomads team shares that same passion, and that pride is evident in every service—whether the request involves routine maintenance, a complicated problem, vehicle modifications, pre-purchase inspections, or a roadside emergency. Every vehicle receives the same attention the technicians would give their own because they understand what it means to earn a customer&rsquo;s trust.
                 </p>
                 <p
                   style={{
@@ -157,7 +161,7 @@ export default function AboutPage() {
                     borderRadius: '8px',
                   }}
                 >
-                  Grease Nomads is at the beginning of its journey. Founded with the goal of rethinking how people handle car maintenance and repair, we’re bringing the shop to you—convenient, professional, and reliable. With a background in custom work and Jaguar Land Rover, we’re starting small but building with purpose: to create a new standard for automotive care.
+                  Grease Nomads is at the beginning of a long journey. Founded to rethink how people handle car maintenance and repair, the company brings the shop to you—convenient, professional, and reliable. With experience in custom work and Jaguar Land Rover, the team is starting small but building with purpose to create a new standard for automotive care.
                 </p>
               </div>
               <div
@@ -183,9 +187,11 @@ export default function AboutPage() {
                     overflow: 'hidden',
                   }}
                 >
-                  <img
+                  <Image
                     src="/logo.png"
                     alt="Grease Nomads Logo"
+                    width={96}
+                    height={96}
                     style={{
                       width: 'clamp(48px, 9vw, 72px)',
                       height: 'auto',
@@ -214,7 +220,7 @@ export default function AboutPage() {
                   professionalism, reliability, and affordability, we bring
                   expert service directly to you—eliminating wasted time,
                   surprise costs, and the stress of traditional shops. Wherever
-                  life takes you, we’re there, because we’re driven with care,
+                  life takes you, we are there, because we are driven with care,
                   anywhere.
                 </p>
               </div>

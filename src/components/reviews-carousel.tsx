@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface ReviewItem {
   id: string;
@@ -12,25 +12,32 @@ export interface ReviewItem {
 export default function ReviewsCarousel({ reviews }: { reviews: ReviewItem[] }) {
   const [index, setIndex] = useState(0);
   const count = reviews.length;
-  const safeIndex = (i: number) => ((i % count) + count) % count;
+  const getSafeIndex = useCallback(
+    (value: number) => {
+      if (count === 0) return 0;
+      return ((value % count) + count) % count;
+    },
+    [count]
+  );
   const pausedRef = useRef(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
-  // Autoplay to next review every 5 seconds
+  const normalizedIndex = getSafeIndex(index);
+
   useEffect(() => {
-    if (count <= 1) return; // no need to auto-advance
+    if (count <= 1) return;
     const id = setInterval(() => {
       if (!pausedRef.current) setIndex((i) => i + 1);
     }, 5000);
     return () => clearInterval(id);
   }, [count]);
 
-  if (!count) {
+  if (count === 0) {
     return <p style={{ color: '#9ca3af', textAlign: 'center' }}>No reviews yet.</p>;
   }
 
-  const current = reviews[safeIndex(index)];
+  const current = reviews[normalizedIndex];
 
   const onMouseEnter = () => {
     pausedRef.current = true;
@@ -95,16 +102,16 @@ export default function ReviewsCarousel({ reviews }: { reviews: ReviewItem[] }) 
               fontWeight: 'bold',
             }}
           >
-            {current!.authorName?.charAt(0).toUpperCase() || 'U'}
+            {(current.authorName?.charAt(0) || 'U').toUpperCase()}
           </div>
           <div>
             <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f3f4f6', margin: 0 }}>
-              {current!.authorName}
+              {current.authorName}
             </div>
-            <div style={{ color: '#f97316' }}>{'★'.repeat(current!.rating).padEnd(5, '☆')}</div>
+            <div style={{ color: '#f97316' }}>{'★'.repeat(current.rating).padEnd(5, '☆')}</div>
           </div>
         </div>
-        <p style={{ color: '#d1d5db', lineHeight: 1.6, fontStyle: 'italic' }}>{current!.body}</p>
+        <p style={{ color: '#d1d5db', lineHeight: 1.6, fontStyle: 'italic' }}>{current.body}</p>
       </div>
 
       <button
@@ -155,7 +162,7 @@ export default function ReviewsCarousel({ reviews }: { reviews: ReviewItem[] }) 
               width: 8,
               height: 8,
               borderRadius: '50%',
-              background: i === safeIndex(index) ? '#f97316' : '#374151',
+              background: i === normalizedIndex ? '#f97316' : '#374151',
               border: 'none',
               cursor: 'pointer',
             }}

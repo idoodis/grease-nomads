@@ -1,55 +1,31 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { signIn } from 'next-auth/react';
 
-interface SignInPayload {
-  email: string;
-  password: string;
-}
+export async function POST(request: NextRequest) {
+  try {
+    const { email, password } = await request.json();
 
-const getAllowedCredentials = () => {
-  const configuredEmail = process.env.ADMIN_EMAIL;
-  const configuredPassword = process.env.ADMIN_PASSWORD;
+    // Simple admin authentication (in production, use proper authentication)
+    if (email === 'admin@greasenomads.com' && password === 'admin123') {
+      // Create a simple session token (in production, use proper JWT)
+      const response = NextResponse.json({ success: true });
 
-  const credentials = [] as Array<{ email: string; password: string }>;
+      // Set a simple session cookie
+      response.cookies.set('admin-session', 'authenticated', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24, // 24 hours
+      });
 
-  if (configuredEmail && configuredPassword) {
-    credentials.push({ email: configuredEmail, password: configuredPassword });
-  }
+      return response;
+    }
 
-  credentials.push({ email: 'admin@greasenomads.com', password: 'admin123' });
-
-  return credentials;
-};
-
-export async function POST(request: Request) {
-  const credentials = getAllowedCredentials();
-
-  if (!credentials.length) {
+    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+  } catch (error) {
     return NextResponse.json(
-      { error: 'Admin credentials are not configured.' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
-
-  let payload: SignInPayload;
-  try {
-    payload = (await request.json()) as SignInPayload;
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Invalid request body.' },
-      { status: 400 }
-    );
-  }
-
-  const isAuthorized = credentials.some(
-    (cred) => cred.email === payload.email && cred.password === payload.password
-  );
-
-  if (!isAuthorized) {
-    return NextResponse.json(
-      { error: 'Invalid credentials' },
-      { status: 401 }
-    );
-  }
-
-  return NextResponse.json({ success: true });
 }

@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import { fallbackServiceAreas, fallbackServices } from '@/data/fallback-content';
-import { isDatabaseEnabled, prisma } from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXTAUTH_URL || 'https://greasenomads.com';
@@ -45,57 +44,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const dbEnabled = isDatabaseEnabled();
+  // Dynamic service pages
+  const services = await prisma.service.findMany({
+    select: { slug: true, updatedAt: true },
+  });
 
-  let servicePages: MetadataRoute.Sitemap = fallbackServices.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  const servicePages = services.map(
+    (service: { slug: string; updatedAt: Date }) => ({
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: service.updatedAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })
+  );
 
-  let serviceAreaPages: MetadataRoute.Sitemap = fallbackServiceAreas.map((area) => ({
+  // Dynamic service area pages
+  const serviceAreas = await prisma.serviceArea.findMany({
+    select: { slug: true },
+  });
+
+  const serviceAreaPages = serviceAreas.map((area: { slug: string }) => ({
     url: `${baseUrl}/service-areas/${area.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
-
-  if (dbEnabled) {
-    try {
-      const services = await prisma.service.findMany({
-        select: { slug: true, updatedAt: true },
-      });
-
-      if (services.length) {
-        servicePages = services.map((service) => ({
-          url: `${baseUrl}/services/${service.slug}`,
-          lastModified: service.updatedAt,
-          changeFrequency: 'monthly' as const,
-          priority: 0.7,
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to load service entries for sitemap:', error);
-    }
-
-    try {
-      const serviceAreas = await prisma.serviceArea.findMany({
-        select: { slug: true },
-      });
-
-      if (serviceAreas.length) {
-        serviceAreaPages = serviceAreas.map((area) => ({
-          url: `${baseUrl}/service-areas/${area.slug}`,
-          lastModified: new Date(),
-          changeFrequency: 'monthly' as const,
-          priority: 0.6,
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to load service area entries for sitemap:', error);
-    }
-  }
 
   return [...staticPages, ...servicePages, ...serviceAreaPages];
 }

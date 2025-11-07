@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +31,7 @@ export default function Header() {
         }
       `}</style>
     <header
+      data-animate
       style={{
         position: 'fixed',
         top: 0,
@@ -61,14 +63,17 @@ export default function Header() {
             textDecoration: 'none',
           }}
         >
-          <img
+          <Image
             src="/logo.png"
             alt="Grease Nomads - ASE Certified Mobile Mechanics"
+            width={96}
+            height={96}
             style={{
               height: '50px',
               width: 'auto',
               marginRight: '12px',
             }}
+            priority
           />
           <span
             style={{
@@ -111,17 +116,6 @@ export default function Header() {
             }}
           >
             Services
-          </Link>
-          <Link
-            href="/how-it-works"
-            style={{
-              color: '#cbd5e1',
-              textDecoration: 'none',
-              fontWeight: '500',
-              transition: 'color 0.3s',
-            }}
-          >
-            How It Works
           </Link>
           <Link
             href="/about"
@@ -175,7 +169,6 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
             display: 'block',
@@ -185,10 +178,6 @@ export default function Header() {
             padding: '8px',
           }}
           className="mobile-menu-btn"
-          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          aria-haspopup="true"
         >
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
@@ -205,7 +194,6 @@ export default function Header() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div
-          id="mobile-navigation"
           style={{
             position: 'absolute',
             top: '100%',
@@ -228,7 +216,8 @@ export default function Header() {
               color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
-              padding: '8px 0',
+              padding: '12px 0',
+              borderBottom: '1px solid #f97316',
             }}
           >
             Home
@@ -240,22 +229,11 @@ export default function Header() {
               color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
-              padding: '8px 0',
+              padding: '12px 0',
+              borderBottom: '1px solid #f97316',
             }}
           >
             Services
-          </Link>
-          <Link
-            href="/how-it-works"
-            onClick={() => setIsMenuOpen(false)}
-            style={{
-              color: '#cbd5e1',
-              textDecoration: 'none',
-              fontWeight: '500',
-              padding: '8px 0',
-            }}
-          >
-            How It Works
           </Link>
           <Link
             href="/about"
@@ -264,7 +242,8 @@ export default function Header() {
               color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
-              padding: '8px 0',
+              padding: '12px 0',
+              borderBottom: '1px solid #f97316',
             }}
           >
             About
@@ -276,7 +255,8 @@ export default function Header() {
               color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
-              padding: '8px 0',
+              padding: '12px 0',
+              borderBottom: '1px solid #f97316',
             }}
           >
             Contact
@@ -288,7 +268,8 @@ export default function Header() {
               color: '#cbd5e1',
               textDecoration: 'none',
               fontWeight: '500',
-              padding: '8px 0',
+              padding: '12px 0',
+              borderBottom: '1px solid #f97316',
               fontSize: '0.875rem',
             }}
           >

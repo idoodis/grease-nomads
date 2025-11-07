@@ -1,59 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 
 export default function DiagnosisPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
-    vehicle: '',
-    message: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          service: 'diagnosis',
-        }),
-      });
-
-      if (response.ok) {
-        const name = formData.name?.trim() || 'friend';
-        alert(`Thanks, ${name}! We'll reach out to schedule your diagnostic visit.`);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          location: '',
-          vehicle: '',
-          message: '',
-        });
-      } else {
-        alert('Failed to send request. Please try again or call us directly.');
-      }
-    } catch (error) {
-      alert('Failed to send request. Please call us at (224) 652-7264');
-    }
-  };
-
   return (
     <>
       <Head>
@@ -72,11 +23,6 @@ export default function DiagnosisPage() {
           --accent: #ff6a00;
           --card: #121212;
           --ring: rgba(255, 106, 0, 0.35);
-        }
-        @media (max-width: 640px) {
-          .responsive-grid {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
 
@@ -202,37 +148,60 @@ export default function DiagnosisPage() {
           <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '1rem 1.25rem 0' }}>
             <div
               style={{
-                background: '#0f0f0f',
-                border: '1px solid rgba(255,255,255,.08)',
-                borderRadius: '14px',
-                padding: '1rem',
+                background: '#f97316',
+                borderRadius: '32px',
+                padding: '2.5rem 2rem',
+                color: '#111827',
+                boxShadow: '0 18px 45px rgba(249, 115, 22, 0.18)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
               }}
             >
-              <h2 style={{ fontSize: 'clamp(1.2rem,1.5vw+0.6rem,1.8rem)', margin: '1.6rem 0 .6rem' }}>
-                Diagnostic Fee
-              </h2>
-              <ul
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', justifyContent: 'center' }}>
+                <Image src="/Diagnostics logo.png" alt="Diagnostics" width={120} height={120} priority />
+                <div>
+                  <div style={{ fontWeight: 800, letterSpacing: '.15em', textTransform: 'uppercase' }}>Diagnostics</div>
+                  <h2
+                    style={{
+                      fontSize: 'clamp(1.9rem, 3vw, 2.6rem)',
+                      fontWeight: 800,
+                      letterSpacing: '.08em',
+                      textTransform: 'uppercase',
+                      margin: '.4rem 0 0 0',
+                    }}
+                  >
+                    Standard Diagnostic Fee
+                  </h2>
+                </div>
+              </div>
+              <div
                 style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  display: 'grid',
-                  gap: '.4rem',
-                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
+                  alignSelf: 'center',
+                  background: '#111827',
+                  color: '#ffffff',
+                  padding: '1.3rem 3.5rem',
+                  borderRadius: '24px',
+                  fontSize: 'clamp(2rem, 4vw, 3rem)',
+                  fontWeight: 800,
+                  letterSpacing: '.1em',
                 }}
               >
-                <li
-                  style={{
-                    background: '#ff6a00',
-                    color: '#111',
-                    padding: '.4rem .6rem',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                  }}
-                >
-                  Standard Diagnostic: $200 (Covers call out fee. If repairs are approved $150 credit will be applied if applicable.)
-                </li>
-              </ul>
+                $150
+              </div>
+              <p
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 700,
+                  letterSpacing: '.065em',
+                  textTransform: 'uppercase',
+                  maxWidth: '520px',
+                  margin: '0 auto',
+                  lineHeight: 1.5,
+                }}
+              >
+                (Covers call out fee) If repairs are approved a $100 credit will be applied if applicable.
+              </p>
             </div>
 
             {/* Service Cards */}
@@ -341,8 +310,8 @@ export default function DiagnosisPage() {
             >
               <h3 style={{ margin: 0 }}>Ready to troubleshoot? Book a diagnostic visit.</h3>
               <div style={{ display: 'flex', gap: '.8rem', flexWrap: 'wrap' }}>
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -358,7 +327,7 @@ export default function DiagnosisPage() {
                   }}
                 >
                   Request diagnosis
-                </a>
+                </Link>
                 <Link
                   href="/"
                   style={{
@@ -379,167 +348,6 @@ export default function DiagnosisPage() {
             </div>
           </section>
 
-          {/* Contact Form */}
-          <section id="contact" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.25rem 2.5rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.2rem,1.5vw+0.6rem,1.8rem)', margin: '1.6rem 0 .6rem' }}>
-              Request a Diagnostic Appointment
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '.8rem',
-                  gridTemplateColumns: '1fr 1fr',
-                }}
-                className="responsive-grid"
-              >
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="name">Name</label>
-                  <input
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="you@email.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '.8rem',
-                  gridTemplateColumns: '1fr 1fr',
-                  marginTop: '.8rem',
-                }}
-                className="responsive-grid"
-              >
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    placeholder="(555) 555-5555"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div style={{ display: 'grid', gap: '.35rem' }}>
-                  <label htmlFor="location">Service Location</label>
-                  <input
-                    id="location"
-                    name="location"
-                    placeholder="City / Address"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    style={{
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-              </div>
-              <div style={{ display: 'grid', gap: '.35rem', marginTop: '.8rem' }}>
-                <label htmlFor="vehicle">Vehicle</label>
-                <input
-                  id="vehicle"
-                  name="vehicle"
-                  placeholder="Year Make Model (e.g., 2000 Chevy Astro)"
-                  value={formData.vehicle}
-                  onChange={handleInputChange}
-                  style={{
-                    background: '#0e0e0e',
-                    border: '1px solid rgba(255,255,255,.12)',
-                    color: '#f5f5f5',
-                    padding: '.85rem .9rem',
-                    borderRadius: '12px',
-                    outline: 'none',
-                  }}
-                />
-              </div>
-              <div style={{ display: 'grid', gap: '.35rem', marginTop: '.8rem' }}>
-                <label htmlFor="message">Describe the Issue</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Warning lights, symptoms, recent work, etc."
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  style={{
-                    background: '#0e0e0e',
-                    border: '1px solid rgba(255,255,255,.12)',
-                    color: '#f5f5f5',
-                    padding: '.85rem .9rem',
-                    borderRadius: '12px',
-                    outline: 'none',
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '.5rem',
-                  fontWeight: 700,
-                  border: '1px solid transparent',
-                  padding: '.85rem 1.1rem',
-                  borderRadius: '14px',
-                  cursor: 'pointer',
-                  background: '#ff6a00',
-                  color: '#111',
-                  marginTop: '.8rem',
-                }}
-              >
-                Send request
-              </button>
-            </form>
-            <p style={{ color: '#c9c9c9', marginTop: '.6rem' }}>
-              Please Contact Us for a Free Estimate. <br />
-              Email: contact@greasenomads.com Phone: (224) 652 7264
-            </p>
-          </section>
         </main>
 
         {/* Footer */}

@@ -1,65 +1,72 @@
 import { test, expect } from '@playwright/test';
 
-const normalizeWhitespace = (value: string) => value.replace(/\s+/g, ' ').trim();
+test.describe('Basic Site Functionality', () => {
+  test('homepage loads correctly', async ({ page }) => {
+    await page.goto('/');
 
-const expectHtmlToContain = (html: string, substring: string) => {
-  expect(normalizeWhitespace(html)).toContain(normalizeWhitespace(substring));
-};
+    // Check that the page loads
+    await expect(page).toHaveTitle(/Grease Nomads/);
 
-test.describe('Basic Site Functionality (HTTP)', () => {
-  test('homepage responds with hero content', async ({ request }) => {
-    const response = await request.get('/');
-    expect(response.ok()).toBeTruthy();
-
-    const body = await response.text();
-    expectHtmlToContain(body, 'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair');
-    expectHtmlToContain(body, 'GREASE NOMADS');
-    expectHtmlToContain(body, 'Get Free Quote');
+    // Check for key elements
+    await expect(page.locator('h1')).toContainText('Mobile Mechanics');
+    await expect(page.locator('text=Get Your Free Quote Today')).toBeVisible();
   });
 
-  test('services, how-it-works, and contact pages are reachable', async ({ request }) => {
-    const pages = [
-      { path: '/services', expected: 'Professional Auto Care, Delivered To You' },
-      { path: '/how-it-works', expected: 'How It Works' },
-      { path: '/contact', expected: 'Contact Grease Nomads' },
-    ];
+  test('navigation works', async ({ page }) => {
+    await page.goto('/');
 
-    for (const { path, expected } of pages) {
-      const response = await request.get(path);
-      expect(response.ok()).toBeTruthy();
+    // Test navigation links
+    await page.click('text=Services');
+    await expect(page).toHaveURL('/services');
 
-      const body = await response.text();
-      expectHtmlToContain(body, expected);
-    }
+    await page.click('text=How It Works');
+    await expect(page).toHaveURL('/how-it-works');
+
+    await page.click('text=Contact');
+    await expect(page).toHaveURL('/contact');
   });
 
-  test('contact page embeds quote form and call-to-action', async ({ request }) => {
-    const response = await request.get('/contact');
-    expect(response.ok()).toBeTruthy();
+  test('contact form works', async ({ page }) => {
+    await page.goto('/contact');
 
-    const body = await response.text();
-    expect(body).toContain('iframe');
-    expectHtmlToContain(body, 'Grease Nomads Quote Request Form');
-    expectHtmlToContain(body, 'Call Us');
+    // Fill out the contact form
+    await page.fill('input[name="name"]', 'Test User');
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="phone"]', '3125550123');
+    await page.fill(
+      'textarea[name="message"]',
+      'This is a test message for the contact form.'
+    );
+
+    // Submit the form
+    await page.click('button[type="submit"]');
+
+    // Check for success message
+    await expect(page.locator('text=Message Sent!')).toBeVisible();
   });
 
-  test('admin sign-in endpoint accepts default credentials', async ({ request }) => {
-    const response = await request.post('/api/auth/signin', {
-      data: { email: 'admin@greasenomads.com', password: 'admin123' },
-    });
+  test('admin login works', async ({ page }) => {
+    await page.goto('/admin/login');
 
-    expect(response.ok()).toBeTruthy();
-    const json = await response.json();
-    expect(json).toMatchObject({ success: true });
+    // Fill login form
+    await page.fill('input[name="email"]', 'admin@greasenomads.com');
+    await page.fill('input[name="password"]', 'admin123');
+
+    // Submit login
+    await page.click('button[type="submit"]');
+
+    // Should redirect to admin dashboard
+    await expect(page).toHaveURL('/admin');
+    await expect(page.locator('text=Admin Dashboard')).toBeVisible();
   });
 
-  test('sitemap exists', async ({ request }) => {
-    const response = await request.get('/sitemap.xml');
-    expect(response.status()).toBe(200);
+  test('sitemap exists', async ({ page }) => {
+    const response = await page.goto('/sitemap.xml');
+    expect(response?.status()).toBe(200);
   });
 
-  test('robots.txt exists', async ({ request }) => {
-    const response = await request.get('/robots.txt');
-    expect(response.status()).toBe(200);
+  test('robots.txt exists', async ({ page }) => {
+    const response = await page.goto('/robots.txt');
+    expect(response?.status()).toBe(200);
   });
 });

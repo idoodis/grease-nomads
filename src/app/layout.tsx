@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/header';
-import { Footer } from '@/components/footer';
+import AnimationProvider from '@/components/animation-provider';
 
 export const metadata: Metadata = {
   title: 'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair',
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     siteName: 'Grease Nomads',
     images: [
       {
-        url: '/logo.png',
-        width: 512,
-        height: 512,
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
         alt: 'Grease Nomads - ASE Certified Mobile Mechanics',
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       'Grease Nomads - ASE Certified Mobile Mechanics | Chicago Auto Repair',
     description:
       'Professional ASE certified mobile mechanic services in Chicago. Same-day auto repair, maintenance, diagnostics, and emergency service delivered to your location.',
-    images: ['/logo.png'],
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -57,6 +57,9 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  verification: {
+    google: 'your-google-verification-code',
   },
 };
 
@@ -71,15 +74,11 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body
-        suppressHydrationWarning
-        className="bg-secondary-900 text-slate-100 antialiased"
-      >
-        <div className="flex min-h-screen flex-col">
+      <body suppressHydrationWarning style={{ backgroundColor: '#000000', color: '#e5e7eb' }}>
+        <AnimationProvider>
           <Header />
-          <main className="flex-1 pt-20">{children}</main>
-          <Footer />
-        </div>
+          <main style={{ paddingTop: '80px' }}>{children}</main>
+        </AnimationProvider>
       </body>
     </html>
   );

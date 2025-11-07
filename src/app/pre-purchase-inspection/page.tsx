@@ -1,59 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 
 export default function PrePurchaseInspectionPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
-    vehicle: '',
-    message: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          service: 'pre-purchase-inspection',
-        }),
-      });
-
-      if (response.ok) {
-        const name = formData.name?.trim() || 'friend';
-        alert(`Thanks, ${name}! We'll reach out to schedule your Pre-Purchase Inspection.`);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          location: '',
-          vehicle: '',
-          message: '',
-        });
-      } else {
-        alert('Failed to send request. Please try again or call us directly.');
-      }
-    } catch (error) {
-      alert('Failed to send request. Please call us at (224) 652-7264');
-    }
-  };
-
   return (
     <>
       <Head>
@@ -72,11 +23,6 @@ export default function PrePurchaseInspectionPage() {
           --accent: #ff6a00;
           --card: #121212;
           --ring: rgba(255, 106, 0, 0.35);
-        }
-        @media (max-width: 640px) {
-          .responsive-grid {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
 
@@ -305,8 +251,8 @@ export default function PrePurchaseInspectionPage() {
             >
               <h3 style={{ margin: 0 }}>Ready to buy? Book a Pre-Purchase Inspection now.</h3>
               <div style={{ display: 'flex', gap: '.8rem', flexWrap: 'wrap' }}>
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   style={{
                     padding: '.85rem 1.1rem',
                     borderRadius: '14px',
@@ -318,7 +264,7 @@ export default function PrePurchaseInspectionPage() {
                   }}
                 >
                   Request inspection
-                </a>
+                </Link>
                 <Link
                   href="/"
                   style={{
@@ -335,161 +281,6 @@ export default function PrePurchaseInspectionPage() {
                 </Link>
               </div>
             </div>
-          </section>
-
-          {/* Contact Form */}
-          <section id="contact" style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.25rem 2.5rem' }}>
-            <h2 style={{ fontSize: '1.6rem', margin: '1.6rem 0 .6rem' }}>
-              Request a Pre-Purchase Inspection
-            </h2>
-            <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gap: '.8rem' }}>
-                <div>
-                  <label htmlFor="name" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Phone
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="location" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Service Location
-                  </label>
-                  <input
-                    id="location"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="vehicle" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Vehicle
-                  </label>
-                  <input
-                    id="vehicle"
-                    name="vehicle"
-                    value={formData.vehicle}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" style={{ display: 'block', marginBottom: '.35rem' }}>
-                    Notes
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      background: '#0e0e0e',
-                      border: '1px solid rgba(255,255,255,.12)',
-                      color: '#f5f5f5',
-                      padding: '.85rem .9rem',
-                      borderRadius: '12px',
-                      outline: 'none',
-                    }}
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                style={{
-                  marginTop: '.8rem',
-                  padding: '.85rem 1.1rem',
-                  borderRadius: '14px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  background: '#ff6a00',
-                  color: '#111',
-                  border: 'none',
-                }}
-              >
-                Send request
-              </button>
-            </form>
-            <p style={{ color: '#c9c9c9', marginTop: '.6rem' }}>
-              Please Contact Us to Schedule Now.
-              <br />
-              Email: contact@greasenomads.com Phone: (224) 652 7264
-            </p>
           </section>
         </main>
 

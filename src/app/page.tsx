@@ -1,48 +1,29 @@
-import Link from 'next/link';
-import { fallbackReviews, fallbackServices } from '@/data/fallback-content';
-import { isDatabaseEnabled, prisma } from '@/lib/db';
+export const dynamic = 'force-dynamic';
+import { prisma } from '@/lib/db';
 import ReviewsCarousel from '@/components/reviews-carousel';
+import Image from 'next/image';
 
 export default async function HomePage() {
   // Read services directly from the database to match Services page
-  const dbEnabled = isDatabaseEnabled();
-  let services: Array<{ id: string; name: string; description: string; price: string }> =
-    fallbackServices.map((service) => ({
-      id: service.id,
-      name: service.name,
-      description: service.description,
-      price: String(service.basePrice),
+  let services: Array<{ id: string; name: string; description: string; price: string }> = [];
+  let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> = [];
+  try {
+    const dbServices = await prisma.service.findMany({ orderBy: { updatedAt: 'desc' } });
+    services = dbServices.map((s) => ({
+      id: s.id,
+      name: s.name,
+      description: s.description,
+      price: String(s.basePrice),
     }));
-  let reviews: Array<{ id: string; authorName: string; rating: number; body: string }> =
-    fallbackReviews;
-
-  if (dbEnabled) {
-    try {
-      const dbServices = await prisma.service.findMany({
-        orderBy: { updatedAt: 'desc' },
-      });
-      if (dbServices.length) {
-        services = dbServices.map((s) => ({
-          id: s.id,
-          name: s.name,
-          description: s.description,
-          price: String(s.basePrice),
-        }));
-      }
-      const dbReviews = await prisma.review.findMany({
-        orderBy: { publishedAt: 'desc' },
-      });
-      if (dbReviews.length) {
-        reviews = dbReviews.map((r) => ({
-          id: r.id,
-          authorName: r.authorName,
-          rating: r.rating,
-          body: r.body,
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to load dynamic home page content', error);
-    }
+    const dbReviews = await prisma.review.findMany({ orderBy: { publishedAt: 'desc' } });
+    reviews = dbReviews.map((r) => ({
+      id: r.id,
+      authorName: r.authorName,
+      rating: r.rating,
+      body: r.body,
+    }));
+  } catch (_e) {
+    // Fail silently; we'll show static content if fetch fails
   }
   const structuredData = {
     '@context': 'https://schema.org',
@@ -89,17 +70,6 @@ export default async function HomePage() {
     ],
   };
 
-  const getServiceHref = (serviceName: string) => {
-    const name = serviceName.toLowerCase();
-    if (name.includes('repair')) return '/repairs';
-    if (name.includes('diagn')) return '/diagnosis';
-    if (name.includes('modif')) return '/modifications';
-    if (name.includes('pre-purchase') || name.includes('inspection')) return '/pre-purchase-inspection';
-    if (name.includes('maintenance')) return '/maintenance';
-    if (name.includes('roadside') || name.includes('assistance')) return '/roadside-assistance';
-    return '/contact';
-  };
-
   return (
     <>
       <script
@@ -109,6 +79,7 @@ export default async function HomePage() {
       <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
+          data-animate
           style={{
             background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
@@ -126,14 +97,17 @@ export default async function HomePage() {
                 marginBottom: '32px',
               }}
             >
-              <img
+              <Image
                 src="/logo.png"
                 alt="Grease Nomads - ASE Certified Mobile Mechanics"
+                width={160}
+                height={160}
                 style={{
                   height: '120px',
                   width: 'auto',
                   marginRight: '24px',
                 }}
+                priority
               />
               <h1
                 style={{
@@ -165,7 +139,7 @@ export default async function HomePage() {
                 flexWrap: 'wrap',
               }}
             >
-              <Link
+              <a
                 href="/contact"
                 style={{
                   backgroundColor: 'transparent',
@@ -179,7 +153,7 @@ export default async function HomePage() {
                 }}
               >
                 Get Free Quote
-              </Link>
+              </a>
               <a
                 href="tel:+12246527264"
                 style={{
@@ -198,108 +172,9 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section
-          style={{
-            backgroundColor: '#0a0a0a',
-            padding: '80px 20px',
-          }}
-        >
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <h2
-                style={{
-                  fontSize: '3rem',
-                  fontWeight: 'bold',
-                  color: '#f9fafb',
-                  marginBottom: '16px',
-                }}
-              >
-                Our Services
-              </h2>
-              <p
-                style={{
-                  fontSize: '1.25rem',
-                  color: '#d1d5db',
-                  maxWidth: '600px',
-                  margin: '0 auto',
-                }}
-              >
-                Professional automotive services delivered directly to your
-                location
-              </p>
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '32px',
-              }}
-            >
-              {(services.length > 0 ? services : []).map((svc) => (
-                <div
-                  key={svc.id}
-                  style={{
-                    backgroundColor: '#0f1115',
-                    padding: '32px',
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      color: '#f3f4f6',
-                      marginBottom: '16px',
-                    }}
-                  >
-                    {svc.name}
-                  </h3>
-                  <p
-                    style={{
-                      color: '#d1d5db',
-                      marginBottom: '24px',
-                      lineHeight: '1.6',
-                    }}
-                  >
-                    {svc.description}
-                  </p>
-                  <div
-                    style={{
-                      fontSize: '2rem',
-                      fontWeight: 'bold',
-                      color: '#f97316',
-                      marginBottom: '24px',
-                    }}
-                  >
-                    {`Starting at $${svc.price}`}
-                  </div>
-                  <Link
-                    href={getServiceHref(svc.name)}
-                    style={{
-                      backgroundColor: '#f97316',
-                      color: 'white',
-                      padding: '12px 24px',
-                      borderRadius: '8px',
-                      textDecoration: 'none',
-                      fontWeight: '600',
-                      display: 'block',
-                      textAlign: 'center',
-                    }}
-                  >
-                    Get Quote
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Trust Badges */}
         <section
+          data-animate
           style={{
             backgroundColor: '#0a0a0a',
             padding: '80px 20px',
@@ -365,8 +240,227 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* How It Works */}
+        <section
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '80px 20px',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <h2
+                style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '16px',
+                }}
+              >
+                How It Works
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.125rem',
+                  color: '#d1d5db',
+                  maxWidth: '720px',
+                  margin: '0 auto',
+                  lineHeight: 1.7,
+                }}
+              >
+                Simple steps to keep your vehicle on the road with Grease Nomads.
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: '24px',
+              }}
+            >
+              {[
+                {
+                  title: 'Get in Touch',
+                  description:
+                    'Call, text, or fill out our online form. We’ll follow up to set an appointment and confirm what you need.',
+                },
+                {
+                  title: 'Confirm Your Spot',
+                  description: 'Submit a $100 deposit to secure the date and time that works for you.',
+                },
+                {
+                  title: 'Service at Your Location',
+                  description:
+                    'On the scheduled day we arrive ready to work. Ask questions anytime—we’re happy to walk you through the process.',
+                },
+                {
+                  title: 'Finish & Pay',
+                  description:
+                    'Once the job is complete, pay the remaining balance and we’ll hand back your keys.',
+                },
+              ].map((step, idx) => (
+                <div
+                  key={step.title}
+                  style={{
+                    backgroundColor: '#0f1115',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    padding: '32px',
+                    boxShadow: '0 12px 24px rgba(0,0,0,0.45)',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      backgroundColor: '#f97316',
+                      color: '#111827',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontWeight: 700,
+                      fontSize: '1.25rem',
+                      marginBottom: '20px',
+                    }}
+                  >
+                    {idx + 1}
+                  </div>
+                  <h3
+                    style={{
+                      color: '#f3f4f6',
+                      fontSize: '1.25rem',
+                      fontWeight: 'bold',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    style={{
+                      color: '#d1d5db',
+                      lineHeight: 1.6,
+                      fontSize: '1rem',
+                    }}
+                  >
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section
+          data-animate
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '80px 20px',
+          }}
+        >
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <h2
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '16px',
+                }}
+              >
+                Professional Automotive Service
+              </h2>
+            </div>
+
+            <div
+              data-animate
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '32px',
+              }}
+            >
+              {(services.length > 0 ? services : []).map((svc) => (
+                <div
+                  key={svc.id}
+                  style={{
+                    backgroundColor: '#0f1115',
+                    padding: '32px',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold',
+                      color: '#f3f4f6',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {svc.name}
+                  </h3>
+                  <p
+                    style={{
+                      color: '#d1d5db',
+                      marginBottom: '24px',
+                      lineHeight: '1.6',
+                    }}
+                  >
+                    {svc.description}
+                  </p>
+                  <div
+                    style={{
+                      fontSize: '2rem',
+                      fontWeight: 'bold',
+                      color: '#f97316',
+                      marginBottom: '24px',
+                    }}
+                  >
+                    {`Starting at $${svc.price}`}
+                  </div>
+                  <a
+                    href={
+                      svc.name.toLowerCase().includes('repair')
+                        ? '/repairs'
+                        : svc.name.toLowerCase().includes('diagn')
+                        ? '/diagnosis'
+                        : svc.name.toLowerCase().includes('modif')
+                        ? '/modifications'
+                        : svc.name.toLowerCase().includes('pre-purchase') || svc.name.toLowerCase().includes('inspection')
+                        ? '/pre-purchase-inspection'
+                        : svc.name.toLowerCase().includes('maintenance')
+                        ? '/maintenance'
+                        : svc.name.toLowerCase().includes('roadside') || svc.name.toLowerCase().includes('assistance')
+                        ? '/roadside-assistance'
+                        : '/contact'
+                    }
+                    style={{
+                      backgroundColor: '#f97316',
+                      color: 'white',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      display: 'block',
+                      textAlign: 'center',
+                    }}
+                  >
+                    Get Quote
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Reviews Section */}
         <section
+          data-animate
           style={{
             backgroundColor: '#0a0a0a',
             padding: '80px 20px',
@@ -403,6 +497,7 @@ export default async function HomePage() {
 
         {/* CTA Section */}
         <section
+          data-animate
           style={{
             background: 'linear-gradient(90deg, #000000 0%, #000000 30%, #f97316 70%, #f97316 100%)',
             color: 'white',
@@ -440,7 +535,7 @@ export default async function HomePage() {
                 flexWrap: 'wrap',
               }}
             >
-              <Link
+              <a
                 href="/contact"
                 style={{
                   backgroundColor: 'transparent',
@@ -454,7 +549,7 @@ export default async function HomePage() {
                 }}
               >
                 Get Free Quote
-              </Link>
+              </a>
               <a
                 href="tel:+12246527264"
                 style={{
