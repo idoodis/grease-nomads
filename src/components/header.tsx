@@ -31,7 +31,6 @@ export default function Header() {
         }
       `}</style>
     <header
-      data-animate
       style={{
         position: 'fixed',
         top: 0,
