@@ -18,8 +18,15 @@ body {
   line-height: 1.6;
   color: #1e293b;
   background-color: #ffffff;
-  opacity: 0;
-  animation: gn-body-fade 0.6s ease-out forwards;
+}
+
+body:not(.gn-ready) {
+  opacity: 1;
+}
+
+body.gn-ready {
+  transition: opacity var(--gn-transition-slow);
+  opacity: 1;
 }
 
 a {
@@ -146,7 +153,7 @@ a.button:active,
 @media (prefers-reduced-motion: reduce) {
   body {
     opacity: 1;
-    animation: none;
+    transition: none;
   }
   main > section,
   main > div,

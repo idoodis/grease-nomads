@@ -30,6 +30,7 @@ export default function AnimationProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.body.classList.add("gn-ready");
     if (prefersReducedMotion) {
       document.querySelectorAll(`[${DATA_ATTRIBUTE}]`).forEach((el) => el.classList.add("gn-visible"));
       return;
