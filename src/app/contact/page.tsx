@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { generatePageMetadata, getLocalBusinessSchema } from '@/lib/seo';
+import { generatePageMetadata, getLocalBusinessSchema, serviceAreaTextShort, serviceAreaTextFull } from '@/lib/seo';
 import { JsonLd } from '@/components/json-ld';
 
 export const metadata = generatePageMetadata({
-  title: 'Contact Mobile Mechanic | Free Quote | Chicago & Suburbs',
+  title: 'Contact Mobile Mechanic | Free Quote | Chicago Northwest Suburbs',
   description:
-    'Contact Grease Nomads for professional mobile mechanic services in Chicago and suburbs. Get a free quote, call 224-652-7264, or email Z@Greasenomads.com. Same-day service available.',
+    'Contact Grease Nomads for professional mobile mechanic services in Mount Prospect, Schaumburg, Naperville and nearby northwest suburbs. Get a free quote, call 224-652-7264, or email Z@Greasenomads.com. Same-day service available.',
   path: '/contact',
   keywords:
     'contact mobile mechanic, mobile mechanic near me, free quote, mobile auto repair contact, Chicago mobile mechanic, schedule service',

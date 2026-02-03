@@ -2,17 +2,23 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@/lib/db';
 import ReviewsCarousel from '@/components/reviews-carousel';
 import Image from 'next/image';
-import { generatePageMetadata, getLocalBusinessSchema, getFAQPageSchema } from '@/lib/seo';
+import {
+  generatePageMetadata,
+  getLocalBusinessSchema,
+  getFAQPageSchema,
+  serviceAreaTextShort,
+  serviceAreaTextFull,
+} from '@/lib/seo';
 import { JsonLd } from '@/components/json-ld';
 import Link from 'next/link';
 
 export const metadata = generatePageMetadata({
-  title: 'Mobile Mechanic in Chicago & Suburbs',
+  title: 'Mobile Mechanic in Chicago Northwest Suburbs',
   description:
-    'Professional mobile mechanic services in Chicago, Des Plaines, Schaumburg, and Hoffman Estates. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location. ASE certified technicians. Call 224-652-7264 for a free quote.',
+    'Professional mobile mechanic services in Mount Prospect, Schaumburg, Naperville and nearby northwest suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location by ASE certified technicians.',
   path: '/',
   keywords:
-    'mobile mechanic, mobile mechanic near me, mobile mechanic Chicago, mobile auto repair, mobile mechanic Des Plaines, mobile mechanic Schaumburg, ASE certified, emergency service, same-day service',
+    'mobile mechanic, mobile mechanic near me, mobile mechanic Chicago, mobile auto repair, mobile mechanic Schaumburg, mobile mechanic Naperville, ASE certified, emergency service, same-day service',
 });
 
 export default async function HomePage() {
@@ -153,7 +159,7 @@ export default async function HomePage() {
                 lineHeight: '1.6',
               }}
             >
-              ASE certified mobile mechanics delivering same-day auto repair, maintenance, diagnostics, and emergency roadside assistance directly to your location. Serving Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding areas.
+              ASE certified mobile mechanics delivering same-day auto repair, maintenance, diagnostics, and emergency roadside assistance directly to your location, {serviceAreaTextShort()}.
             </p>
             <div
               style={{
@@ -377,7 +383,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Mobile Mechanic Intro */}
+        {/* Mobile Mechanic Intro + Service Area */}
         <section
           data-animate
           style={{
@@ -387,7 +393,7 @@ export default async function HomePage() {
           }}
         >
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <h2
                 style={{
                   fontSize: '2.5rem',
@@ -396,7 +402,7 @@ export default async function HomePage() {
                   marginBottom: '16px',
                 }}
               >
-                Mobile Mechanic Services in Chicago & Suburbs
+                Mobile Mechanic Services in Chicago&apos;s Northwest Suburbs
               </h2>
               <p
                 style={{
@@ -407,18 +413,46 @@ export default async function HomePage() {
                   lineHeight: '1.7',
                 }}
               >
-                Looking for a mobile mechanic near you? Grease Nomads brings professional ASE certified automotive service directly to your location. Whether you need routine maintenance, emergency repairs, diagnostics, or roadside assistance, our mobile mechanics come to you—saving you time and hassle.
+                Looking for a mobile mechanic near you? Grease Nomads brings professional ASE certified automotive service directly to your driveway, workplace, or parking lot. From routine maintenance to emergency repairs and diagnostics, our mobile mechanics save you time and hassle.
               </p>
             </div>
-            <div style={{ textAlign: 'center', marginTop: '32px' }}>
+            <div
+              style={{
+                marginTop: '32px',
+                textAlign: 'center',
+                borderTop: '1px solid rgba(255,255,255,0.08)',
+                paddingTop: '24px',
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '12px',
+                }}
+              >
+                Service Area
+              </h3>
               <p
                 style={{
                   fontSize: '1rem',
-                  color: '#9ca3af',
-                  marginBottom: '16px',
+                  color: '#d1d5db',
+                  marginBottom: '8px',
                 }}
               >
-                <strong style={{ color: '#f97316' }}>Service Areas:</strong> Chicago, Des Plaines, Schaumburg, Hoffman Estates, and Greater Chicago Area
+                Grease Nomads provides mobile mechanic services across Chicago&apos;s northwest suburbs, including:
+              </p>
+              <p
+                style={{
+                  fontSize: '0.95rem',
+                  color: '#9ca3af',
+                  maxWidth: '800px',
+                  margin: '0 auto',
+                  lineHeight: '1.7',
+                }}
+              >
+                {serviceAreaTextFull()}
               </p>
             </div>
           </div>

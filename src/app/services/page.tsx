@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { serviceAreaTextFull } from '@/lib/seo';
 
 interface Service {
   id: string;
@@ -161,7 +162,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Services Grid */}
+        {/* Services Grid + Service Area */}
         <section
           style={{
             padding: '80px 20px',
@@ -178,7 +179,7 @@ export default function ServicesPage() {
                   marginBottom: '16px',
                 }}
               >
-                Mobile Mechanic Services in Chicago & Suburbs
+                Mobile Mechanic Services in Chicago&apos;s Northwest Suburbs
               </h2>
               <p
                 style={{
@@ -189,18 +190,62 @@ export default function ServicesPage() {
                   lineHeight: '1.7',
                 }}
               >
-                Our mobile mechanics provide comprehensive automotive services throughout the Greater Chicago area, including Chicago, Des Plaines, Schaumburg, and Hoffman Estates. From routine <Link href="/maintenance" style={{ color: '#f97316', textDecoration: 'underline' }}>car maintenance</Link> to emergency <Link href="/repairs" style={{ color: '#f97316', textDecoration: 'underline' }}>auto repairs</Link>, <Link href="/diagnosis" style={{ color: '#f97316', textDecoration: 'underline' }}>vehicle diagnostics</Link>, and <Link href="/roadside-assistance" style={{ color: '#f97316', textDecoration: 'underline' }}>roadside assistance</Link>, we bring professional ASE certified service directly to your location.
+                Our mobile mechanics provide comprehensive automotive services across Chicago&apos;s northwest suburbs. From routine{' '}
+                <Link href="/maintenance" style={{ color: '#f97316', textDecoration: 'underline' }}>
+                  car maintenance
+                </Link>{' '}
+                to emergency{' '}
+                <Link href="/repairs" style={{ color: '#f97316', textDecoration: 'underline' }}>
+                  auto repairs
+                </Link>
+                ,{' '}
+                <Link href="/diagnosis" style={{ color: '#f97316', textDecoration: 'underline' }}>
+                  vehicle diagnostics
+                </Link>
+                , and{' '}
+                <Link href="/roadside-assistance" style={{ color: '#f97316', textDecoration: 'underline' }}>
+                  roadside assistance
+                </Link>
+                , we bring professional ASE certified service directly to your location.
               </p>
-              <p
+              <div
                 style={{
-                  fontSize: '1rem',
-                  color: '#9ca3af',
-                  maxWidth: '700px',
-                  margin: '0 auto',
+                  marginTop: '24px',
+                  borderTop: '1px solid rgba(255,255,255,0.08)',
+                  paddingTop: '16px',
                 }}
               >
-                <strong style={{ color: '#f97316' }}>Service Areas:</strong> Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding suburbs
-              </p>
+                <h3
+                  style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 'bold',
+                    color: '#f9fafb',
+                    marginBottom: '8px',
+                  }}
+                >
+                  Service Area
+                </h3>
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    color: '#d1d5db',
+                    marginBottom: '8px',
+                  }}
+                >
+                  Grease Nomads provides mobile mechanic services in:
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.95rem',
+                    color: '#9ca3af',
+                    maxWidth: '800px',
+                    margin: '0 auto',
+                    lineHeight: '1.7',
+                  }}
+                >
+                  {serviceAreaTextFull()}
+                </p>
+              </div>
             </div>
 
             <div

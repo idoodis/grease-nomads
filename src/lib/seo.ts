@@ -4,7 +4,27 @@ const baseUrl = process.env.NEXTAUTH_URL || 'https://greasenomads.com';
 const siteName = 'Grease Nomads';
 const businessPhone = '+12246527264';
 const businessEmail = 'Z@Greasenomads.com';
-const serviceAreas = ['Chicago', 'Des Plaines', 'Schaumburg', 'Hoffman Estates', 'Greater Chicago Area'];
+
+export const SERVICE_AREAS = [
+  'Arlington Heights',
+  'Barrington',
+  'Mount Prospect',
+  'Northbrook',
+  'Prospect Heights',
+  'Rolling Meadows',
+  'Schaumburg',
+  'Lisle',
+  'Naperville',
+  'Mundelein',
+];
+
+export function serviceAreaTextShort(): string {
+  return 'serving Mount Prospect, Schaumburg, Naperville and nearby northwest suburbs';
+}
+
+export function serviceAreaTextFull(): string {
+  return SERVICE_AREAS.join(', ');
+}
 
 export interface SEOConfig {
   title: string;
@@ -79,7 +99,7 @@ export const defaultMetadata: Metadata = {
     template: `%s | ${siteName}`,
   },
   description:
-    'Professional mobile mechanic services in Chicago and surrounding suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location. ASE certified technicians.',
+    'Professional mobile mechanic services in Chicago northwest suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location. ASE certified technicians.',
   keywords:
     'mobile mechanic, mobile auto repair, mobile mechanic near me, mobile mechanic Chicago, ASE certified, emergency service, car maintenance, diagnostics, roadside assistance',
   authors: [{ name: siteName }],
@@ -95,9 +115,9 @@ export const defaultMetadata: Metadata = {
     locale: 'en_US',
     url: baseUrl,
     siteName,
-    title: `Mobile Mechanic in Chicago & Suburbs | ${siteName}`,
+    title: `Mobile Mechanic in Chicago Northwest Suburbs | ${siteName}`,
     description:
-      'Professional mobile mechanic services in Chicago and surrounding suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
+      'Professional mobile mechanic services in Chicago northwest suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
     images: [
       {
         url: `${baseUrl}/og-image.jpg`,
@@ -109,9 +129,9 @@ export const defaultMetadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Mobile Mechanic in Chicago & Suburbs | ${siteName}`,
+    title: `Mobile Mechanic in Chicago Northwest Suburbs | ${siteName}`,
     description:
-      'Professional mobile mechanic services in Chicago and surrounding suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
+      'Professional mobile mechanic services in Chicago northwest suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
     images: [`${baseUrl}/og-image.jpg`],
   },
   robots: {
@@ -134,7 +154,7 @@ export function getLocalBusinessSchema() {
     '@id': `${baseUrl}#organization`,
     name: siteName,
     description:
-      'Professional ASE certified mobile mechanic services in Chicago and surrounding suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
+      'Professional ASE certified mobile mechanic services in Chicago’s northwest suburbs. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location.',
     url: baseUrl,
     telephone: businessPhone,
     email: businessEmail,
@@ -143,9 +163,8 @@ export function getLocalBusinessSchema() {
       addressLocality: 'Chicago',
       addressRegion: 'IL',
       addressCountry: 'US',
-      addressArea: 'Greater Chicago Area',
     },
-    areaServed: serviceAreas.map((city) => ({
+    areaServed: SERVICE_AREAS.map((city) => ({
       '@type': 'City',
       name: city,
     })),
@@ -201,7 +220,7 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
       url: baseUrl,
       telephone: businessPhone,
     },
-    areaServed: serviceAreas.map((city) => ({
+    areaServed: SERVICE_AREAS.map((city) => ({
       '@type': 'City',
       name: city,
     })),

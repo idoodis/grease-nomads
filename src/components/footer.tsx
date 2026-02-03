@@ -12,9 +12,8 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-heading font-bold">Grease Nomads</h3>
             <p className="text-gray-300 leading-relaxed">
-              Professional mobile mechanic services delivered directly to your
-              location. Serving the Greater Chicago area with quality automotive
-              care.
+              Professional mobile mechanic services delivered directly to your location, serving Chicago&apos;s northwest
+              suburbs.
             </p>
             <div className="flex space-x-4">
               <a
