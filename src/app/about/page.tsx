@@ -1,32 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
-interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-}
-
 export default function AboutPage() {
-  const [team, setTeam] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await fetch('/api/team');
-        const data = await res.json();
-        setTeam(data);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, []);
 
   return (
     <>
@@ -225,107 +202,6 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Team Section (Dynamic) */}
-        <section style={{ padding: '80px 20px', backgroundColor: '#0a0a0a' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <h2
-                style={{
-                  fontSize: '2.5rem',
-                  fontWeight: 'bold',
-                  color: '#f9fafb',
-                  marginBottom: '16px',
-                }}
-              >
-                Meet Our Team
-              </h2>
-              <p
-                style={{
-                  fontSize: '1.125rem',
-                  color: '#9ca3af',
-                  maxWidth: '600px',
-                  margin: '0 auto',
-                }}
-              >
-                Certified professionals dedicated to keeping your vehicle
-                running smoothly
-              </p>
-            </div>
-
-            {loading ? (
-              <div style={{ textAlign: 'center', color: '#64748b' }}>
-                Loading team...
-              </div>
-            ) : (
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                  gap: '32px',
-                }}
-              >
-                {team.map((member) => (
-                  <div
-                    key={member.id}
-                    style={{
-                      backgroundColor: '#0f1115',
-                      padding: '32px',
-                      borderRadius: '12px',
-                      textAlign: 'center',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.6)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: '80px',
-                        height: '80px',
-                        backgroundColor: '#f97316',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 16px auto',
-                      }}
-                    >
-                      <svg
-                        width="40"
-                        height="40"
-                        fill="white"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                    </div>
-                    <h3
-                      style={{
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        color: '#f3f4f6',
-                        marginBottom: '8px',
-                      }}
-                    >
-                      {member.name}
-                    </h3>
-                    <p
-                      style={{
-                        color: '#f97316',
-                        fontWeight: '600',
-                        marginBottom: '8px',
-                      }}
-                    >
-                      {member.role}
-                    </p>
-                    <p style={{ color: '#d1d5db', fontSize: '0.875rem' }}>
-                      {member.bio}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </section>
 

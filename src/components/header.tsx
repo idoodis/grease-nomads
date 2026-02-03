@@ -139,19 +139,7 @@ export default function Header() {
             Contact
           </Link>
           <Link
-            href="/admin/login"
-            style={{
-              color: '#cbd5e1',
-              textDecoration: 'none',
-              fontWeight: '500',
-              transition: 'color 0.3s',
-              fontSize: '0.875rem',
-            }}
-          >
-            Admin
-          </Link>
-          <a
-            href="tel:+12246527264"
+            href="/contact"
             style={{
               backgroundColor: '#f97316',
               color: 'white',
@@ -162,8 +150,8 @@ export default function Header() {
               transition: 'background-color 0.3s',
             }}
           >
-            Call 224-652-7264
-          </a>
+            Schedule Now
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -261,21 +249,8 @@ export default function Header() {
             Contact
           </Link>
           <Link
-            href="/admin/login"
+            href="/contact"
             onClick={() => setIsMenuOpen(false)}
-            style={{
-              color: '#cbd5e1',
-              textDecoration: 'none',
-              fontWeight: '500',
-              padding: '12px 0',
-              borderBottom: '1px solid #f97316',
-              fontSize: '0.875rem',
-            }}
-          >
-            Admin
-          </Link>
-          <a
-            href="tel:+12246527264"
             style={{
               backgroundColor: '#f97316',
               color: 'white',
@@ -287,8 +262,8 @@ export default function Header() {
               marginTop: '8px',
             }}
           >
-            Call 224-652-7264
-          </a>
+            Schedule Now
+          </Link>
         </div>
       )}
     </header>
