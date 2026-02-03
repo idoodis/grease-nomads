@@ -2,19 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 
 export default function RoadsideAssistancePage() {
   return (
     <>
-      <Head>
-        <title>Roadside Assistance — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads Roadside Assistance — emergency services including jump starts, tire changes, and fuel delivery."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
       <style jsx global>{`
         :root {
           --bg: #0b0b0b;

@@ -1,25 +1,23 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { generatePageMetadata, getLocalBusinessSchema } from '@/lib/seo';
+import { JsonLd } from '@/components/json-ld';
+
+export const metadata = generatePageMetadata({
+  title: 'Contact Mobile Mechanic | Free Quote | Chicago & Suburbs',
+  description:
+    'Contact Grease Nomads for professional mobile mechanic services in Chicago and suburbs. Get a free quote, call 224-652-7264, or email Z@Greasenomads.com. Same-day service available.',
+  path: '/contact',
+  keywords:
+    'contact mobile mechanic, mobile mechanic near me, free quote, mobile auto repair contact, Chicago mobile mechanic, schedule service',
+});
 
 export default function ContactPage() {
+  const localBusinessSchema = getLocalBusinessSchema();
 
   return (
     <>
-      <Head>
-        <title>
-          Contact Grease Nomads | ASE Certified Mobile Mechanics | Chicago
-        </title>
-        <meta
-          name="description"
-          content="Contact Grease Nomads for professional ASE certified mobile mechanic services in Chicago. Get a free quote, call 224-652-7264, or email contact@greasenomads.com."
-        />
-        <meta
-          name="keywords"
-          content="contact mobile mechanic, ASE certified auto repair, Chicago mechanic contact, free quote, emergency service"
-        />
-        <link rel="canonical" href="https://greasenomads.com/contact" />
-      </Head>
+      <JsonLd data={localBusinessSchema} />
       <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Header */}
         <header
@@ -243,14 +241,14 @@ export default function ContactPage() {
                   Send us a message anytime
                 </p>
                 <a
-                  href="mailto:contact@greasenomads.com"
+                  href="mailto:Z@Greasenomads.com"
                   style={{
                     color: '#f97316',
                     fontSize: '1rem',
                     textDecoration: 'none',
                   }}
                 >
-                  contact@greasenomads.com
+                  Z@Greasenomads.com
                 </a>
               </div>
 
@@ -295,9 +293,53 @@ export default function ContactPage() {
                   We come to you
                 </p>
                 <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
-                  Around the Chicago area.
+                  Greater Chicago Area including Chicago, Des Plaines, Schaumburg, Hoffman Estates, and nearby suburbs.
                 </p>
               </div>
+            </div>
+            {/* NAP Block */}
+            <div
+              style={{
+                marginTop: '48px',
+                textAlign: 'center',
+                borderTop: '1px solid rgba(255,255,255,0.08)',
+                paddingTop: '32px',
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  color: '#f3f4f6',
+                  marginBottom: '12px',
+                }}
+              >
+                Business Information
+              </h3>
+              <p style={{ color: '#d1d5db', marginBottom: '4px' }}>
+                <strong>Grease Nomads</strong>
+              </p>
+              <p style={{ color: '#d1d5db', marginBottom: '4px' }}>
+                Phone:{' '}
+                <a
+                  href="tel:+12246527264"
+                  style={{ color: '#f97316', textDecoration: 'none', fontWeight: 'bold' }}
+                >
+                  224-652-7264
+                </a>
+              </p>
+              <p style={{ color: '#d1d5db', marginBottom: '4px' }}>
+                Email:{' '}
+                <a
+                  href="mailto:Z@Greasenomads.com"
+                  style={{ color: '#f97316', textDecoration: 'none' }}
+                >
+                  Z@Greasenomads.com
+                </a>
+              </p>
+              <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>
+                Service Area: Greater Chicago Area (Chicago, Des Plaines, Schaumburg, Hoffman Estates, and nearby suburbs)
+              </p>
             </div>
           </div>
         </section>

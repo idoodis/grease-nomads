@@ -1,19 +1,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 import styles from './maintenance.module.css';
+import { generatePageMetadata, getServiceSchema } from '@/lib/seo';
+import { JsonLd } from '@/components/json-ld';
+
+export const metadata = generatePageMetadata({
+  title: 'Mobile Car Maintenance Services | Oil Changes, Fluid Flushes, Filters',
+  description:
+    'Professional mobile car maintenance services in Chicago and suburbs. Oil changes, fluid flushes, filters, spark plugs, brake service, and more delivered to your location. Starting at $49. Call 224-652-7264.',
+  path: '/maintenance',
+  keywords:
+    'mobile car maintenance, mobile oil change, mobile mechanic maintenance, fluid flush, brake service, spark plugs, car filters, mobile mechanic Chicago',
+});
 
 export default function MaintenancePage() {
+  const serviceSchema = getServiceSchema(
+    'Mobile Car Maintenance',
+    'Professional mobile car maintenance services including oil changes, fluid flushes, filters, spark plugs, brake service, and more. Delivered to your location in Chicago and surrounding suburbs.',
+    '/maintenance'
+  );
+
   return (
     <>
-      <Head>
-        <title>Maintenance — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads Maintenance service page and price list. We come to you—oil changes, fluid flushes, filters, spark plugs, brakes, and more."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
+      <JsonLd data={serviceSchema} />
       <div className={styles.page}>
         <Link href="/services" className={styles.backLink}>
           ← Back to Services

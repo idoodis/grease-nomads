@@ -2,19 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 
 export default function RepairsPage() {
   return (
     <>
-      <Head>
-        <title>Repairs — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads repair services — hourly labor rate for mobile automotive repair. Professional, reliable, and we come to you."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
       <style jsx global>{`
         :root {
           --bg: #0b0b0b;

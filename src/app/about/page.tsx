@@ -1,26 +1,11 @@
 'use client';
 
-import Head from 'next/head';
 import Image from 'next/image';
 
 export default function AboutPage() {
 
   return (
     <>
-      <Head>
-        <title>
-          About Grease Nomads | ASE Certified Mobile Mechanics Team | Chicago
-        </title>
-        <meta
-          name="description"
-          content="Learn about Grease Nomads, a trusted ASE certified mobile mechanic team serving the Chicago area. Founded in 2018, we bring professional auto repair services directly to your location."
-        />
-        <meta
-          name="keywords"
-          content="about grease nomads, mobile mechanic team, ASE certified mechanics, Chicago auto repair, company story, professional mechanics"
-        />
-        <link rel="canonical" href="https://greasenomads.com/about" />
-      </Head>
       <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section

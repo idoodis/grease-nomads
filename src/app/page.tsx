@@ -2,6 +2,18 @@ export const dynamic = 'force-dynamic';
 import { prisma } from '@/lib/db';
 import ReviewsCarousel from '@/components/reviews-carousel';
 import Image from 'next/image';
+import { generatePageMetadata, getLocalBusinessSchema, getFAQPageSchema } from '@/lib/seo';
+import { JsonLd } from '@/components/json-ld';
+import Link from 'next/link';
+
+export const metadata = generatePageMetadata({
+  title: 'Mobile Mechanic in Chicago & Suburbs',
+  description:
+    'Professional mobile mechanic services in Chicago, Des Plaines, Schaumburg, and Hoffman Estates. Same-day auto repair, maintenance, diagnostics, and emergency roadside assistance delivered to your location. ASE certified technicians. Call 224-652-7264 for a free quote.',
+  path: '/',
+  keywords:
+    'mobile mechanic, mobile mechanic near me, mobile mechanic Chicago, mobile auto repair, mobile mechanic Des Plaines, mobile mechanic Schaumburg, ASE certified, emergency service, same-day service',
+});
 
 export default async function HomePage() {
   // Read services directly from the database to match Services page
@@ -25,57 +37,57 @@ export default async function HomePage() {
   } catch (_e) {
     // Fail silently; we'll show static content if fetch fails
   }
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'AutoRepair',
-    name: 'Grease Nomads',
-    description:
-      'Professional ASE certified mobile mechanic services in Chicago. Same-day auto repair, maintenance, diagnostics, and emergency service delivered to your location.',
-    url: 'https://greasenomads.com',
-    telephone: '+12246527264',
-    email: 'info@greasenomads.com',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Chicago',
-      addressRegion: 'IL',
-      addressCountry: 'US',
+
+  const localBusinessSchema: any = getLocalBusinessSchema();
+
+  if (reviews.length > 0) {
+    const totalReviews = reviews.length;
+    const sumRatings = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+    const averageRating = sumRatings / totalReviews;
+
+    localBusinessSchema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: Number(averageRating.toFixed(1)),
+      reviewCount: totalReviews,
+    };
+  }
+
+  const faqSchema = getFAQPageSchema([
+    {
+      question: 'What is a mobile mechanic?',
+      answer:
+        'A mobile mechanic is a certified automotive technician who comes to your location to perform auto repair, maintenance, diagnostics, and other automotive services. Instead of taking your car to a shop, we bring professional service directly to you at home, work, or wherever you are.',
     },
-    areaServed: {
-      '@type': 'City',
-      name: 'Chicago',
+    {
+      question: 'What areas do you serve?',
+      answer:
+        'We provide mobile mechanic services throughout the Greater Chicago area, including Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding suburbs. Contact us to confirm service availability in your area.',
     },
-    serviceType: [
-      'Auto Repair',
-      'Mobile Mechanic',
-      'Emergency Service',
-      'Car Maintenance',
-      'Diagnostics',
-      'Performance Modifications',
-      'Pre-Purchase Inspection',
-    ],
-    hasCredential: {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'ASE Certification',
-      recognizedBy: {
-        '@type': 'Organization',
-        name: 'National Institute for Automotive Service Excellence',
-      },
+    {
+      question: 'How much does mobile mechanic service cost?',
+      answer:
+        'Our pricing varies by service type. Basic maintenance services start around $49, while more complex repairs and diagnostics may range from $150-$299. We provide transparent, upfront quotes with no hidden fees. Contact us for a free estimate.',
     },
-    priceRange: '$49-$299',
-    openingHours: 'Mo-Su 00:00-23:59',
-    sameAs: [
-      'https://www.facebook.com/greasenomads',
-      'https://www.instagram.com/greasenomads',
-      'https://www.linkedin.com/company/greasenomads',
-    ],
-  };
+    {
+      question: 'Do you offer same-day service?',
+      answer:
+        'Yes! We offer same-day mobile mechanic service for many services including diagnostics, basic repairs, and emergency roadside assistance. Availability depends on scheduling, so we recommend calling ahead when possible.',
+    },
+    {
+      question: 'Are your mechanics ASE certified?',
+      answer:
+        'Yes, our technicians are ASE (Automotive Service Excellence) certified, ensuring you receive professional, high-quality automotive service. We maintain the same standards as dealership service centers.',
+    },
+    {
+      question: 'What services do mobile mechanics provide?',
+      answer:
+        'We provide comprehensive mobile automotive services including auto repair, routine maintenance (oil changes, fluid flushes, filters), diagnostics, performance modifications, pre-purchase inspections, and emergency roadside assistance.',
+    },
+  ]);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={[localBusinessSchema, faqSchema]} />
       <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
@@ -129,7 +141,19 @@ export default async function HomePage() {
                 margin: '0 auto 32px auto',
               }}
             >
-              Driven by Care, Anywhere
+              Professional Mobile Mechanic Services in Chicago & Suburbs
+            </p>
+            <p
+              style={{
+                fontSize: '1.125rem',
+                marginBottom: '24px',
+                color: '#fed7aa',
+                maxWidth: '700px',
+                margin: '0 auto 24px auto',
+                lineHeight: '1.6',
+              }}
+            >
+              ASE certified mobile mechanics delivering same-day auto repair, maintenance, diagnostics, and emergency roadside assistance directly to your location. Serving Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding areas.
             </p>
             <div
               style={{
@@ -353,6 +377,53 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Mobile Mechanic Intro */}
+        <section
+          data-animate
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '60px 20px',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+              <h2
+                style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '16px',
+                }}
+              >
+                Mobile Mechanic Services in Chicago & Suburbs
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.125rem',
+                  color: '#d1d5db',
+                  maxWidth: '800px',
+                  margin: '0 auto',
+                  lineHeight: '1.7',
+                }}
+              >
+                Looking for a mobile mechanic near you? Grease Nomads brings professional ASE certified automotive service directly to your location. Whether you need routine maintenance, emergency repairs, diagnostics, or roadside assistance, our mobile mechanics come to you—saving you time and hassle.
+              </p>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '32px' }}>
+              <p
+                style={{
+                  fontSize: '1rem',
+                  color: '#9ca3af',
+                  marginBottom: '16px',
+                }}
+              >
+                <strong style={{ color: '#f97316' }}>Service Areas:</strong> Chicago, Des Plaines, Schaumburg, Hoffman Estates, and Greater Chicago Area
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Services Section */}
         <section
           data-animate
@@ -373,6 +444,32 @@ export default async function HomePage() {
               >
                 Professional Automotive Service
               </h2>
+              <p
+                style={{
+                  fontSize: '1.125rem',
+                  color: '#9ca3af',
+                  maxWidth: '700px',
+                  margin: '0 auto',
+                }}
+              >
+                Our mobile mechanics provide comprehensive automotive services including:
+              </p>
+              <ul
+                style={{
+                  display: 'inline-block',
+                  textAlign: 'left',
+                  marginTop: '24px',
+                  color: '#d1d5db',
+                  fontSize: '1rem',
+                  lineHeight: '1.8',
+                }}
+              >
+                <li>Mobile auto repair and diagnostics</li>
+                <li>Routine maintenance (oil changes, fluid flushes, filters)</li>
+                <li>Emergency roadside assistance</li>
+                <li>Performance modifications</li>
+                <li>Pre-purchase vehicle inspections</li>
+              </ul>
             </div>
 
             <div
@@ -423,7 +520,7 @@ export default async function HomePage() {
                   >
                     {`Starting at $${svc.price}`}
                   </div>
-                  <a
+                  <Link
                     href={
                       svc.name.toLowerCase().includes('repair')
                         ? '/repairs'
@@ -450,8 +547,8 @@ export default async function HomePage() {
                       textAlign: 'center',
                     }}
                   >
-                    Get Quote
-                  </a>
+                    Learn More
+                  </Link>
                 </div>
               ))}
             </div>
@@ -495,6 +592,94 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+        <section
+          data-animate
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '80px 20px',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+              <h2
+                style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '16px',
+                }}
+              >
+                Frequently Asked Questions
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.125rem',
+                  color: '#9ca3af',
+                  maxWidth: '600px',
+                  margin: '0 auto',
+                }}
+              >
+                Common questions about our mobile mechanic services
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              {[
+                {
+                  question: 'What is a mobile mechanic?',
+                  answer:
+                    'A mobile mechanic is a certified automotive technician who comes to your location to perform auto repair, maintenance, diagnostics, and other automotive services. Instead of taking your car to a shop, we bring professional service directly to you at home, work, or wherever you are.',
+                },
+                {
+                  question: 'What areas do you serve?',
+                  answer:
+                    'We provide mobile mechanic services throughout the Greater Chicago area, including Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding suburbs. Contact us to confirm service availability in your area.',
+                },
+                {
+                  question: 'How much does mobile mechanic service cost?',
+                  answer:
+                    'Our pricing varies by service type. Basic maintenance services start around $49, while more complex repairs and diagnostics may range from $150-$299. We provide transparent, upfront quotes with no hidden fees. Contact us for a free estimate.',
+                },
+                {
+                  question: 'Do you offer same-day service?',
+                  answer:
+                    'Yes! We offer same-day mobile mechanic service for many services including diagnostics, basic repairs, and emergency roadside assistance. Availability depends on scheduling, so we recommend calling ahead when possible.',
+                },
+              ].map((faq) => (
+                <div
+                  key={faq.question}
+                  style={{
+                    backgroundColor: '#0f1115',
+                    padding: '32px',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '1.25rem',
+                      fontWeight: 'bold',
+                      color: '#f3f4f6',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    {faq.question}
+                  </h3>
+                  <p
+                    style={{
+                      color: '#d1d5db',
+                      lineHeight: '1.7',
+                    }}
+                  >
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section
           data-animate
@@ -535,7 +720,7 @@ export default async function HomePage() {
                 flexWrap: 'wrap',
               }}
             >
-              <a
+              <Link
                 href="/contact"
                 style={{
                   backgroundColor: 'transparent',
@@ -549,7 +734,7 @@ export default async function HomePage() {
                 }}
               >
                 Get Free Quote
-              </a>
+              </Link>
               <a
                 href="tel:+12246527264"
                 style={{

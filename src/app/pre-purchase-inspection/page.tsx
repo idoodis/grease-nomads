@@ -2,19 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 
 export default function PrePurchaseInspectionPage() {
   return (
     <>
-      <Head>
-        <title>Pre-Purchase Inspections — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads Pre-Purchase Inspection services — thorough checks before you buy. Professional, reliable, and mobile."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
       <style jsx global>{`
         :root {
           --bg: #0b0b0b;

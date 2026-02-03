@@ -2,19 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 
 export default function DiagnosisPage() {
   return (
     <>
-      <Head>
-        <title>Diagnosis — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads vehicle diagnostics — mobile check engine light scans, drivability troubleshooting, electrical testing, and more. We come to you."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
       <style jsx global>{`
         :root {
           --bg: #0b0b0b;

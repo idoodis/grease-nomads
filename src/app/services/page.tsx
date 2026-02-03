@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Service {
   id: string;
@@ -104,20 +104,6 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Head>
-        <title>
-          Auto Repair Services | ASE Certified Mobile Mechanics | Grease Nomads
-        </title>
-        <meta
-          name="description"
-          content="Professional ASE certified mobile mechanic services in Chicago. Emergency repairs, maintenance, diagnostics, performance modifications, and pre-purchase inspections delivered to your location."
-        />
-        <meta
-          name="keywords"
-          content="mobile mechanic services, auto repair, emergency service, car maintenance, diagnostics, performance modifications, pre-purchase inspection, ASE certified, Chicago"
-        />
-        <link rel="canonical" href="https://greasenomads.com/services" />
-      </Head>
       <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
         {/* Hero Section */}
         <section
@@ -192,18 +178,28 @@ export default function ServicesPage() {
                   marginBottom: '16px',
                 }}
               >
-                Complete Automotive Solutions
+                Mobile Mechanic Services in Chicago & Suburbs
               </h2>
               <p
                 style={{
                   fontSize: '1.125rem',
+                  color: '#d1d5db',
+                  maxWidth: '800px',
+                  margin: '0 auto 24px auto',
+                  lineHeight: '1.7',
+                }}
+              >
+                Our mobile mechanics provide comprehensive automotive services throughout the Greater Chicago area, including Chicago, Des Plaines, Schaumburg, and Hoffman Estates. From routine <Link href="/maintenance" style={{ color: '#f97316', textDecoration: 'underline' }}>car maintenance</Link> to emergency <Link href="/repairs" style={{ color: '#f97316', textDecoration: 'underline' }}>auto repairs</Link>, <Link href="/diagnosis" style={{ color: '#f97316', textDecoration: 'underline' }}>vehicle diagnostics</Link>, and <Link href="/roadside-assistance" style={{ color: '#f97316', textDecoration: 'underline' }}>roadside assistance</Link>, we bring professional ASE certified service directly to your location.
+              </p>
+              <p
+                style={{
+                  fontSize: '1rem',
                   color: '#9ca3af',
                   maxWidth: '700px',
                   margin: '0 auto',
                 }}
               >
-                From routine maintenance to emergency repairs, we&apos;ve got
-                you covered
+                <strong style={{ color: '#f97316' }}>Service Areas:</strong> Chicago, Des Plaines, Schaumburg, Hoffman Estates, and surrounding suburbs
               </p>
             </div>
 
@@ -272,7 +268,7 @@ export default function ServicesPage() {
                   >
                     Starting at ${service.price}
                   </div>
-                  <a
+                  <Link
                     href={
                       service.name.toLowerCase().includes('repair') 
                         ? '/repairs' 
@@ -298,8 +294,8 @@ export default function ServicesPage() {
                       display: 'inline-block',
                     }}
                   >
-                    Get Quote
-                  </a>
+                    Learn More
+                  </Link>
                 </div>
               ))}
             </div>

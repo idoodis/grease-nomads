@@ -2,19 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 
 export default function ModificationsPage() {
   return (
     <>
-      <Head>
-        <title>Modifications — Grease Nomads</title>
-        <meta
-          name="description"
-          content="Grease Nomads performance modifications — hourly labor rate for custom automotive modifications. Professional, reliable, and we come to you."
-        />
-        <meta name="theme-color" content="#0b0b0b" />
-      </Head>
       <style jsx global>{`
         :root {
           --bg: #0b0b0b;
