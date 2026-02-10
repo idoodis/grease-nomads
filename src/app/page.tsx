@@ -11,6 +11,7 @@ import {
 } from '@/lib/seo';
 import { JsonLd } from '@/components/json-ld';
 import Link from 'next/link';
+import WorkImage from '@/components/WorkImage';
 
 export const metadata = generatePageMetadata({
   title: 'Mobile Mechanic in Chicago Northwest Suburbs',
@@ -198,6 +199,67 @@ export default async function HomePage() {
               >
                 Call 224-652-7264
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Real Mobile Auto Repair — Image Grid */}
+        <section
+          data-animate
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '80px 20px 40px',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <h2
+                style={{
+                  fontSize: '2.5rem',
+                  fontWeight: 'bold',
+                  color: '#f9fafb',
+                  marginBottom: '16px',
+                }}
+              >
+                Real Mobile Auto Repair — Done On Site
+              </h2>
+              <p
+                style={{
+                  fontSize: '1.075rem',
+                  color: '#d1d5db',
+                  maxWidth: '720px',
+                  margin: '0 auto',
+                  lineHeight: 1.7,
+                }}
+              >
+                Every job is performed where it&apos;s most convenient for you — your driveway, workplace, or roadside. These photos
+                are from real mobile mechanic work completed in the Chicago area.
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '24px',
+              }}
+            >
+              <WorkImage
+                src="/mobile-mechanic-on-site-car-repair-mount-prospect.png"
+                alt="Mobile mechanic performing on-site car repair in Mount Prospect"
+                aspect="video"
+              />
+              <WorkImage
+                src="/roadside-mobile-mechanic-service-chicago-suburbs.jpeg"
+                alt="Roadside mobile mechanic service in the Chicago suburbs"
+                aspect="video"
+              />
+              <WorkImage
+                src="/grease-nomads-mobile-mechanic-van-branding-chicago-suburbs.png"
+                alt="Grease Nomads mobile mechanic van branding in the Chicago suburbs"
+                aspect="video"
+              />
             </div>
           </div>
         </section>

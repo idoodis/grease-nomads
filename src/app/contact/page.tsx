@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { generatePageMetadata, getLocalBusinessSchema, serviceAreaTextShort, serviceAreaTextFull } from '@/lib/seo';
 import { JsonLd } from '@/components/json-ld';
+import WorkImage from '@/components/WorkImage';
 
 export const metadata = generatePageMetadata({
   title: 'Contact Mobile Mechanic | Free Quote | Chicago Northwest Suburbs',
@@ -61,7 +62,7 @@ export default function ContactPage() {
         {/* ShopMonkey Contact Form Section */}
         <section
           style={{
-            padding: '80px 20px',
+            padding: '80px 20px 40px',
             maxWidth: '1000px',
             margin: '0 auto',
           }}
@@ -108,6 +109,21 @@ export default function ContactPage() {
                 title="Grease Nomads Quote Request Form"
               />
             </div>
+          </div>
+        </section>
+
+        {/* Contact Page Image */}
+        <section
+          style={{
+            padding: '0 20px 40px',
+          }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <WorkImage
+              src="/mobile-mechanic-professional-on-site-repair-setup.png"
+              alt="Mobile mechanic professional on-site repair setup"
+              aspect="video"
+            />
           </div>
         </section>
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { serviceAreaTextFull } from '@/lib/seo';
+import WorkImage from '@/components/WorkImage';
 
 interface Service {
   id: string;
@@ -344,6 +345,38 @@ export default function ServicesPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Repairs / Maintenance - Real Work Image */}
+        <section
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '40px 20px 0',
+          }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <WorkImage
+              src="/mobile-auto-repair-under-car-service-schaumburg.jpeg"
+              alt="Mobile auto repair under a vehicle in Schaumburg"
+              aspect="video"
+            />
+          </div>
+        </section>
+
+        {/* Roadside Assistance - Real Call Image */}
+        <section
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '40px 20px 80px',
+          }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <WorkImage
+              src="/roadside-mobile-mechanic-service-chicago-suburbs.jpeg"
+              alt="Roadside mobile mechanic service helping a driver in the Chicago suburbs"
+              aspect="video"
+            />
           </div>
         </section>
 

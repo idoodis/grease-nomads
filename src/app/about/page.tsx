@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import WorkImage from '@/components/WorkImage';
 
 export default function AboutPage() {
 
@@ -185,6 +186,49 @@ export default function AboutPage() {
                   life takes you, we are there, because we are driven with care,
                   anywhere.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* How We Work */}
+        <section
+          style={{
+            backgroundColor: '#0a0a0a',
+            padding: '80px 20px',
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+          }}
+        >
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center' }}>
+              <div>
+                <h2
+                  style={{
+                    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+                    fontWeight: 'bold',
+                    color: '#f9fafb',
+                    marginBottom: '16px',
+                  }}
+                >
+                  How We Work
+                </h2>
+                <p
+                  style={{
+                    fontSize: '1.05rem',
+                    color: '#d1d5db',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Every appointment is handled with the same process: clear communication before we arrive, transparent pricing,
+                  and professional work completed on site. Whether we&apos;re diagnosing a problem or finishing a full repair, our
+                  technicians bring the tools, parts, and experience directly to you.
+                </p>
+              </div>
+              <div>
+                <WorkImage
+                  src="/professional-mobile-mechanic-working-under-car.jpeg"
+                  alt="Professional mobile mechanic working under a car on site"
+                  aspect="video"
+                />
               </div>
             </div>
           </div>
